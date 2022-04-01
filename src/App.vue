@@ -4,7 +4,7 @@
 import HelloWorld from './components/HelloWorld.vue'</script>
 
 <template>
-  <img alt="Sidooh logo" src="./assets/logo.png" />
+  <img alt="Sidooh logo" src="./assets/logo.png" width="400"/>
   <HelloWorld msg="Hoodis!" />
 </template>
 
