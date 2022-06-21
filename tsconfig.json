@@ -8,9 +8,9 @@
     "jsx": "preserve",
     "sourceMap": true,
     "resolveJsonModule": true,
-    "isolatedModules": true,
+    "isolatedModules": false,
     "esModuleInterop": true,
-    "lib": ["esnext", "dom", "webworker"]
+    "lib": ["esnext", "dom"]
   },
   "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"],
   "references": [{ "path": "./tsconfig.node.json" }],
@@ -19,7 +19,7 @@
     "node_modules",
     "test",
     "test.ts",
-//    "**/*.spec.ts",
+    "**/*.spec.ts",
     "**/*.worker.ts"
   ]
 }
