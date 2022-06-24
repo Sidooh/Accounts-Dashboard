@@ -433,11 +433,11 @@ var DomNode = /*#__PURE__*/function () {
 /* -------------------------------------------------------------------------- */
 
 
-var anchors = new window.AnchorJS();
-anchors.options = {
-  icon: '#'
-};
-anchors.add('[data-anchor]');
+// var anchors = new window.AnchorJS();
+// anchors.options = {
+//   icon: '#'
+// };
+// anchors.add('[data-anchor]');
 /*-----------------------------------------------
 |   Bulk Select
 -----------------------------------------------*/

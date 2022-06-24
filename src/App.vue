@@ -1,27 +1,31 @@
 <script setup lang="ts">
 // This starter template is using Vue 3 <script setup> SFCs
 // Check out https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup
-import Dashboard from './pages/Dashboard.vue'
-import ReloadPWA from "./components/ReloadPWA.vue";
+import DefaultLayout from './components/layout/Default.vue'
+import {computed, watch} from "vue";
+import {useRoute} from "vue-router";
+
+const route = useRoute()
+
+const layout = computed(() =>
+    route.meta.layout || DefaultLayout
+)
 
 </script>
 
 <template>
-  <ReloadPWA/>
+  <!--  <ReloadPWA/>-->
 
-  <router-link to="/">
-    <img alt="Sidooh logo" src="./assets/logo.png" width="400"/>
-  </router-link>
-  <Dashboard/>
+  <component :is="layout"/>
+
 </template>
 
 <style>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: "Proxima Nova Rg", Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
 }
+
 </style>

@@ -8,16 +8,37 @@ import axios from "axios"
 import App from './App.vue'
 import router from "./routes"
 import {useAuthStore} from "./stores/auth"
+import {useRouter} from "vue-router";
 
-
-axios.defaults.baseURL = 'http://localhost:8000/api/v1'
-axios.defaults.headers.post['Content-Type'] = 'application/json'
-
-
+const pinia = createPinia()
 //initialize
-createApp(App)
+const app = createApp(App)
     .use(router)
-    .use(createPinia())
+    .use(pinia)
     .mount('#app')
 
-useAuthStore().authenticate()
+axios.defaults.baseURL = import.meta.env.ACCOUNTS_URL
+axios.defaults.headers.post['Content-Type'] = 'application/json'
+
+axios.interceptors.response.use(
+    response => {
+        if (response.data && response.data.success === false) {
+            return Promise.reject(response.data)
+        }
+        return response
+    },
+    error => {
+        if (error.response) {
+            if (error.response.status === 401) {
+                const authStore = useAuthStore()
+
+                authStore.token = null
+                authStore.user = {}
+
+                router.push({name: 'login'})
+
+                return Promise.reject(error)
+            }
+        }
+    }
+)

@@ -3,12 +3,7 @@
 
 <template>
 
-  <router-link to="users" >Users</router-link>
-  <router-link to="accounts" >Accounts</router-link>
-  <router-link to="invites" >Invites</router-link>
-  <router-link to="security-questions" >Security Questions</router-link>
-
-  <router-view></router-view>
+  Welcome
 
 </template>
 

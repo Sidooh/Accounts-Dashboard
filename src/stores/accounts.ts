@@ -7,8 +7,6 @@ export const useAccountsStore = defineStore("account", {
         accounts: [],
     }),
 
-    getters: {},
-
     actions: {
         async fetchAccounts() {
             console.log('fetch accounts')
