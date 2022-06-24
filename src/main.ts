@@ -17,7 +17,7 @@ const app = createApp(App)
     .use(pinia)
     .mount('#app')
 
-axios.defaults.baseURL = import.meta.env.ACCOUNTS_URL
+axios.defaults.baseURL = import.meta.env.VITE_ACCOUNTS_URL
 axios.defaults.headers.post['Content-Type'] = 'application/json'
 
 axios.interceptors.response.use(

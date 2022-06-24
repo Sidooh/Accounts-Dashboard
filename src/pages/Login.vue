@@ -17,17 +17,17 @@
               <h5>Sign In</h5>
             </div>
           </div>
-          <form id="sign-in" novalidate="novalidate">
+          <form id="sign-in" novalidate>
             <div class="mb-3">
-              <input class="form-control" type="email" name="email" value="" placeholder="Email address" aria-label="" required="">
+              <input class="form-control" type="email" name="email" value="" placeholder="Email address" aria-label="" required>
             </div>
             <div class="mb-3">
-              <input class="form-control" type="password" name="password" placeholder="Password" aria-label="" required="">
+              <input class="form-control" type="password" name="password" placeholder="Password" aria-label="" required>
             </div>
             <div class="row flex-between-center">
               <div class="col-auto">
                 <div class="form-check mb-0">
-                  <input class="form-check-input" type="checkbox" id="basic-checkbox" checked="checked">
+                  <input class="form-check-input" type="checkbox" id="basic-checkbox" checked>
                   <label class="form-check-label mb-0" for="basic-checkbox">Remember me</label></div>
               </div>
               <div class="col-auto">

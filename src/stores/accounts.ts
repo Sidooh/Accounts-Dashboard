@@ -1,6 +1,5 @@
 import {defineStore} from "pinia";
 import axios from "axios";
-import {useAuthStore} from "./auth";
 
 export const useAccountsStore = defineStore("account", {
     state: () => ({
@@ -11,7 +10,7 @@ export const useAccountsStore = defineStore("account", {
         async fetchAccounts() {
             console.log('fetch accounts')
             try {
-                const data = await axios.get('http://localhost:8000/api/v1/accounts')
+                const data = await axios.get('accounts')
                 this.accounts = data.data
             } catch (e) {
                 alert(e)

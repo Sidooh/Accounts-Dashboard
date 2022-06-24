@@ -13,7 +13,7 @@ export const useInvitesStore = defineStore("invite", {
         async fetchInvites() {
             console.log('fetch invites')
             try {
-                const data = await axios.get('http://localhost:8000/api/v1/invites')
+                const data = await axios.get('/invites')
                 this.invites = data.data
             } catch (e) {
                 alert(e)
