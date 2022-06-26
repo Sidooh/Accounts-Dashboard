@@ -13,7 +13,7 @@ export const useUsersStore = defineStore("user", {
         async fetchUsers() {
             console.log('fetch users')
             try {
-                const data = await axios.get('/users')
+                const data = await axios.get('users')
                 this.users = data.data
             } catch (e) {
                 alert(e)

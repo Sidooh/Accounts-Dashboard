@@ -12,7 +12,7 @@ export const useAuthStore = defineStore("auth", {
       console.log('authenticate')
 
       try {
-        const data = await axios.post("/users/signin", {
+        const data = await axios.post("users/signin", {
           email: "aa@a.a",
           password: "12345678"
         })

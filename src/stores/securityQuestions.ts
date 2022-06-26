@@ -13,7 +13,7 @@ export const useSecurityQuestionsStore = defineStore("securityQuestion", {
         async fetchSecurityQuestions() {
             console.log('fetch securityQuestions')
             try {
-                const data = await axios.get('/security-questions')
+                const data = await axios.get('security-questions')
                 this.securityQuestions = data.data
             } catch (e) {
                 alert(e)

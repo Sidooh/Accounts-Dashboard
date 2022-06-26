@@ -1,5 +1,4 @@
 import {createRouter, createWebHistory} from "vue-router";
-import {useAuthStore} from "../stores/auth";
 import {defineAsyncComponent} from "vue";
 
 const Home = () => import("../pages/Home.vue")
@@ -11,6 +10,9 @@ const SecurityQuestions = () => import("../pages/SecurityQuestions.vue")
 const Login = () => import("../pages/Login.vue")
 const Auth = defineAsyncComponent (() => import("../components/layout/Auth.vue"))
 
+const StatusPage = { template: '<div>Alive!!</div>' }
+
+
 const routes = [
 
     { path: '/', component: Home },
@@ -20,6 +22,9 @@ const routes = [
     { path: '/security-questions', component: SecurityQuestions },
 
     { path: '/login', component: Login, meta: { layout: Auth, guest: true }, name: 'login' },
+
+    // Status check
+    { path: '/__vite_ping', component: StatusPage, meta: { layout: Auth, guest: true }, name: 'status.ping' },
 
 ]
 
