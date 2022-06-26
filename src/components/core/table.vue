@@ -1,11 +1,16 @@
 <script setup lang="ts">
 
-import {computed, onUpdated} from "vue";
+import {computed, onUpdated, PropType} from "vue";
 import List, {ListOptions} from "list.js";
+
+interface Column {
+  name: string,
+  title: string
+}
 
 const props = defineProps({
   columns: {
-    type: Array,
+    type: Object as PropType<Column[]>,
     required: true
   },
   rows: {
@@ -15,7 +20,7 @@ const props = defineProps({
 })
 
 const columnNames = computed(() => {
-  return props.columns.map((column: any) => column.name)
+  return props.columns.map((column: Column) => column.name)
 })
 
 const options: ListOptions = {
@@ -31,9 +36,9 @@ const options: ListOptions = {
 };
 
 onUpdated(() => {
-  const list = new List('table', options, props.rows);
+  const list = new List('table', options, props.rows as object[]);
 
-  list.update()
+  // list.update()
 })
 </script>
 
@@ -57,7 +62,7 @@ onUpdated(() => {
       <table class="table table-bordered table-striped fs--1 mb-0">
         <thead class="bg-200 text-900">
         <tr>
-          <th class="sort" :data-sort="column.name" v-for="column in columns">{{ column.Title }}</th>
+          <th class="sort" :data-sort="column.name" v-for="column in columns">{{ column.title }}</th>
         </tr>
         </thead>
         <tbody class="list">

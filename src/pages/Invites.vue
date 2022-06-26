@@ -10,23 +10,23 @@ const invites = computed(() => store.invites)
 const columns = computed(() => [
   {
     name: 'id',
-    Title: '#'
+    title: '#'
   },
   {
     name: 'phone',
-    Title: 'Phone'
+    title: 'Phone'
   },
   {
     name: 'account_id',
-    Title: 'Account'
+    title: 'Account'
   },
   {
     name: 'inviter_id',
-    Title: 'Inviter'
+    title: 'Inviter'
   },
   {
     name: 'status',
-    Title: 'Status'
+    title: 'Status'
   },
 ])
 

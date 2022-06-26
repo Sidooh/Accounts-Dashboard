@@ -10,15 +10,15 @@ const securityQuestions = computed(() => store.securityQuestions)
 const columns = computed(() => [
   {
     name: 'id',
-    Title: '#'
+    title: '#'
   },
   {
     name: 'question',
-    Title: 'Question'
+    title: 'Question'
   },
   {
     name: 'status',
-    Title: 'Status'
+    title: 'Status'
   },
 ])
 

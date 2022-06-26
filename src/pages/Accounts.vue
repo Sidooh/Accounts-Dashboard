@@ -10,15 +10,15 @@ const accounts = computed(() => store.accounts)
 const columns = computed(() => [
   {
     name: 'id',
-    Title: '#'
+    title: '#'
   },
   {
     name: 'phone',
-    Title: 'Phone'
+    title: 'Phone'
   },
   {
     name: 'active',
-    Title: 'Active'
+    title: 'Active'
   },
 ])
 

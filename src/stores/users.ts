@@ -4,7 +4,7 @@ import {useAuthStore} from "./auth";
 
 export const useUsersStore = defineStore("user", {
     state: () => ({
-        users: [],
+        users: <Object[]>[],
     }),
 
     getters: {},

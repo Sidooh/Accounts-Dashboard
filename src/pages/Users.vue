@@ -9,15 +9,15 @@ const users = computed(() => store.users)
 const columns = computed(() => [
   {
     name: 'id',
-    Title: '#'
+    title: '#'
   },
   {
     name: 'name',
-    Title: 'Name'
+    title: 'Name'
   },
   {
     name: 'email',
-    Title: 'Email'
+    title: 'Email'
   },
 ])
 
