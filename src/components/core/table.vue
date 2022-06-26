@@ -35,9 +35,12 @@ const options: ListOptions = {
   }
 };
 
+// const list = new List('table', options, props.rows as object[]);
+
 onUpdated(() => {
   const list = new List('table', options, props.rows as object[]);
 
+  // list.clear()
   // list.update()
 })
 </script>

@@ -29,6 +29,7 @@ onBeforeMount(() => store.fetchUsers())
   <div class="card">
     <div class="card-body">
       <Table
+          key="users"
           :columns="columns"
           :rows="users"
       />

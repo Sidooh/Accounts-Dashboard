@@ -124,6 +124,3 @@ const submit = (e: Event) => {
   </div>
 </template>
 
-<style scoped lang="scss">
-
-</style>
