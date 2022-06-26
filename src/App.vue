@@ -2,11 +2,13 @@
 // This starter template is using Vue 3 <script setup> SFCs
 // Check out https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup
 import DefaultLayout from './components/layout/Default.vue'
-import {computed, watch} from "vue";
-import {useRoute} from "vue-router";
+import {computed} from "vue";
+import {useRoute, useRouter} from "vue-router";
 
 const route = useRoute()
+const router = useRouter()
 
+// Computed
 const layout = computed(() =>
     route.meta.layout || DefaultLayout
 )
@@ -27,5 +29,4 @@ const layout = computed(() =>
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
 }
-
 </style>

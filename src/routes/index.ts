@@ -1,5 +1,6 @@
 import {createRouter, createWebHistory} from "vue-router";
 import {defineAsyncComponent} from "vue";
+import {useAuthStore} from "../stores/auth";
 
 const Home = () => import("../pages/Home.vue")
 const Accounts = () => import("../pages/Accounts.vue")
@@ -35,9 +36,9 @@ const router = createRouter({
 })
 
 router.beforeEach((to) => {
-    // const authStore = useAuthStore()
+    const authStore = useAuthStore()
 
-    // if (!authStore.token && to.meta.guest) return '/login'
+    if (!authStore.token && !to.meta.guest) return '/login'
 })
 
 export default router

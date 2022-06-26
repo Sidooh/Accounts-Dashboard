@@ -3,13 +3,18 @@
 
 <template>
 
-  <div class="row flex-center min-vh-100 py-6">
+  <div class="row flex-center min-vh-100 pb-6">
     <div class="col-sm-10 col-md-8 col-lg-6 col-xl-5 col-xxl-4 position-relative">
       <a class="d-flex flex-center mb-4" href="https://sidooh-admin-dashboard-iw4itjwa5a-uc.a.run.app">
-        <img class="me-2" src="https://sidooh-admin-dashboard-iw4itjwa5a-uc.a.run.app/images/logo.png" alt="" width="100">
+        <img class="me-2" src="https://sidooh-admin-dashboard-iw4itjwa5a-uc.a.run.app/images/logo.png" alt=""
+             width="100">
       </a>
-      <img class="bg-auth-circle-shape" src="https://sidooh-admin-dashboard-iw4itjwa5a-uc.a.run.app/images/icons/spot-illustrations/bg-shape.png" alt="" width="250">
-      <img class="bg-auth-circle-shape-2" src="https://sidooh-admin-dashboard-iw4itjwa5a-uc.a.run.app/images/icons/spot-illustrations/shape-1.png" alt="" width="150">
+      <img class="bg-auth-circle-shape"
+           src="https://sidooh-admin-dashboard-iw4itjwa5a-uc.a.run.app/images/icons/spot-illustrations/bg-shape.png"
+           alt="" width="250">
+      <img class="bg-auth-circle-shape-2"
+           src="https://sidooh-admin-dashboard-iw4itjwa5a-uc.a.run.app/images/icons/spot-illustrations/shape-1.png"
+           alt="" width="150">
       <div class="card">
         <div class="card-body p-4 p-sm-5">
           <div class="row flex-between-center mb-2">
