@@ -1,34 +1,38 @@
 <script setup lang="ts">
 import {useUsersStore} from "../stores/users";
-import {computed, onMounted} from "vue";
+import {computed, onBeforeMount} from "vue";
+import Table from "../components/core/table.vue";
 
 const store = useUsersStore();
 
 const users = computed(() => store.users)
+const columns = computed(() => [
+  {
+    name: 'id',
+    Title: '#'
+  },
+  {
+    name: 'name',
+    Title: 'Name'
+  },
+  {
+    name: 'email',
+    Title: 'Email'
+  },
+])
 
-onMounted(() => store.fetchUsers())
+onBeforeMount(() => store.fetchUsers())
 </script>
 
 <template>
 
-  <div>{{users}}</div>
+  <div class="card">
+    <div class="card-body">
+      <Table
+          :columns="columns"
+          :rows="users"
+      />
+    </div>
+  </div>
 
 </template>
-
-<style scoped>
-a {
-  color: #42b983;
-}
-
-label {
-  margin: 0 0.5em;
-  font-weight: bold;
-}
-
-code {
-  background-color: #eee;
-  padding: 2px 4px;
-  border-radius: 4px;
-  color: #304455;
-}
-</style>

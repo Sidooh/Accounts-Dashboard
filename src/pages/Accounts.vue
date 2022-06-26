@@ -1,17 +1,40 @@
 <script setup lang="ts">
 import {useAccountsStore} from "../stores/accounts";
 import {computed, onMounted} from "vue";
+import Table from "../components/core/table.vue";
 
 const store = useAccountsStore();
 
 const accounts = computed(() => store.accounts)
+
+const columns = computed(() => [
+  {
+    name: 'id',
+    Title: '#'
+  },
+  {
+    name: 'phone',
+    Title: 'Phone'
+  },
+  {
+    name: 'active',
+    Title: 'Active'
+  },
+])
 
 onMounted(() => store.fetchAccounts())
 </script>
 
 <template>
 
-  <div>{{accounts}}</div>
+  <div class="card">
+    <div class="card-body">
+      <Table
+          :columns="columns"
+          :rows="accounts"
+      />
+    </div>
+  </div>
 
 </template>
 

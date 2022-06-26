@@ -1,18 +1,48 @@
 <script setup lang="ts">
 import {useInvitesStore} from "../stores/invites";
 import {computed, onMounted} from "vue";
+import Table from "../components/core/table.vue";
 
 const store = useInvitesStore();
 
 const invites = computed(() => store.invites)
+
+const columns = computed(() => [
+  {
+    name: 'id',
+    Title: '#'
+  },
+  {
+    name: 'phone',
+    Title: 'Phone'
+  },
+  {
+    name: 'account_id',
+    Title: 'Account'
+  },
+  {
+    name: 'inviter_id',
+    Title: 'Inviter'
+  },
+  {
+    name: 'status',
+    Title: 'Status'
+  },
+])
 
 onMounted(() => store.fetchInvites())
 </script>
 
 <template>
 
-  <div>{{invites}}</div>
-
+  <div class="card">
+    <div class="card-body">
+      <Table
+          :columns="columns"
+          :rows="invites"
+      />
+    </div>
+  </div>
 </template>
 
 <style scoped>

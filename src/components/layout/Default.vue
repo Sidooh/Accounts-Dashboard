@@ -19,14 +19,6 @@ const containerStyle = computed(() => store.isFluid ? 'container-fluid' : 'conta
       <div class="content">
         <!--  NavBar -->
         <NavBar/>
-        |
-        |
-        <router-link to="invites">Invites</router-link>
-        |
-        <router-link to="security-questions">Security Questions</router-link>
-
-        <br>
-        <router-link to="login">Login</router-link>
 
         <!--  -->
 

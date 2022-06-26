@@ -1,18 +1,40 @@
 <script setup lang="ts">
 import {useSecurityQuestionsStore} from "../stores/securityQuestions";
 import {computed, onMounted} from "vue";
+import Table from "../components/core/table.vue";
 
 const store = useSecurityQuestionsStore();
 
 const securityQuestions = computed(() => store.securityQuestions)
+
+const columns = computed(() => [
+  {
+    name: 'id',
+    Title: '#'
+  },
+  {
+    name: 'question',
+    Title: 'Question'
+  },
+  {
+    name: 'status',
+    Title: 'Status'
+  },
+])
 
 onMounted(() => store.fetchSecurityQuestions())
 </script>
 
 <template>
 
-  <div>{{securityQuestions}}</div>
-
+  <div class="card">
+    <div class="card-body">
+      <Table
+          :columns="columns"
+          :rows="securityQuestions"
+      />
+    </div>
+  </div>
 </template>
 
 <style scoped>

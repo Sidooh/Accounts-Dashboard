@@ -3,18 +3,17 @@ import axios from "axios";
 
 export const useAuthStore = defineStore("auth", {
   state: () => ({
-    token: null,
+    token: '',
     user: {}
   }),
 
   actions: {
-    async authenticate() {
-      console.log('authenticate')
+    async authenticate(email: string, password: string) {
 
       try {
         const data = await axios.post("users/signin", {
-          email: "aa@a.a",
-          password: "12345678"
+          email,
+          password
         })
 
         this.token = data.data.token
@@ -27,10 +26,26 @@ export const useAuthStore = defineStore("auth", {
 
         axios.defaults.headers.common['Authorization'] = "Bearer " + data.data.token;
 
-      } catch (e) {
-        alert(e)
-        console.error(e)
+      } catch (error: any) {
+        if (error.response.status === 400 && error.response.data) {
+          throw new Error(error.response.data.errors[0].message)
+        }
       }
+    },
+
+    checkLocalAuth() {
+      const token = localStorage.getItem("TOKEN")
+
+      if (token) {
+        this.token = token
+      }
+    },
+
+    logout() {
+      this.token = ''
+      this.user = {}
+
+      localStorage.removeItem('TOKEN')
     }
   }
 })

@@ -11,6 +11,8 @@ export const useUsersStore = defineStore("user", {
 
     actions: {
         async fetchUsers() {
+            axios.defaults.headers.common['Authorization'] = "Bearer " + useAuthStore().token;
+
             console.log('fetch users')
             try {
                 const data = await axios.get('users')
