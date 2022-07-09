@@ -14,7 +14,6 @@ export const useAccountsStore = defineStore("account", {
                 const data = await axios.get('accounts')
                 this.accounts = data.data
             } catch (e) {
-                alert(e)
                 console.error(e)
             }
         }

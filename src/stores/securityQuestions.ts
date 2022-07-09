@@ -15,7 +15,6 @@ export const useSecurityQuestionsStore = defineStore("securityQuestion", {
                 const data = await axios.get('security-questions')
                 this.securityQuestions = data.data
             } catch (e) {
-                alert(e)
                 console.error(e)
             }
         }
