@@ -16,15 +16,15 @@ export const useAuthStore = defineStore("auth", {
           password
         })
 
-        this.token = data.data.token
+        this.token = data.data.access_token
         this.user = {
-          token: data.data.token
+          token: data.data.access_token
         }
 
         //TODO:
-        localStorage.setItem("TOKEN", data.data.token);
+        localStorage.setItem("TOKEN", data.data.access_token);
 
-        axios.defaults.headers.common['Authorization'] = "Bearer " + data.data.token;
+        axios.defaults.headers.common['Authorization'] = "Bearer " + data.data.access_token;
 
       } catch (error: any) {
         if (error.response.status === 400 && error.response.data) {
