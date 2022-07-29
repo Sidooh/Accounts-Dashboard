@@ -3,7 +3,7 @@ import axios from "axios";
 
 export const useUsersStore = defineStore("user", {
     state: () => ({
-        users: <Object[]>[],
+        users: <User[]>[],
     }),
 
     actions: {
