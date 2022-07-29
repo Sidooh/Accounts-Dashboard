@@ -1,6 +1,8 @@
 # build stage
 FROM node:lts-alpine as build-stage
 
+ARG VITE_ACCOUNTS_API_URL
+
 WORKDIR /app
 
 COPY package.json ./
@@ -11,6 +13,7 @@ RUN yarn install
 COPY . .
 
 RUN yarn run build
+
 
 
 # production stage
