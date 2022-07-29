@@ -36,6 +36,7 @@ axios.interceptors.response.use(
 axios.defaults.baseURL = import.meta.env.VITE_ACCOUNTS_URL
 axios.defaults.headers.post['Content-Type'] = 'application/json'
 
+console.log(import.meta.env);
 
 //initialize
 const app = createApp(App)

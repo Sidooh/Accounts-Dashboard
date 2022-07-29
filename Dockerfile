@@ -1,4 +1,6 @@
 # build stage
+ARG VITE_ACCOUNTS_URL
+
 FROM node:lts-alpine as build-stage
 
 WORKDIR /app
