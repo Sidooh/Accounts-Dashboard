@@ -1,20 +1,38 @@
 <script setup lang="ts">
 // This starter template is using Vue 3 <script setup> SFCs
 // Check out https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup
-import HelloWorld from './components/HelloWorld.vue'</script>
+import DefaultLayout from './components/layout/Default.vue'
+import {computed, onMounted} from "vue";
+import {useRoute, useRouter} from "vue-router";
+import {useAuthStore} from "./stores/auth";
+
+const route = useRoute()
+const router = useRouter()
+
+// Computed
+const layout = computed(() =>
+    route.meta.layout || DefaultLayout
+)
+
+onMounted(() => {
+  const authStore = useAuthStore()
+  authStore.checkLocalAuth()
+})
+
+</script>
 
 <template>
-  <img alt="Sidooh logo" src="./assets/logo.png" />
-  <HelloWorld msg="Hoodis!" />
+  <!--  <ReloadPWA/>-->
+
+  <component :is="layout"/>
+
 </template>
 
 <style>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: "Proxima Nova Rg", Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
 }
 </style>
