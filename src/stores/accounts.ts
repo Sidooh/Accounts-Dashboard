@@ -3,7 +3,7 @@ import axios from "axios";
 
 export const useAccountsStore = defineStore("account", {
     state: () => ({
-        accounts: <[]>[],
+        accounts: <Account[]>[],
     }),
 
     actions: {

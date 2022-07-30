@@ -1,61 +1,54 @@
 <script setup lang="ts">
-
-import {computed, onUpdated, PropType} from "vue";
-import List, {ListOptions} from "list.js";
-
-interface Column {
-  name: string,
-  title: string
-}
+import {
+  FlexRender,
+  getCoreRowModel,
+  getFilteredRowModel,
+  getPaginationRowModel,
+  useVueTable,
+} from '@tanstack/vue-table'
+import {PropType} from 'vue'
 
 const props = defineProps({
+  title: String,
   columns: {
-    type: Object as PropType<Column[]>,
+    type: Object as PropType<any>,
     required: true
   },
-  rows: {
+  data: {
     type: Array,
     required: true
   }
 })
 
-const columnNames = computed(() => {
-  return props.columns.map((column: Column) => column.name)
+const pageSizes = [10, 20, 30, 40, 50];
+
+const table = useVueTable({
+  get data() {
+    return props.data
+  },
+  columns: props.columns,
+  getCoreRowModel: getCoreRowModel(),
+  getFilteredRowModel: getFilteredRowModel(),
+  getPaginationRowModel: getPaginationRowModel(),
 })
 
-const options: ListOptions = {
-  valueNames: columnNames.value,
-  page: 5,
-  item: 'item',
-  pagination: {
-    outerWindow: 2,
-    item: '<li>' +
-        '<a class="page btn btn-sm btn-falcon-default me-1" type="button"></a>' +
-        '</li>'
-  }
-};
+const goToPage = (e: Event) => {
+  const target = (e.target as HTMLInputElement)
+  const page = target.value ? Number(target.value) - 1 : 0
+  table.setPageIndex(page)
+}
 
-// const list = new List('table', options, props.rows as object[]);
-
-onUpdated(() => {
-  const list = new List('table', options, props.rows as object[]);
-
-  // list.clear()
-  // list.update()
-})
+const setPageSize = (e: Event) => {
+  const target = (e.target as HTMLSelectElement)
+  table.setPageSize(Number(target.value))
+}
 </script>
 
 <template>
-  <div v-show="false">
-    <tr id="item">
-      <td :class="column.name" v-for="column in columns"></td>
-    </tr>
-  </div>
-
   <div id="table">
     <div class="my-3 row">
       <div class="col">
-        Table
+        {{ title }}
       </div>
       <div class="col">
         <input class="search form-control w-50 float-end"/>
@@ -64,16 +57,93 @@ onUpdated(() => {
     <div class="table-responsive scrollbar">
       <table class="table table-bordered table-striped fs--1 mb-0">
         <thead class="bg-200 text-900">
-        <tr>
-          <th class="sort" :data-sort="column.name" v-for="column in columns">{{ column.title }}</th>
+        <tr
+            v-for="headerGroup in table.getHeaderGroups()"
+            :key="headerGroup.id"
+        >
+          <th
+              v-for="header in headerGroup.headers"
+              :key="header.id"
+              :colSpan="header.colSpan"
+          >
+            <FlexRender
+                v-if="!header.isPlaceholder"
+                :render="header.column.columnDef.header"
+                :props="header.getContext()"
+            />
+          </th>
         </tr>
         </thead>
-        <tbody class="list">
+        <tbody>
+        <tr v-for="row in table.getRowModel().rows" :key="row.id">
+          <td v-for="cell in row.getVisibleCells()" :key="cell.id">
+            <FlexRender
+                :render="cell.column.columnDef.cell"
+                :props="cell.getContext()"
+            />
+          </td>
+        </tr>
         </tbody>
       </table>
-    </div>
-    <div class="d-flex justify-content-center mt-3">
-      <ul class="pagination mb-0"></ul>
+
+      <div class="h-2"/>
+      <div class="flex items-center gap-2">
+        <button
+            class="border rounded p-1"
+            @click="() => table.setPageIndex(0)"
+            :disabled="!table.getCanPreviousPage()"
+        >
+          &lt;&lt;
+        </button>
+        <button
+            class="border rounded p-1"
+            @click="() => table.previousPage()"
+            :disabled="!table.getCanPreviousPage()"
+        >
+          &lt;
+        </button>
+        <button
+            class="border rounded p-1"
+            @click="() => table.nextPage()"
+            :disabled="!table.getCanNextPage()"
+        >
+          &gt;
+        </button>
+        <button
+            class="border rounded p-1"
+            @click="() => table.setPageIndex(table.getPageCount() - 1)"
+            :disabled="!table.getCanNextPage()"
+        >
+          &gt;&gt;
+        </button>
+        <span class="flex items-center gap-1">
+          <div>Page</div>
+          <strong>
+            {{ table.getState().pagination.pageIndex + 1 }} of {{ ' ' }}
+            {{ table.getPageCount() }}
+          </strong>
+        </span>
+        <span class="flex items-center gap-1">
+          | Go to page:
+          <input
+              type="number"
+              :value="table.getState().pagination.pageIndex + 1"
+              @change="goToPage"
+              class="border p-1 rounded w-16"
+          />
+        </span>
+        <select
+            :value="table.getState().pagination.pageSize"
+            @change="setPageSize"
+        >
+          <option :key="pageSize" :value="pageSize" v-for="pageSize in pageSizes">
+            Show {{ pageSize }}
+          </option>
+        </select>
+      </div>
+      <div>{{ table.getRowModel().rows.length }} Rows</div>
+      <pre>{{ JSON.stringify(table.getState().pagination, null, 2) }}</pre>
+
     </div>
   </div>
 

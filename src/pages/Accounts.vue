@@ -2,25 +2,36 @@
 import {useAccountsStore} from "../stores/accounts";
 import {computed, onMounted} from "vue";
 import Table from "../components/core/table.vue";
+import {createColumnHelper} from "@tanstack/vue-table";
 
 const store = useAccountsStore();
 
-const accounts = computed(() => store.accounts)
+const accounts = computed((): Account[] => store.accounts)
 
-const columns = computed(() => [
-  {
-    name: 'id',
-    title: '#'
-  },
-  {
-    name: 'phone',
-    title: 'Phone'
-  },
-  {
-    name: 'active',
-    title: 'Active'
-  },
-])
+const columnHelper = createColumnHelper<Account>()
+
+const columns = [
+  columnHelper.accessor(row => row.id, {
+    header: '#',
+    id: 'id'
+  }),
+  columnHelper.accessor(row => row.phone, {
+    header: () => 'Phone',
+    id: 'phone'
+  }),
+  columnHelper.accessor(row => row.active, {
+    header: () => 'Active',
+    id: 'active'
+  }),
+  columnHelper.accessor(row => row.inviter_id, {
+    header: () => 'Inviter',
+    id: 'inviter'
+  }),
+  columnHelper.accessor(row => row.user_id, {
+    header: () => 'User',
+    id: 'user'
+  }),
+]
 
 onMounted(() => store.fetchAccounts())
 </script>
@@ -30,9 +41,9 @@ onMounted(() => store.fetchAccounts())
   <div class="card">
     <div class="card-body">
       <Table
-          key="accounts"
+          title="Accounts"
           :columns="columns"
-          :rows="accounts"
+          :data="accounts"
       />
     </div>
   </div>

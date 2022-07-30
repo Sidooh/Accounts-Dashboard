@@ -3,7 +3,7 @@ import axios from "axios";
 
 export const useInvitesStore = defineStore("invite", {
     state: () => ({
-        invites: <Object[]>[],
+        invites: <Invite[]>[],
     }),
 
     getters: {},

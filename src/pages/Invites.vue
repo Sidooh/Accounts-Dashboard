@@ -2,33 +2,36 @@
 import {useInvitesStore} from "../stores/invites";
 import {computed, onMounted} from "vue";
 import Table from "../components/core/table.vue";
+import {createColumnHelper} from "@tanstack/vue-table";
 
 const store = useInvitesStore();
 
-const invites = computed(() => store.invites)
+const invites = computed((): Invite[] => store.invites)
 
-const columns = computed(() => [
-  {
-    name: 'id',
-    title: '#'
-  },
-  {
-    name: 'phone',
-    title: 'Phone'
-  },
-  {
-    name: 'account_id',
-    title: 'Account'
-  },
-  {
-    name: 'inviter_id',
-    title: 'Inviter'
-  },
-  {
-    name: 'status',
-    title: 'Status'
-  },
-])
+const columnHelper = createColumnHelper<Invite>()
+
+const columns = [
+  columnHelper.accessor(row => row.id, {
+    header: '#',
+    id: 'id'
+  }),
+  columnHelper.accessor(row => row.phone, {
+    header: () => 'Phone',
+    id: 'phone'
+  }),
+  columnHelper.accessor(row => row.status, {
+    header: () => 'Status',
+    id: 'status'
+  }),
+  columnHelper.accessor(row => row.inviter_id, {
+    header: () => 'Inviter',
+    id: 'inviter'
+  }),
+  columnHelper.accessor(row => row.account_id, {
+    header: () => 'Account',
+    id: 'account'
+  }),
+]
 
 onMounted(() => store.fetchInvites())
 </script>
@@ -38,9 +41,9 @@ onMounted(() => store.fetchInvites())
   <div class="card">
     <div class="card-body">
       <Table
-          key="invites"
+          title="Invites"
           :columns="columns"
-          :rows="invites"
+          :data="invites"
       />
     </div>
   </div>
