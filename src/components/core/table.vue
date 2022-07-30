@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import {
-  ColumnDef,
   FlexRender,
   getCoreRowModel,
   getFilteredRowModel,
@@ -12,7 +11,7 @@ import {PropType} from 'vue'
 const props = defineProps({
   title: String,
   columns: {
-    type: Object as PropType<ColumnDef<unknown, any>[]>,
+    type: Object as PropType<any>,
     required: true
   },
   data: {
@@ -32,6 +31,17 @@ const table = useVueTable({
   getFilteredRowModel: getFilteredRowModel(),
   getPaginationRowModel: getPaginationRowModel(),
 })
+
+const goToPage = (e: Event) => {
+  const target = (e.target as HTMLInputElement)
+  const page = target.value ? Number(target.value) - 1 : 0
+  table.setPageIndex(page)
+}
+
+const setPageSize = (e: Event) => {
+  const target = (e.target as HTMLSelectElement)
+  table.setPageSize(Number(target.value))
+}
 </script>
 
 <template>
@@ -118,18 +128,13 @@ const table = useVueTable({
           <input
               type="number"
               :value="table.getState().pagination.pageIndex + 1"
-              @change="e => {
-              const page = e.target.value ? Number(e.target.value) - 1 : 0
-              table.setPageIndex(page)
-            }"
+              @change="goToPage"
               class="border p-1 rounded w-16"
           />
         </span>
         <select
             :value="table.getState().pagination.pageSize"
-            @change="e => {
-        table.setPageSize(Number(e.target.value))
-        }"
+            @change="setPageSize"
         >
           <option :key="pageSize" :value="pageSize" v-for="pageSize in pageSizes">
             Show {{ pageSize }}

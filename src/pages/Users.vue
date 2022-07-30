@@ -2,7 +2,7 @@
 import {useUsersStore} from "../stores/users";
 import {computed, onMounted} from "vue";
 import Table from "../components/core/table.vue";
-import {ColumnDef, createColumnHelper} from "@tanstack/vue-table";
+import {createColumnHelper} from "@tanstack/vue-table";
 
 const store = useUsersStore();
 
@@ -18,7 +18,7 @@ const columnHelper = createColumnHelper<User>()
 //   })
 // }
 
-const columns: ColumnDef<User, any>[] = [
+const columns = [
   // getColumnHelper('id', 'Id'),
   columnHelper.accessor(row => row.id, {
     header: '#',

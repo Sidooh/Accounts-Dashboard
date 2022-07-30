@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import {useSecurityQuestionsStore} from "../stores/securityQuestions";
 import {computed, onMounted} from "vue";
-import Table from "../components/core/table.vue";
 
 const store = useSecurityQuestionsStore();
 
@@ -29,10 +28,10 @@ onMounted(() => store.fetchSecurityQuestions())
 
   <div class="card">
     <div class="card-body">
-      <Table
-          :columns="columns"
-          :rows="securityQuestions"
-      />
+      <!--      <Table-->
+      <!--          :columns="columns"-->
+      <!--          :rows="securityQuestions"-->
+      <!--      />-->
     </div>
   </div>
 </template>

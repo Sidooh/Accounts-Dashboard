@@ -2,7 +2,7 @@
 import {useAccountsStore} from "../stores/accounts";
 import {computed, onMounted} from "vue";
 import Table from "../components/core/table.vue";
-import {ColumnDef, createColumnHelper} from "@tanstack/vue-table";
+import {createColumnHelper} from "@tanstack/vue-table";
 
 const store = useAccountsStore();
 
@@ -10,7 +10,7 @@ const accounts = computed((): Account[] => store.accounts)
 
 const columnHelper = createColumnHelper<Account>()
 
-const columns: ColumnDef<Account, any>[] = [
+const columns = [
   columnHelper.accessor(row => row.id, {
     header: '#',
     id: 'id'
