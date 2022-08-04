@@ -20,7 +20,7 @@ const props = defineProps({
   }
 })
 
-const pageSizes = [10, 20, 30, 40, 50];
+const pageSizes = [10, 20, 30, 40, 50]
 
 const table = useVueTable({
   get data() {
@@ -34,7 +34,9 @@ const table = useVueTable({
 
 const goToPage = (e: Event) => {
   const target = (e.target as HTMLInputElement)
-  const page = target.value ? Number(target.value) - 1 : 0
+  let page = target.value ? Number(target.value) - 1 : 0
+  page = table.getPageCount() > page ? page : table.getPageCount() - 1
+
   table.setPageIndex(page)
 }
 
@@ -46,16 +48,16 @@ const setPageSize = (e: Event) => {
 
 <template>
   <div id="table">
-    <div class="my-3 row">
-      <div class="col">
-        {{ title }}
-      </div>
-      <div class="col">
-        <input class="search form-control w-50 float-end"/>
-      </div>
-    </div>
+    <!--    <div class="my-3 row">-->
+    <!--      <div class="col">-->
+    <!--        {{ title }}-->
+    <!--      </div>-->
+    <!--      <div class="col">-->
+    <!--        <input class="search form-control w-50 float-end"/>-->
+    <!--      </div>-->
+    <!--    </div>-->
     <div class="table-responsive scrollbar">
-      <table class="table table-bordered table-striped fs--1 mb-0">
+      <table class="table fs--1 mb-0">
         <thead class="bg-200 text-900">
         <tr
             v-for="headerGroup in table.getHeaderGroups()"
@@ -86,63 +88,42 @@ const setPageSize = (e: Event) => {
         </tbody>
       </table>
 
-      <div class="h-2"/>
-      <div class="flex items-center gap-2">
-        <button
-            class="border rounded p-1"
-            @click="() => table.setPageIndex(0)"
-            :disabled="!table.getCanPreviousPage()"
-        >
-          &lt;&lt;
-        </button>
-        <button
-            class="border rounded p-1"
-            @click="() => table.previousPage()"
-            :disabled="!table.getCanPreviousPage()"
-        >
-          &lt;
-        </button>
-        <button
-            class="border rounded p-1"
-            @click="() => table.nextPage()"
-            :disabled="!table.getCanNextPage()"
-        >
-          &gt;
-        </button>
-        <button
-            class="border rounded p-1"
-            @click="() => table.setPageIndex(table.getPageCount() - 1)"
-            :disabled="!table.getCanNextPage()"
-        >
-          &gt;&gt;
-        </button>
-        <span class="flex items-center gap-1">
-          <div>Page</div>
-          <strong>
-            {{ table.getState().pagination.pageIndex + 1 }} of {{ ' ' }}
-            {{ table.getPageCount() }}
-          </strong>
-        </span>
-        <span class="flex items-center gap-1">
-          | Go to page:
+      <div class="d-flex justify-content-between align-items-center my-3">
+        <div class="d-flex flex-center fs--1">
+          <p class="mb-0 me-2">
+            <span>Page </span>
+            <strong>{{ table.getState().pagination.pageIndex + 1 + ' of ' + table.getPageCount() }}</strong>
+          </p>
+          <select class="form-select w-auto mx-2 form-control-sm" :value="table.getState().pagination.pageSize"
+                  @change="setPageSize">
+            <option v-for="pageSize in pageSizes" :key="pageSize" :value="pageSize">{{ pageSize }} rows</option>
+          </select>
+        </div>
+        <div class="d-flex flex-end-center me-1">
+          <button class="btn btn-falcon-default btn-sm" :disabled="!table.getCanPreviousPage()"
+                  @click="() => table.setPageIndex(0)">
+            <span class="fas fa-angle-double-left me-1" data-fa-transform="shrink-3"></span>
+          </button>
+          <button class="btn btn-falcon-default btn-sm me-1" :disabled="!table.getCanPreviousPage()"
+                  @click="() => table.previousPage()">
+            <span class="fas fa-chevron-left me-1" data-fa-transform="shrink-3"></span>
+          </button>
           <input
               type="number"
               :value="table.getState().pagination.pageIndex + 1"
               @change="goToPage"
-              class="border p-1 rounded w-16"
+              class="border p-1 rounded w-16 me-1 form-control-sm w-25"
           />
-        </span>
-        <select
-            :value="table.getState().pagination.pageSize"
-            @change="setPageSize"
-        >
-          <option :key="pageSize" :value="pageSize" v-for="pageSize in pageSizes">
-            Show {{ pageSize }}
-          </option>
-        </select>
+          <button class="btn btn-falcon-default btn-sm" :disabled="!table.getCanNextPage()"
+                  @click="() => table.nextPage()">
+            <span class="fas fa-chevron-right me-1" data-fa-transform="shrink-3"></span>
+          </button>
+          <button class="btn btn-falcon-default btn-sm" :disabled="!table.getCanNextPage()"
+                  @click="() => table.setPageIndex(table.getPageCount() - 1)">
+            <span class="fas fa-angle-double-right me-1" data-fa-transform="shrink-3"></span>
+          </button>
+        </div>
       </div>
-      <div>{{ table.getRowModel().rows.length }} Rows</div>
-      <pre>{{ JSON.stringify(table.getState().pagination, null, 2) }}</pre>
 
     </div>
   </div>

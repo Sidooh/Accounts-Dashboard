@@ -1,5 +1,4 @@
 import {createRouter, createWebHistory} from "vue-router";
-import {defineAsyncComponent} from "vue";
 import {useAuthStore} from "../stores/auth";
 
 const Home = () => import("../pages/Home.vue")
@@ -9,23 +8,23 @@ const Invites = () => import("../pages/Invites.vue")
 const SecurityQuestions = () => import("../pages/SecurityQuestions.vue")
 
 const Login = () => import("../pages/Login.vue")
-const Auth = defineAsyncComponent (() => import("../components/layout/Auth.vue"))
+const Auth = () => import("../pages/layout/Auth.vue")
 
 const StatusPage = { template: '<div>Alive!!</div>' }
 
 
 const routes = [
 
-    { path: '/', component: Home },
-    { path: '/accounts', component: Accounts },
-    { path: '/users', component: Users },
-    { path: '/invites', component: Invites },
-    { path: '/security-questions', component: SecurityQuestions },
+    {path: '/', component: Home},
+    {path: '/accounts', component: Accounts},
+    {path: '/users', component: Users},
+    {path: '/invites', component: Invites},
+    {path: '/security-questions', component: SecurityQuestions},
 
-    { path: '/login', component: Login, meta: { layout: Auth, guest: true }, name: 'login' },
+    {path: '/login', component: Login, meta: {layout: Auth, guest: true}, name: 'login'},
 
     // Status check
-    { path: '/__vite_ping', component: StatusPage, meta: { layout: Auth, guest: true }, name: 'status.ping' },
+    {path: '/health', component: StatusPage, meta: {layout: Auth, guest: true}, name: 'status.ping'},
 
 ]
 
