@@ -1,12 +1,24 @@
 <script setup lang="ts">
 import {useAccountsStore} from "../stores/accounts";
-import {computed, onMounted} from "vue";
+import {computed, onMounted, ref} from "vue";
 import Table from "../components/core/table.vue";
 import {createColumnHelper} from "@tanstack/vue-table";
 
 const store = useAccountsStore();
 
-const accounts = computed((): Account[] => store.accounts)
+const search = ref()
+
+const accounts = computed((): Account[] => {
+  if (search.value) {
+    const re = new RegExp(search.value);
+
+    const filterFunc = (a: Account) => re.test(a.id.toString()) || re.test(a.phone) || re.test((a.user_id || '').toString())
+
+    return store.accounts.filter(filterFunc)
+  }
+
+  return store.accounts
+})
 
 const columnHelper = createColumnHelper<Account>()
 
@@ -40,6 +52,14 @@ onMounted(() => store.fetchAccounts())
 
   <div class="card">
     <div class="card-body">
+      <div class="my-3 row">
+        <div class="col">
+          Accounts
+        </div>
+        <div class="col">
+          <input class="search form-control w-50 float-end" v-model="search"/>
+        </div>
+      </div>
       <Table
           title="Accounts"
           :columns="columns"

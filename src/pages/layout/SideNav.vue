@@ -9,12 +9,16 @@ const sideNavStyle = computed(() => store.navbarStyle !== 'transparent' ? `navba
 </script>
 
 <template>
-  <nav class="navbar navbar-light navbar-vertical navbar-expand-xl" :class="sideNavStyle">
+  <nav class="navbar navbar-light navbar-vertical navbar-expand-xl"
+       :class="[sideNavStyle, store.isNavbarVerticalCollapsed]">
     <div class="d-flex align-items-center">
       <div class="toggle-icon-wrapper">
         <button class="btn navbar-toggler-humburger-icon navbar-vertical-toggle" data-bs-toggle="tooltip"
                 data-bs-placement="left" title="" data-bs-original-title="Toggle Navigation"
-                aria-label="Toggle Navigation"><span class="navbar-toggle-icon"><span class="toggle-line"></span></span>
+                aria-label="Toggle Navigation" @click="store.toggleSideNav">
+          <span class="navbar-toggle-icon">
+            <span class="toggle-line"></span>
+          </span>
         </button>
       </div>
       <a class="navbar-brand" href="/">
