@@ -33,18 +33,27 @@ export const useAuthStore = defineStore("auth", {
       }
     },
 
-    checkLocalAuth() {
+    getToken() {
       const token = localStorage.getItem("TOKEN")
 
-      if (token) {
-        this.token = token
+      if (!token) {
+        this.logout()
+        return
       }
+
+      return token
     },
 
-    logout() {
+    checkLocalAuth() {
+      this.getToken()
+    },
+
+    async logout() {
+      localStorage.removeItem('TOKEN')
+
       this.$reset()
 
-      localStorage.removeItem('TOKEN')
+      await router.push({name: 'login'})
     }
   }
 })
