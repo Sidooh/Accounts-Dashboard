@@ -8,9 +8,7 @@ const email = ref()
 const password = ref()
 
 const emailError = ref(false)
-/*computed(() => email.value && email.value.length > 2 && !isEmailValid(email.value))*/
 const passwordError = ref(false)
-/*computed(() => password.value && !isPasswordValid(password.value))*/
 const invalidCredentials = ref(false)
 
 const isEmailValid = (email: string) => {
