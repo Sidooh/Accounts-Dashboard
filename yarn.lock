@@ -39,17 +39,24 @@
   resolved "https://registry.yarnpkg.com/@emmetio/scanner/-/scanner-1.0.0.tgz#065b2af6233fe7474d44823e3deb89724af42b5f"
   integrity sha512-8HqW8EVqjnCmWXVpqAOZf+EGESdkR27odcMMMGefgKXtar00SoYNSryGv//TELI4T3QFsECo78p+0lmalk/CFA==
 
-"@tanstack/table-core@8.5.2":
-  version "8.5.2"
-  resolved "https://registry.yarnpkg.com/@tanstack/table-core/-/table-core-8.5.2.tgz#097d88131bdf72eca0d4554270922e250e944a92"
-  integrity sha512-uhmhqeSNL2un0ssO5fZFtuwgvloBZdc2NFu8Rodzp4uPc1LfEWPhvrfoG9/L7FLRHC2ImlkmQgpVOakNZk9zgQ==
-
-"@tanstack/vue-table@^8.5.2":
-  version "8.5.2"
-  resolved "https://registry.yarnpkg.com/@tanstack/vue-table/-/vue-table-8.5.2.tgz#fbeb7d569de68b17dc3582f62775c8ea3adbf5bc"
-  integrity sha512-OLhrpIoAjKVYk2hCl3TbiblbLtCKZ6AMpBXqOxInQ1TpFrFlVdta+tJZJABXCIf1PW8DHdihpRw8EzeGS9fjCg==
+"@tanstack/match-sorter-utils@^8.1.1":
+  version "8.1.1"
+  resolved "https://registry.yarnpkg.com/@tanstack/match-sorter-utils/-/match-sorter-utils-8.1.1.tgz#895f407813254a46082a6bbafad9b39b943dc834"
+  integrity sha512-IdmEekEYxQsoLOR0XQyw3jD1GujBpRRYaGJYQUw1eOT1eUugWxdc7jomh1VQ1EKHcdwDLpLaCz/8y4KraU4T9A==
   dependencies:
-    "@tanstack/table-core" "8.5.2"
+    remove-accents "0.4.2"
+
+"@tanstack/table-core@8.5.13":
+  version "8.5.13"
+  resolved "https://registry.yarnpkg.com/@tanstack/table-core/-/table-core-8.5.13.tgz#7ad94fcc9db72f3eb0ed7dbb9c511a6bd7ff9a06"
+  integrity sha512-kvDRjC7LrLNNNgUMfsBz3nHOwbBLFdosWQ16dfbD9D/OJrvFHRXoUIPzF0MNqqSPghaj7/18fnwXHGypvzoh9Q==
+
+"@tanstack/vue-table@^8.5":
+  version "8.5.13"
+  resolved "https://registry.yarnpkg.com/@tanstack/vue-table/-/vue-table-8.5.13.tgz#f01efa08e665f3ce508b162717945c0ae9eb1e3d"
+  integrity sha512-x8I0De8RFW1/JTd7tnTYEhux4UJ0BCYCDrMK1PtIXlZnATamVV4b93OID7HFmajDk2LIIHdl170ei3eV5ivFQQ==
+  dependencies:
+    "@tanstack/table-core" "8.5.13"
 
 "@types/list.js@^2.3.1":
   version "2.3.1"
@@ -767,6 +774,11 @@ pug@^3.0.2:
     pug-parser "^6.0.0"
     pug-runtime "^3.0.1"
     pug-strip-comments "^2.0.0"
+
+remove-accents@0.4.2:
+  version "0.4.2"
+  resolved "https://registry.yarnpkg.com/remove-accents/-/remove-accents-0.4.2.tgz#0a43d3aaae1e80db919e07ae254b285d9e1c7bb5"
+  integrity sha512-7pXIJqJOq5tFgG1A2Zxti3Ht8jJF337m4sowbuHsW30ZnkQFnDzy9qBNhgzX8ZLW4+UBcXiiR7SwR6pokHsxiA==
 
 request-light@^0.5.4:
   version "0.5.8"

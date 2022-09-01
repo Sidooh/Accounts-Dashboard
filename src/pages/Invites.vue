@@ -56,9 +56,6 @@ onMounted(() => store.fetchInvites())
         <div class="col">
           Invites
         </div>
-        <div class="col">
-          <input class="search form-control w-50 float-end" v-model="search"/>
-        </div>
       </div>
       <Table
           title="Invites"

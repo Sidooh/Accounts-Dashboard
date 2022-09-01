@@ -65,9 +65,6 @@ onMounted(() => store.fetchUsers())
         <div class="col">
           Users
         </div>
-        <div class="col">
-          <input class="search form-control w-md-50 w-100 float-end" v-model="search"/>
-        </div>
       </div>
       <Table
           title="Users"

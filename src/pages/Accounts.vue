@@ -53,11 +53,8 @@ onMounted(() => store.fetchAccounts())
   <div class="card">
     <div class="card-body">
       <div class="my-3 row">
-        <div class="col">
+        <div class="col fs-1 fw-semi-bold">
           Accounts
-        </div>
-        <div class="col">
-          <input class="search form-control w-50 float-end" v-model="search"/>
         </div>
       </div>
       <Table
