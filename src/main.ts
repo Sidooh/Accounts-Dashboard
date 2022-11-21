@@ -11,23 +11,20 @@ import { useAuthStore } from "./stores/auth"
 
 import 'bootstrap/dist/js/bootstrap.min.js'
 
-const pinia = createPinia()
-
 axios.interceptors.response.use(
-    ({data}) => {
+    ({ data }) => {
         if (data && data.result === 0) {
             return Promise.reject(data)
         }
         return data
     },
-    async ({response}) => {
+    async ({ response }) => {
         if (response?.status === 401) {
             const authStore = useAuthStore()
 
             await authStore.logout()
 
-                await router.push({ name: 'login' })
-            }
+            router.push({ name: 'login' })
         }
 
         return Promise.reject(response)
@@ -35,12 +32,11 @@ axios.interceptors.response.use(
 )
 axios.defaults.baseURL = import.meta.env.VITE_ACCOUNTS_API_URL
 axios.defaults.headers.post['Content-Type'] = 'application/json'
-axios.defaults.headers.common['Authorization'] = "Bearer " + useAuthStore().getToken();
 
 //initialize
 createApp(App)
     .use(router)
-    .use(pinia)
+    .use(createPinia())
     .mount('#app')
 
-axios.defaults.headers.common['Authorization'] = "Bearer " + useAuthStore().token;
+axios.defaults.headers.common['Authorization'] = "Bearer " + useAuthStore().getToken();
