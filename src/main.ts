@@ -1,13 +1,15 @@
-import {createApp} from 'vue'
+import { createApp } from 'vue'
 
 //modules
-import {createPinia} from "pinia"
+import { createPinia } from "pinia"
 import axios from "axios"
 
 //component
 import App from './App.vue'
 import router from "./routes"
-import {useAuthStore} from "./stores/auth"
+import { useAuthStore } from "./stores/auth"
+
+import 'bootstrap/dist/js/bootstrap.min.js'
 
 const pinia = createPinia()
 
@@ -25,7 +27,7 @@ axios.interceptors.response.use(
 
                 authStore.logout()
 
-                await router.push({name: 'login'})
+                await router.push({ name: 'login' })
             }
         }
 
@@ -37,7 +39,7 @@ axios.defaults.baseURL = import.meta.env.VITE_ACCOUNTS_API_URL
 axios.defaults.headers.post['Content-Type'] = 'application/json'
 
 //initialize
-const app = createApp(App)
+createApp(App)
     .use(router)
     .use(pinia)
     .mount('#app')

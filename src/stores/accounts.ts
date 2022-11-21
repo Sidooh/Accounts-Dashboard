@@ -1,4 +1,4 @@
-import {defineStore} from "pinia";
+import { defineStore } from "pinia";
 import axios from "axios";
 
 export const useAccountsStore = defineStore("account", {
@@ -8,8 +8,8 @@ export const useAccountsStore = defineStore("account", {
 
     actions: {
         async fetchAccounts() {
-
             console.log('fetch accounts')
+
             try {
                 const data = await axios.get('accounts')
                 this.accounts = data.data
