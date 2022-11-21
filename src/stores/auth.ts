@@ -1,9 +1,9 @@
 import {defineStore} from "pinia";
 import axios from "axios";
+import router from "../routes";
 
 export const useAuthStore = defineStore("auth", {
   state: () => ({
-    token: '',
     user: {}
   }),
 
@@ -11,40 +11,48 @@ export const useAuthStore = defineStore("auth", {
     async authenticate(email: string, password: string) {
 
       try {
-        const data = await axios.post("users/signin", {
+        const data: { access_token: string } = await axios.post("users/signin", {
           email,
           password
         })
 
-        this.token = data.data.access_token
         this.user = {
-          token: data.data.access_token
+          token: data.access_token
         }
 
-        //TODO:
-        localStorage.setItem("TOKEN", data.data.access_token);
+        localStorage.setItem("TOKEN", data.access_token);
 
-        axios.defaults.headers.common['Authorization'] = "Bearer " + data.data.access_token;
+        axios.defaults.headers.common['Authorization'] = "Bearer " + data.access_token;
 
-      } catch (error: any) {
-        if (error.response.status === 400 && error.response.data) {
-          throw new Error(error.response.data.errors[0].message)
+      } catch (response: any) {
+        if (response.status === 400 && response.data) {
+          throw new Error(response.data.errors[0].message)
         }
+        throw new Error('Something went wrong, contact support')
       }
+    },
+
+    getToken() {
+      const token = localStorage.getItem("TOKEN")
+
+      if (!token) {
+        this.logout()
+        return
+      }
+
+      return token
     },
 
     checkLocalAuth() {
-      const token = localStorage.getItem("TOKEN")
-
-      if (token) {
-        this.token = token
-      }
+      this.getToken()
     },
 
-    logout() {
+    async logout() {
+      localStorage.removeItem('TOKEN')
+
       this.$reset()
 
-      localStorage.removeItem('TOKEN')
+      await router.push({name: 'login'})
     }
   }
 })

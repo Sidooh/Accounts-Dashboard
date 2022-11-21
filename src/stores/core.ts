@@ -14,12 +14,26 @@ export const useCoreStore = defineStore("core", {
     actions: {
         toggleLayout() {
             this.isFluid = !this.isFluid
+            localStorage.setItem('isFluid', String(this.isFluid))
         },
         toggleTheme() {
             this.theme = this.theme === 'dark' ? 'light' : 'dark'
+            // localStorage.setItem('theme', this.theme)
+
+            if (this.theme === 'dark')
+                document.documentElement.classList.add('dark')
+            else
+                document.documentElement.classList.remove('dark');
+
         },
         toggleSideNav() {
             this.isNavbarVerticalCollapsed = !this.isNavbarVerticalCollapsed
+            // localStorage.setItem('isNavbarVerticalCollapsed', String(this.isNavbarVerticalCollapsed))
+
+            if (this.isNavbarVerticalCollapsed)
+                document.documentElement.classList.add('navbar-vertical-collapsed');
+            else
+                document.documentElement.classList.remove('navbar-vertical-collapsed');
         }
     }
 })
