@@ -1,25 +1,10 @@
 <script setup lang="ts">
 import { useUsersStore } from "../stores/users";
-import { computed, onMounted, ref } from "vue";
-import Table from "../components/core/table.vue";
+import { onMounted } from "vue";
 import { createColumnHelper } from "@tanstack/vue-table";
 import DataTable from "../components/datatable/DataTable.vue";
 
 const store = useUsersStore()
-
-const search = ref()
-
-const users = computed((): User[] => {
-    if (search.value) {
-        const re = new RegExp(search.value);
-
-        const filterFunc = (u: User) => re.test(u.email.toLowerCase()) || re.test(u.name.toLowerCase()) || re.test(u.username.toLowerCase())
-
-        return store.users.filter(filterFunc)
-    }
-
-    return store.users
-})
 
 const columnHelper = createColumnHelper<User>()
 
@@ -32,7 +17,6 @@ const columnHelper = createColumnHelper<User>()
 // }
 
 const columns = [
-    // getColumnHelper('id', 'Id'),
     columnHelper.accessor(row => row.id, {
         header: '#',
         id: 'id'
@@ -62,21 +46,7 @@ onMounted(() => store.fetchUsers())
 
     <div class="card">
         <div class="card-body">
-            <div class="my-3 row">
-                <div class="col">
-                    Users
-                </div>
-                <div class="col">
-                    <input class="search form-control w-md-50 w-100 float-end" v-model="search"/>
-                </div>
-            </div>
-            <Table
-                title="Users"
-                :columns="columns"
-                :data="users"
-            />
-
-            <DataTable title="Users" :columns="columns" :data="users"/>
+            <DataTable title="Users" :columns="columns" :data="store.users"/>
         </div>
     </div>
 
