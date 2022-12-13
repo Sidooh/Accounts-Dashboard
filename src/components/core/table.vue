@@ -1,12 +1,16 @@
 <script setup lang="ts">
 import {
+  FilterFn,
   FlexRender,
   getCoreRowModel,
   getFilteredRowModel,
   getPaginationRowModel,
+  getSortedRowModel,
+  SortingState,
   useVueTable,
 } from '@tanstack/vue-table'
-import {PropType} from 'vue'
+import {PropType, ref} from 'vue'
+import {rankItem} from "@tanstack/match-sorter-utils";
 
 const props = defineProps({
   title: String,
@@ -22,14 +26,48 @@ const props = defineProps({
 
 const pageSizes = [10, 20, 30, 40, 50]
 
+const sorting = ref<SortingState>([])
+const globalFilter = ref()
+
+const fuzzyFilter: FilterFn<any> = (row, columnId, value, addMeta) => {
+  // Rank the item
+  const itemRank = rankItem(row.getValue(columnId), value);
+
+  // Store the ranking info
+  addMeta({itemRank})
+
+  // Return if the item should be filtered in/out
+  return itemRank.passed;
+};
+
 const table = useVueTable({
   get data() {
     return props.data
   },
   columns: props.columns,
+  state: {
+    get sorting() {
+      return sorting.value
+    },
+    get globalFilter() {
+      return globalFilter.value
+    },
+  },
+  onSortingChange: updaterOrValue => {
+    sorting.value =
+        typeof updaterOrValue === 'function'
+            ? updaterOrValue(sorting.value)
+            : updaterOrValue
+  },
+  // onGlobalFilterChange: value => globalFilter.value = value,
+  globalFilterFn: fuzzyFilter,
   getCoreRowModel: getCoreRowModel(),
+  getSortedRowModel: getSortedRowModel(),
   getFilteredRowModel: getFilteredRowModel(),
   getPaginationRowModel: getPaginationRowModel(),
+  debugTable: true,
+  debugHeaders: true,
+  debugColumns: false,
 })
 
 const goToPage = (e: Event) => {
@@ -44,18 +82,20 @@ const setPageSize = (e: Event) => {
   const target = (e.target as HTMLSelectElement)
   table.setPageSize(Number(target.value))
 }
+
+const setGlobalFilter = (e: Event) => {
+  const target = (e.target as HTMLInputElement)
+  globalFilter.value = target.value
+}
 </script>
 
 <template>
   <div id="table">
-    <!--    <div class="my-3 row">-->
-    <!--      <div class="col">-->
-    <!--        {{ title }}-->
-    <!--      </div>-->
-    <!--      <div class="col">-->
-    <!--        <input class="search form-control w-50 float-end"/>-->
-    <!--      </div>-->
-    <!--    </div>-->
+    <div class="my-3 row">
+      <div class="col">
+        <input class="search form-control w-50" @input="setGlobalFilter"/>
+      </div>
+    </div>
     <div class="table-responsive scrollbar">
       <table class="table fs--1 mb-0">
         <thead class="bg-200 text-900">
@@ -67,12 +107,17 @@ const setPageSize = (e: Event) => {
               v-for="header in headerGroup.headers"
               :key="header.id"
               :colSpan="header.colSpan"
+              :class="header.column.getCanSort() ? 'cursor-pointer select-none' : ''"
+              @click="header.column.getToggleSortingHandler()?.($event)"
           >
-            <FlexRender
-                v-if="!header.isPlaceholder"
-                :render="header.column.columnDef.header"
-                :props="header.getContext()"
-            />
+            <template v-if="!header.isPlaceholder">
+              <FlexRender
+                  :render="header.column.columnDef.header"
+                  :props="header.getContext()"
+              />
+
+              {{ {'asc': ' 🔼', 'desc': ' 🔽'}[header.column.getIsSorted()] }}
+            </template>
           </th>
         </tr>
         </thead>
@@ -90,35 +135,36 @@ const setPageSize = (e: Event) => {
 
       <div class="d-flex justify-content-between align-items-center my-3">
         <div class="d-flex flex-center fs--1">
-          <p class="mb-0 me-2">
-            <span>Page </span>
-            <strong>{{ table.getState().pagination.pageIndex + 1 + ' of ' + table.getPageCount() }}</strong>
-          </p>
           <select class="form-select w-auto mx-2 form-control-sm" :value="table.getState().pagination.pageSize"
                   @change="setPageSize">
             <option v-for="pageSize in pageSizes" :key="pageSize" :value="pageSize">{{ pageSize }} rows</option>
           </select>
         </div>
-        <div class="d-flex flex-end-center me-1">
-          <button class="btn btn-falcon-default btn-sm" :disabled="!table.getCanPreviousPage()"
+        <div class="d-flex flex-end-center">
+          <button class="btn btn-sm fs-2" :disabled="!table.getCanPreviousPage()"
                   @click="() => table.setPageIndex(0)">
-            <span class="fas fa-angle-double-left me-1" data-fa-transform="shrink-3"></span>
+            <span class="fas fa-angle-double-left" data-fa-transform="shrink-3"></span>
           </button>
-          <button class="btn btn-falcon-default btn-sm me-1" :disabled="!table.getCanPreviousPage()"
+          <button class="btn btn-sm fs-1" :disabled="!table.getCanPreviousPage()"
                   @click="() => table.previousPage()">
             <span class="fas fa-chevron-left me-1" data-fa-transform="shrink-3"></span>
           </button>
-          <input
-              type="number"
-              :value="table.getState().pagination.pageIndex + 1"
-              @change="goToPage"
-              class="border p-1 rounded w-16 me-1 form-control-sm w-25"
-          />
-          <button class="btn btn-falcon-default btn-sm" :disabled="!table.getCanNextPage()"
+          <div class="d-flex flex-center justify-content-between text-center mx-2" style="width: 150px;">
+            <span>Page </span>
+            <input
+                type="text"
+                :value="table.getState().pagination.pageIndex + 1"
+                @change="goToPage"
+                class="border rounded form-control-sm text-center"
+                style="width: 50px;"
+            />
+            <strong>{{ ' of ' + table.getPageCount() }}</strong>
+          </div>
+          <button class="btn btn-sm fs-1" :disabled="!table.getCanNextPage()"
                   @click="() => table.nextPage()">
             <span class="fas fa-chevron-right me-1" data-fa-transform="shrink-3"></span>
           </button>
-          <button class="btn btn-falcon-default btn-sm" :disabled="!table.getCanNextPage()"
+          <button class="btn btn-sm fs-2" :disabled="!table.getCanNextPage()"
                   @click="() => table.setPageIndex(table.getPageCount() - 1)">
             <span class="fas fa-angle-double-right me-1" data-fa-transform="shrink-3"></span>
           </button>
