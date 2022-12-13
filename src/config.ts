@@ -6,6 +6,11 @@ export const CONFIG = {
                     url: import.meta.env.VITE_ACCOUNTS_API_URL
                 }
             },
+            enterprise: {
+                dashboard: {
+                    url: import.meta.env.VITE_ENTERPRISE_DASHBOARD_URL
+                }
+            },
             products: {
                 api: {
                     url: import.meta.env.VITE_PRODUCTS_API_URL
