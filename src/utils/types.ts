@@ -13,6 +13,9 @@ type Account = {
     active: boolean
     inviter_id: number
     user_id: number
+    user: User
+    inviter: User
+    invite_code: string
 }
 
 type Invite = {
@@ -21,4 +24,10 @@ type Invite = {
     status: string
     inviter_id: number
     account_id: number
+}
+
+type SecurityQuestion = {
+    id: number
+    question: string
+    status: string
 }
