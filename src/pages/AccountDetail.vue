@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { useAccountsStore } from "../stores/accounts";
+import { useAccountsStore } from "@/stores/accounts";
 import { onMounted } from "vue";
 import { createColumnHelper } from "@tanstack/vue-table";
 import DataTable from "../components/datatable/DataTable.vue";
-import { Account } from "../utils/types";
+import { Account } from "@/utils/types";
 
 const store = useAccountsStore();
 

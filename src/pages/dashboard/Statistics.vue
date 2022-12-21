@@ -1,6 +1,6 @@
 <template>
-    <div class="row g-3 g-xxl-0 h-100">
-        <div class="col-md-4 col-xxl-12 mb-xxl-2">
+    <div class="row g-3  h-100">
+        <div class="col-md-4 col-xxl-12">
             <div class="card h-xl-100">
                 <CardBgCorner :corner="2"/>
                 <div class="card-body row">
@@ -18,7 +18,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-4 col-xxl-12 mb-xxl-2">
+        <div class="col-md-4 col-xxl-12">
             <div class="card h-xl-100">
                 <CardBgCorner/>
                 <div class="card-body row">
@@ -36,7 +36,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-4 col-xxl-12 mb-xxl-2">
+        <div class="col-md-4 col-xxl-12">
             <div class="card h-xl-100">
                 <CardBgCorner :corner="3"/>
                 <div class="card-body row">

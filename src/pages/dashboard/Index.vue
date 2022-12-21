@@ -4,23 +4,24 @@
             <Chart/>
         </div>
         <div class="col">
-            <ComponentLoader><Statistics/></ComponentLoader>
+            <ComponentLoader>
+                <Statistics/>
+            </ComponentLoader>
         </div>
     </div>
 
-    <ComponentLoader><RecentAccounts/></ComponentLoader>
+    <ComponentLoader>
+        <RecentAccounts/>
+    </ComponentLoader>
 
-    <ComponentLoader><RecentInvites/></ComponentLoader>
+    <ComponentLoader>
+        <RecentInvites/>
+    </ComponentLoader>
 </template>
 
 <script setup lang="ts">
-
 import Chart from "./Chart.vue";
 import Statistics from "./Statistics.vue";
 import RecentAccounts from "./RecentAccounts.vue";
 import RecentInvites from "./RecentInvites.vue";
 import ComponentLoader from "../../components/loaders/ComponentLoader.vue";</script>
-
-<style scoped>
-
-</style>

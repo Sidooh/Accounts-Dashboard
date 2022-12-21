@@ -1,9 +1,5 @@
 <template>
-    <div class="card">
-        <div class="card-body">
-            <InvitesTable :invites="store.invites" title="Recent Invites"/>
-        </div>
-    </div>
+    <InvitesTable :invites="store.invites" title="Recent Invites"/>
 </template>
 
 <script setup lang="ts">
