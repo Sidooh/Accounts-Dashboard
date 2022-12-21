@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import {useCoreStore} from "../../stores/core";
-import {computed} from "vue";
+import { useCoreStore } from "../../stores/core";
+import { computed } from "vue";
 import Waffle from 'components/Waffle.vue'
-import {CONFIG} from "../../config";
+import { CONFIG } from "../../config";
 
 const store = useCoreStore()
 
@@ -64,7 +64,7 @@ const theme = computed(() => store.theme)
                 <span class="toggle-line"></span>
               </span>
         </button>
-        <a class="navbar-brand me-1 me-sm-3" href="/">
+        <a class="navbar-brand me-1 me-sm-3" href="/public">
             <div class="d-flex align-items-center">
                 <img class="me-2" src="/logo.png" alt="" width="40">
                 <span class="font-sans-serif">A</span>

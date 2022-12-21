@@ -1,4 +1,4 @@
-import {defineStore} from "pinia";
+import { defineStore } from "pinia";
 
 
 export const useCoreStore = defineStore("core", {
@@ -7,7 +7,7 @@ export const useCoreStore = defineStore("core", {
         theme: 'light',
         isFluid: false,
         navbarStyle: 'transparent',
-        // navbarPosition: 'vertical'
+        navbarPosition: 'vertical'
         // isFluid: false, JSON.parse(localStorage.getItem("isFluid"))
     }),
 

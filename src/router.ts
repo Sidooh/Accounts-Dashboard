@@ -18,7 +18,6 @@ const StatusPage = { template: '<div>Alive!!</div>' }
 
 
 const routes = [
-
     { path: '/', component: Home },
     { path: '/accounts', component: Accounts },
     { path: '/accounts/:id', component: AccountDetail },
