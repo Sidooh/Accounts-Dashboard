@@ -1,17 +1,18 @@
 <script setup lang="ts">
-import { useCoreStore } from "../../stores/core";
-import { computed } from "vue";
+import {useCoreStore} from "../../stores/core";
+import {computed} from "vue";
 import Waffle from 'components/Waffle.vue'
-import { CONFIG } from "../../config";
+import {CONFIG} from "../../config";
 
 const store = useCoreStore()
 
 const waffleLinks = [
     {
-        avatarText: 'E',
-        title: 'Enterprise',
-        link: `/events/event-detail`,
-        contentClass: 'bg-soft-primary text-primary',
+      avatarText: 'E',
+      title: 'Enterprise',
+      link: CONFIG.sidooh.services.enterprise.dashboard.url,
+      contentClass: 'bg-soft-primary text-primary',
+      enabled: true
     },
     {
         avatarText: 'N',

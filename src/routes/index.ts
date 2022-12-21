@@ -3,6 +3,7 @@ import AuthLayout from '../pages/layout/Auth.vue'
 
 const Home = () => import("../pages/Home.vue")
 const Accounts = () => import("../pages/Accounts.vue")
+const AccountDetail = () => import("../pages/AccountDetail.vue")
 const Users = () => import("../pages/Users.vue")
 const Invites = () => import("../pages/Invites.vue")
 const SecurityQuestions = () => import("../pages/SecurityQuestions.vue")
@@ -20,6 +21,7 @@ const routes = [
 
     {path: '/', component: Home},
     {path: '/accounts', component: Accounts},
+    {path: '/accounts/:id', component: AccountDetail},
     {path: '/users', component: Users},
     {path: '/invites', component: Invites},
     {path: '/security-questions', component: SecurityQuestions},

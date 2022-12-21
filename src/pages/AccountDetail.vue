@@ -1,0 +1,73 @@
+<script setup lang="ts">
+import {useAccountsStore} from "../stores/accounts";
+import {computed, onMounted, ref} from "vue";
+import Table from "../components/core/table.vue";
+import {createColumnHelper} from "@tanstack/vue-table";
+
+const store = useAccountsStore();
+
+const search = ref()
+
+const accounts = computed((): Account[] => {
+  if (search.value) {
+    const re = new RegExp(search.value);
+
+    const filterFunc = (a: Account) =>
+        re.test(a.id.toString()) ||
+        re.test(a.phone) ||
+        re.test(a.invite_code) ||
+        re.test(a.user?.name) ||
+        re.test((a.user_id || '').toString())
+
+    return store.accounts.filter(filterFunc)
+  }
+
+  return store.accounts
+})
+
+const columnHelper = createColumnHelper<Account>()
+
+const columns = [
+  columnHelper.accessor(row => row.id, {
+    header: '#',
+    id: 'id'
+  }),
+  columnHelper.accessor(row => row.phone, {
+    header: () => 'Phone',
+    id: 'phone'
+  }),
+  columnHelper.accessor(row => row.user?.name, {
+    header: () => 'User',
+    id: 'user'
+  }),
+  // columnHelper.accessor(row => row.active, {
+  //   header: () => 'Active',
+  //   id: 'active'
+  // }),
+  columnHelper.accessor(row => row.invite_code ?? row.inviter_id, {
+    header: () => 'Invite',
+    id: 'invite'
+  }),
+]
+
+onMounted(() => store.fetchAccounts())
+</script>
+
+<template>
+
+  <div class="card">
+    <div class="card-body">
+      <div class="my-3 row">
+        <div class="col fs-1 fw-semi-bold">
+          Accounts
+        </div>
+      </div>
+      <Table
+          title="Accounts"
+          :columns="columns"
+          :data="accounts"
+      />
+    </div>
+  </div>
+
+</template>
