@@ -9,7 +9,8 @@ export default defineConfig({
             config: '/src/config',
             pages: '/src/pages',
             routes: '/src/routes',
-            stores: '/src/stores'
+            stores: '/src/stores',
+            utils: '/src/utils'
         }
     },
     server: {

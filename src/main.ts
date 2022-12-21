@@ -6,16 +6,16 @@ import axios from "axios"
 
 //component
 import App from './App.vue'
-import router from "./routes"
+import router from "./router"
 import { useAuthStore } from "./stores/auth"
 
 import 'bootstrap/dist/js/bootstrap.min.js'
 
 axios.interceptors.response.use(
     ({ data }) => {
-        if (data && data.result === 0) {
+        if (data && data.result === 0)
             return Promise.reject(data)
-        }
+
         return data
     },
     async ({ response }) => {

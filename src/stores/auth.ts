@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import axios from "axios";
-import router from "../routes";
+import router from "../router";
 
 export const useAuthStore = defineStore("auth", {
     state: () => ({
@@ -20,20 +20,19 @@ export const useAuthStore = defineStore("auth", {
                     token: data.access_token
                 }
 
-                localStorage.setItem("TOKEN", data.access_token);
+                localStorage.setItem("token", data.access_token);
 
                 axios.defaults.headers.common['Authorization'] = "Bearer " + data.access_token;
-
-            } catch (response: any) {
-                if (response.status === 400 && response.data) {
-                    throw new Error(response.data.errors[0].message)
+            } catch (err: any) {
+                if (err?.status === 400 && err?.data) {
+                    throw new Error(err.data.errors[0].message)
                 }
                 throw new Error('Something went wrong, contact support')
             }
         },
 
         getToken() {
-            const token = localStorage.getItem("TOKEN")
+            const token = localStorage.getItem("token")
 
             if (!token) {
                 this.logout()
@@ -48,7 +47,7 @@ export const useAuthStore = defineStore("auth", {
         },
 
         async logout() {
-            localStorage.removeItem('TOKEN')
+            localStorage.removeItem('token')
 
             this.$reset()
 

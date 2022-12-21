@@ -23,6 +23,7 @@
     "pinia": "^2.0.28",
     "simplebar": "^5.3.9",
     "simplebar-vue": "^1.8.0-alpha.0",
+    "sweetalert2": "^11.6.16",
     "vue": "^3.2.45",
     "vue-chartjs": "^5.1.0",
     "vue-countup-v3": "^1.1.0",

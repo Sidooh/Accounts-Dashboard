@@ -8,9 +8,7 @@ import { useAuthStore } from "./stores/auth";
 const route = useRoute()
 
 // Computed
-const layout = computed(() =>
-    route.meta.layout || DefaultLayout
-)
+const layout = computed(() => route.meta.layout || DefaultLayout)
 
 onMounted(() => {
     const authStore = useAuthStore()
@@ -22,14 +20,4 @@ onMounted(() => {
 <template>
     <!--  <ReloadPWA/>-->
     <component :is="layout"/>
-
 </template>
-
-<style>
-#app {
-    font-family: "Proxima Nova Rg", Avenir, Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    color: #2c3e50;
-}
-</style>
