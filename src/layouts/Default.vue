@@ -19,12 +19,12 @@
 </template>
 
 <script setup lang="ts">
-import Navbar from "../../components/partials/Navbar.vue"
-import Sidebar from "../../components/partials/Sidebar.vue";
+import Navbar from "../components/partials/Navbar.vue"
+import Sidebar from "../components/partials/Sidebar.vue";
 import { computed } from "vue";
-import { useCoreStore } from "../../stores/core";
-import Footer from "../../components/partials/Footer.vue";
-import { CONFIG } from "../../config";
+import { useCoreStore } from "../stores/core";
+import Footer from "../components/partials/Footer.vue";
+import { CONFIG } from "../config";
 
 const store = useCoreStore()
 

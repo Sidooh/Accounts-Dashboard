@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
-import AuthLayout from 'pages/layout/Auth.vue'
+import AuthLayout from 'layouts/Auth.vue'
 
-const Home = () => import("pages/Home.vue")
+const Home = () => import("pages/dashboard/Index.vue")
 const Accounts = () => import("pages/Accounts.vue")
 const AccountDetail = () => import("pages/AccountDetail.vue")
 const Users = () => import("pages/Users.vue")
@@ -14,7 +14,7 @@ const StatusPage = { template: '<div>Alive!!</div>' }
 
 
 // Should not be async -- will conflict with internal async components
-// const Auth = () => import("pages/layout/Auth.vue")
+// const Auth = () => import("pages/layouts/Auth.vue")
 
 
 const routes = [

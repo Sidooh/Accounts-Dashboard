@@ -1,6 +1,6 @@
 <script setup lang="ts">
 
-import DefaultLayout from './pages/layout/Default.vue'
+import DefaultLayout from './layouts/Default.vue'
 import { computed, onMounted } from "vue";
 import { useRoute } from "vue-router";
 import { useAuthStore } from "./stores/auth";
