@@ -13,7 +13,7 @@ export type RouteType = {
     children: RouteChildType[]
 }
 
-type User = {
+export type User = {
     id: number
     name: string
     email: string
@@ -22,7 +22,7 @@ type User = {
 }
 
 
-type Account = {
+export type Account = {
     id: number
     phone: string
     active: boolean
@@ -33,7 +33,7 @@ type Account = {
     invite_code: string
 }
 
-type Invite = {
+export type Invite = {
     id: number
     phone: string
     status: string
@@ -41,7 +41,7 @@ type Invite = {
     account_id: number
 }
 
-type SecurityQuestion = {
+export type SecurityQuestion = {
     id: number
     question: string
     status: string

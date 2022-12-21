@@ -1,5 +1,5 @@
 <template>
-    <div class="row g-3">
+    <div class="row g-3 mb-3">
         <div class="col-xxl-9">
             <Chart/>
         </div>
@@ -8,9 +8,9 @@
         </div>
     </div>
 
-    <RecentAccounts/>
+    <ComponentLoader><RecentAccounts/></ComponentLoader>
 
-    <RecentInvites/>
+    <ComponentLoader><RecentInvites/></ComponentLoader>
 </template>
 
 <script setup lang="ts">
