@@ -1,4 +1,4 @@
-import {defineStore} from "pinia";
+import { defineStore } from "pinia";
 import axios from "axios";
 
 export const useDashboardStore = defineStore("dashboard", {
@@ -6,13 +6,16 @@ export const useDashboardStore = defineStore("dashboard", {
         chart: {},
         statistics: {
             users: {
-                total: 0
+                total: 0,
+                today: 0
             },
             accounts: {
-                total: 0
+                total: 0,
+                today: 0
             },
             invites: {
-                total: 0
+                total: 0,
+                today: 0
             }
         },
         accounts: [],
