@@ -1,15 +1,13 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
+import vueJsx from '@vitejs/plugin-vue-jsx'
+import { fileURLToPath, URL } from 'node:url'
 
 // https://vitejs.dev/config/
 export default defineConfig({
     resolve: {
         alias: {
-            components: '/src/components',
-            config: '/src/config',
-            pages: '/src/pages',
-            routes: '/src/routes',
-            stores: '/src/stores'
+            '@': fileURLToPath(new URL('./src', import.meta.url))
         }
     },
     server: {
@@ -17,6 +15,7 @@ export default defineConfig({
     },
     plugins: [
         vue(),
+        vueJsx()
         // VitePWA({
         //     mode: "development",
         //     base: "/",

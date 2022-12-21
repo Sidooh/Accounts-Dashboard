@@ -1,4 +1,19 @@
-type User = {
+import { RouteLocationRaw } from "vue-router";
+import { IconDefinition } from "@fortawesome/free-regular-svg-icons";
+
+type RouteChildType = {
+    name: string
+    to: RouteLocationRaw
+    active?: boolean
+    icon?: IconDefinition
+    children?: RouteChildType[]
+}
+export type RouteType = {
+    label?: string
+    children: RouteChildType[]
+}
+
+export type User = {
     id: number
     name: string
     email: string
@@ -7,7 +22,7 @@ type User = {
 }
 
 
-type Account = {
+export type Account = {
     id: number
     phone: string
     active: boolean
@@ -18,7 +33,7 @@ type Account = {
     invite_code: string
 }
 
-type Invite = {
+export type Invite = {
     id: number
     phone: string
     status: string
@@ -26,7 +41,7 @@ type Invite = {
     account_id: number
 }
 
-type SecurityQuestion = {
+export type SecurityQuestion = {
     id: number
     question: string
     status: string
