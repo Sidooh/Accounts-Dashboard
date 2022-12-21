@@ -1,6 +1,6 @@
 <template>
     <a href="/" class="text-decoration-none"
-       :class="{ 'navbar-brand text-left': at === 'navbar-vertical', 'navbar-brand text-left': at === 'navbar-top' }">
+       :class="{ 'navbar-brand text-left': ['navbar-vertical', 'navbar-top'].includes(at) }">
         <div class="d-flex" :class="{
             'align-items-center py-3': at === 'navbar-vertical',
             'align-items-center': at === 'navbar-top',
@@ -19,8 +19,5 @@ import { ref } from "vue";
 
 const props = defineProps<{ src: string, serviceName?: string, width?: number, at?: 'navbar-vertical' | 'navbar-top' | 'auth', }>()
 const at = ref(props.at ?? 'auth')
+const width = ref(props.width ?? 78)
 </script>
-
-<style scoped>
-
-</style>

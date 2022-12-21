@@ -15,7 +15,7 @@ const props = defineProps<{
     style?: CSSProperties;
     soft?: boolean;
     icon?: IconDefinition;
-    onClick?: MouseEvent
+    onClick?: ((payload: MouseEvent) => void) | undefined
 }>()
 
 const bg = ref(props.bg ?? 'primary')

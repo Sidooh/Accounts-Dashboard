@@ -283,3 +283,7 @@ table td.actions .btn {
 .dropdown-toggle:after {
     display: none;
 }
+
+.form-select {
+    background-image: none;
+}

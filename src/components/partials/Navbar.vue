@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { useCoreStore } from "../../stores/core";
+import { useCoreStore } from "@/stores/core";
 import { computed } from "vue";
-import Waffle from 'components/Waffle.vue'
-import { CONFIG } from "../../config";
+import Waffle from '@/components/Waffle.vue'
+import { CONFIG } from "@/config";
 
 const store = useCoreStore()
 

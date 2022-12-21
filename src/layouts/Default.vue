@@ -9,7 +9,9 @@
                 <Navbar/>
 
                 <!--  Content -->
-                <router-view></router-view>
+                <ComponentLoader>
+                    <router-view/>
+                </ComponentLoader>
 
                 <!--  Footer? -->
                 <Footer service-name="Accounts" :version="CONFIG.sidooh.version"/>
@@ -22,9 +24,10 @@
 import Navbar from "../components/partials/Navbar.vue"
 import Sidebar from "../components/partials/Sidebar.vue";
 import { computed } from "vue";
-import { useCoreStore } from "../stores/core";
+import { useCoreStore } from "@/stores/core";
 import Footer from "../components/partials/Footer.vue";
-import { CONFIG } from "../config";
+import { CONFIG } from "@/config";
+import ComponentLoader from "@/components/loaders/ComponentLoader.vue";
 
 const store = useCoreStore()
 

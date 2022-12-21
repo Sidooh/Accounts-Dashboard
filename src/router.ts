@@ -1,24 +1,19 @@
 import { createRouter, createWebHistory } from "vue-router";
-import AuthLayout from 'layouts/Auth.vue'
+import AuthLayout from './layouts/Auth.vue'
 
-const Home = () => import("pages/dashboard/Index.vue")
-const Accounts = () => import("pages/Accounts.vue")
-const AccountDetail = () => import("pages/AccountDetail.vue")
-const Users = () => import("pages/Users.vue")
-const Invites = () => import("pages/Invites.vue")
-const SecurityQuestions = () => import("pages/SecurityQuestions.vue")
+const Dashboard = () => import("@/pages/dashboard/Index.vue")
+const Accounts = () => import("@/pages/accounts/Index.vue")
+const AccountDetail = () => import("@/pages/AccountDetail.vue")
+const Users = () => import("@/pages/users/Index.vue")
+const Invites = () => import("@/pages/invites/Index.vue")
+const SecurityQuestions = () => import("@/pages/security-questions/Index.vue")
 
-const Login = () => import("pages/auth/Login.vue")
+const Login = () => import("@/pages/auth/Login.vue")
 
 const StatusPage = { template: '<div>Alive!!</div>' }
 
-
-// Should not be async -- will conflict with internal async components
-// const Auth = () => import("pages/layouts/Auth.vue")
-
-
 const routes = [
-    { path: '/', component: Home },
+    { path: '/', component: Dashboard },
     { path: '/accounts', component: Accounts },
     { path: '/accounts/:id', component: AccountDetail },
     { path: '/users', component: Users },

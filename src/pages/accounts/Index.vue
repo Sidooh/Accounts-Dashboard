@@ -1,5 +1,5 @@
 <template>
-    <AccountsTable title="Recent Accounts" :accounts="store.accounts"/>
+    <AccountsTable :accounts="store.accounts"/>
 </template>
 
 <script setup lang="ts">

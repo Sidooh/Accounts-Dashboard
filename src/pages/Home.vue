@@ -55,7 +55,7 @@
 
 <script setup lang="ts">
 import CountUp from 'vue-countup-v3'
-import { useDashboardStore } from "../stores/dashboard";
+import { useDashboardStore } from "@/stores/dashboard";
 import Invites from "./Invites.vue";
 import Accounts from "./Accounts.vue";
 

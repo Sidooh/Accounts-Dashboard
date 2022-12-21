@@ -1,21 +1,13 @@
 <script setup lang="ts">
-import { useUsersStore } from "../stores/users";
+import { useUsersStore } from "@/stores/users";
 import { onMounted } from "vue";
 import { createColumnHelper } from "@tanstack/vue-table";
-import DataTable from "../components/datatable/DataTable.vue";
+import DataTable from "../../components/datatable/DataTable.vue";
+import { User } from "@/utils/types";
 
 const store = useUsersStore()
 
 const columnHelper = createColumnHelper<User>()
-
-// TODO: Finalize this
-// const getColumnHelper = (idValue: string, headerValue: string) => {
-//   return columnHelper.accessor(idValue as any, {
-//     header: headerValue,
-//     id: idValue
-//   })
-// }
-
 const columns = [
     columnHelper.accessor(row => row.id, {
         header: '#',
@@ -43,11 +35,9 @@ onMounted(() => store.fetchUsers())
 </script>
 
 <template>
-
     <div class="card">
         <div class="card-body">
             <DataTable title="Users" :columns="columns" :data="store.users"/>
         </div>
     </div>
-
 </template>

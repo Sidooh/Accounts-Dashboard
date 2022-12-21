@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { useSecurityQuestionsStore } from "../stores/securityQuestions";
+import { useSecurityQuestionsStore } from "@/stores/securityQuestions";
 import { onMounted } from "vue";
 import { createColumnHelper } from "@tanstack/vue-table";
-import DataTable from "../components/datatable/DataTable.vue";
+import DataTable from "../../components/datatable/DataTable.vue";
+import { SecurityQuestion } from "@/utils/types";
 
 const store = useSecurityQuestionsStore();
 
@@ -26,7 +27,6 @@ onMounted(() => store.fetchSecurityQuestions())
 </script>
 
 <template>
-
     <div class="card">
         <div class="card-body">
             <DataTable title="Security Questions" :columns="columns" :data="store.securityQuestions"/>

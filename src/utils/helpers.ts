@@ -1,6 +1,6 @@
 import type { SweetAlertOptions } from 'sweetalert2';
 import Swal from 'sweetalert2';
-import { Telco } from "utils/enums";
+import { Telco } from "@/utils/enums";
 
 export const toast = async (data: SweetAlertOptions) => {
     const options = {
