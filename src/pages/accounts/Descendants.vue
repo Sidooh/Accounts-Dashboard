@@ -11,11 +11,12 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr v-for="(level, i) in Object.keys(store.descendants.ripples)">
+                <tr :key="`row-${i}`" v-for="(level, i) in Object.keys(store.descendants.ripples)">
                     <td>{{ level }}</td>
-                    <td>{{ store.descendants.ripples[level].length }}</td>
+                    <td>{{ store.descendants.ripples[Number(level)].length }}</td>
                     <td>
-                        <router-link v-for="(acc, i) in store.descendants.ripples[level]"
+                        <router-link :key="`descendant-${i}`"
+                                     v-for="(acc, i) in store.descendants.ripples[Number(level)]"
                                      :to="{name:'accounts.show',params:{id:acc.id}}">
                             <Badge class="me-1" pill bg="secondary">{{ acc.phone }}</Badge>
                         </router-link>

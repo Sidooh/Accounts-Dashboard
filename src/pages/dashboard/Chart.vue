@@ -44,7 +44,7 @@ Chart.defaults.color = '#eee'
 Chart.defaults.font.weight = '700'
 Chart.defaults.font.family = "'Avenir', sans-serif"
 
-const chartData = computed<ChartData>(() => ({
+const chartData = computed<ChartData<'line'>>(() => ({
     labels: store.chart.labels,
     datasets: [{
         label: `No of ${chartSelect.value}`,
@@ -54,7 +54,7 @@ const chartData = computed<ChartData>(() => ({
         tension: 0.3,
     }]
 }))
-const chartOptions = computed<ChartOptions>(() => ({
+const chartOptions = computed<ChartOptions<'line'>>(() => ({
     responsive: true,
     maintainAspectRatio: false,
     plugins: {
