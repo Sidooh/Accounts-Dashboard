@@ -2,6 +2,7 @@ import { defineStore } from "pinia";
 import axios from "axios";
 import { Account } from "../utils/types";
 import { groupBy } from "@/utils/helpers";
+import { logger } from "@/utils/logger";
 
 export const useAccountsStore = defineStore("account", {
     state: () => ({
@@ -50,6 +51,16 @@ export const useAccountsStore = defineStore("account", {
                 this.descendants.total = descendants.length
             } catch (e) {
                 console.error(e)
+            }
+        },
+        async resetPin(accountId: number) {
+            try {
+                // await new Promise(r => setTimeout(r, 3000));
+                const { data } = await axios.post(`/accounts/${accountId}/reset-pin`)
+
+                return data
+            } catch (err) {
+                logger.log(err)
             }
         }
     }

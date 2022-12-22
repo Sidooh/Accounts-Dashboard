@@ -1,12 +1,22 @@
 <template>
     <div class="card mb-3">
         <CardBgCorner :corner="5"/>
-        <div class="card-body">
+        <div class="card-body position-relative">
             <h5>Account #{{ store.account.id }}</h5>
 
             <p class="fs--1">{{ moment(store.account.created_at).format('MMM Do, YYYY hh:mm A') }}</p>
 
             <StatusBadge :status="store.account.active?Status.ACTIVE:Status.INACTIVE"/>
+
+            <div class="dropdown position-absolute bottom-0 right-0 px-2 py-1">
+                <font-awesome-icon :icon="faCrosshairs" data-bs-toggle="dropdown" aria-expanded="false"
+                                   class="dropdown-toggle fw-bold cursor-pointer bg-warning p-2 rounded-circle"/>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#" @click="handlePinReset">Reset Pin</a></li>
+                    <li><a class="dropdown-item" href="#">Another action</a></li>
+                    <li><a class="dropdown-item" href="#">Something else here</a></li>
+                </ul>
+            </div>
         </div>
     </div>
 
@@ -59,8 +69,12 @@
         </div>
     </div>
 
-    <ComponentLoader><Ancestors :account-id="id"/></ComponentLoader>
-    <ComponentLoader><Descendants :account-id="id"/></ComponentLoader>
+    <ComponentLoader>
+        <Ancestors :account-id="id"/>
+    </ComponentLoader>
+    <ComponentLoader>
+        <Descendants :account-id="id"/>
+    </ComponentLoader>
 </template>
 
 <script setup lang="ts">
@@ -74,10 +88,44 @@ import Phone from "@/components/Phone.vue";
 import Ancestors from "@/pages/accounts/Ancestors.vue";
 import ComponentLoader from "@/components/loaders/ComponentLoader.vue";
 import Descendants from "@/pages/accounts/Descendants.vue";
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+import { faCrosshairs } from "@fortawesome/free-solid-svg-icons";
+import Swal from "sweetalert2";
+import { toast } from "@/utils/helpers";
+import { logger } from "@/utils/logger";
 
 const id = Number(useRoute().params.id)
 
 const store = useAccountsStore();
+
+const queryError = (res: any, titleText: string) => toast({
+    titleText,
+    text: res?.error?.data?.message || res?.error?.error,
+    icon: 'error',
+});
+
+const handlePinReset = () => {
+    Swal.fire({
+        titleText: 'Are you sure?',
+        text: 'The accounts pin will be erased!',
+        backdrop: `rgba(0, 0, 150, 0.4)`,
+        showLoaderOnConfirm: true,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Proceed',
+        allowOutsideClick: () => !Swal.isLoading(),
+        preConfirm: async () => {
+            const res = await store.resetPin(id);
+            logger.log(res);
+
+            if (res) {
+                toast({ titleText: 'Pin Reset Successful!' })
+            } else {
+                queryError(res, 'Error Resetting Pin')
+            }
+        }
+    })
+}
 
 await store.fetchAccount(id)
 </script>

@@ -15,29 +15,46 @@ import DataTable from "@/components/datatable/DataTable.vue";
 import { RouterLink } from "vue-router";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { faEye } from "@fortawesome/free-regular-svg-icons";
+import StatusBadge from "@/components/StatusBadge.vue";
+import { Status } from "@/utils/enums";
+import TableDate from "@/components/TableDate.vue";
 
-defineProps<{ title?: string; accounts: Account[] }>()
+const props = defineProps<{ title?: string; accounts: Account[] }>()
 
 const columnHelper = createColumnHelper<Account>()
 const columns = [
     columnHelper.accessor('id', {
         header: '#',
     }),
-    columnHelper.accessor('phone', {
-        header: 'Phone',
-        cell: info => h(Phone, { phone: info.getValue() })
-    }),
-    columnHelper.accessor('active', {
-        header: 'Active',
-    }),
-    columnHelper.accessor('inviter_id', {
-        header: 'Inviter',
-        cell: info => info.getValue() ?? '-'
-    }),
     columnHelper.accessor(r => r.user?.name, {
         header: 'User',
         id: 'user',
-        cell: info => info.getValue() ?? '-'
+        cell: ({ row: { original } }: CellContext<Account, string>) => h('div', [
+            h('div', original.user?.name ?? '-'),
+            h(Phone, { phone: original.phone }),
+        ]),
+    }),
+    columnHelper.accessor('active', {
+        header: 'Status',
+        cell: info => h(StatusBadge, { status: Status[info.getValue() ? 'ACTIVE' : 'INACTIVE'] })
+    }),
+    columnHelper.accessor('inviter_id', {
+        header: 'Inviter',
+        cell: info => {
+            const account = props.accounts.find(a => a.id === info.getValue())
+
+            return account?.user ? h('div', [
+                h(RouterLink, {
+                    to: { name: 'accounts.show', params: { id: account?.id } },
+                    class: 'd-block'
+                }, () => account?.user?.name),
+                h(Phone, { phone: account.phone })
+            ]) : '-'
+        }
+    }),
+    columnHelper.accessor('created_at', {
+        header: 'Created',
+        cell: ({ row }: CellContext<Account, string>) => h(TableDate, { date: row.original.created_at })
     }),
     {
         id: 'actions',
