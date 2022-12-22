@@ -1,6 +1,7 @@
 <template>
     <div v-if="store.ancestors.length" class="card mb-3">
-        <div class="card-body">
+        <CardBgCorner :corner="2"/>
+        <div class="card-body position-relative">
             <h6 class="text-nowrap fw-bold">Inviters</h6>
 
             <Badge class="me-1" pill bg="primary">{{ store.account.phone }}</Badge>
@@ -20,6 +21,7 @@ import { useAccountsStore } from "@/stores/accounts";
 import Badge from "@/components/Badge.vue";
 import { faArrowLeftLong } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+import CardBgCorner from "@/components/CardBgCorner.vue";
 
 const props = defineProps<{ accountId: number }>()
 
