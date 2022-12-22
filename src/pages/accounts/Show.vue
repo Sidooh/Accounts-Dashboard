@@ -4,7 +4,7 @@
         <div class="card-body">
             <h5>Account #{{ store.account.id }}</h5>
 
-            <p class="fs--1">{{ moment(store.account.created_at).format('MMM Do, YYYY @hh:mm A') }}</p>
+            <p class="fs--1">{{ moment(store.account.created_at).format('MMM Do, YYYY hh:mm A') }}</p>
 
             <StatusBadge :status="store.account.active?Status.ACTIVE:Status.INACTIVE"/>
         </div>
@@ -15,8 +15,7 @@
         <div class="card-body position-relative">
             <div class="row">
                 <div class="col-lg-4 mb-4 mb-lg-0">
-                    <h5 class="fs-0 fw-bold">Account</h5>
-                    <hr class="mt-0 mb-3">
+                    <h5 class="mb-3 fs-0 fw-bold">Account</h5>
                     <h6 class="mb-2">
                         <a :href="`tel:${store.account.phone}`">
                             <Phone :phone="store.account.phone"/>
@@ -27,8 +26,7 @@
                     </h6>
                 </div>
                 <div class="col-lg-4 mb-4 mb-lg-0">
-                    <h5 class="fs-0 fw-bold">User</h5>
-                    <hr class="mt-0 mb-3">
+                    <h5 class="mb-3 fs-0 fw-bold">User</h5>
                     <h6 class="mb-2">
                         <a :href="`/accounts/${store.account.id}`">{{ store.account.user?.name ?? 'N/A' }}</a>
                     </h6>
@@ -37,8 +35,7 @@
                 </div>
 
                 <div class="col-lg-4">
-                    <h5 class="fs-0 fw-bold">Inviter</h5>
-                    <hr class="mt-0 mb-3">
+                    <h5 class="mb-3 fs-0 fw-bold">Inviter</h5>
                     <div v-if="store.account.inviter_id">
                         <h6 class="mb-2">
                             <router-link :to="{name:'accounts.show', params:{id:store.account.inviter_id}}">

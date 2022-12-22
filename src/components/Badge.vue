@@ -1,7 +1,8 @@
 <template>
-<div class="badge" :class="[{'rounded-pill':pill}, className]" :style="style" @click="onClick">
-{{ icon }} <slot/>
-</div>
+    <div class="badge" :class="[{'rounded-pill':pill}, className]" :style="style" @click="onClick">
+        {{ icon }}
+        <slot/>
+    </div>
 </template>
 
 <script setup lang="ts">
@@ -11,7 +12,6 @@ import { IconDefinition } from "@fortawesome/free-regular-svg-icons";
 const props = defineProps<{
     bg?: 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'info' | 'dark' | 'light' | 'white' | 'muted',
     pill?: boolean,
-    className?: string
     style?: CSSProperties;
     soft?: boolean;
     icon?: IconDefinition;
@@ -20,7 +20,7 @@ const props = defineProps<{
 
 const bg = ref(props.bg ?? 'primary')
 const soft = ref(props.soft ?? false)
-const className = ref((props?.className ?? '') + ` ${soft.value ? 'badge-soft' : 'bg'}-${bg.value}`)
+const className = ref(`${soft.value ? 'badge-soft' : 'bg'}-${bg.value}`)
 </script>
 
 <style scoped>
