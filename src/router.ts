@@ -3,7 +3,7 @@ import AuthLayout from './layouts/Auth.vue'
 
 const Dashboard = () => import("@/pages/dashboard/Index.vue")
 const Accounts = () => import("@/pages/accounts/Index.vue")
-const AccountDetail = () => import("@/pages/AccountDetail.vue")
+const ShowAccount = () => import("@/pages/accounts/Show.vue")
 const Users = () => import("@/pages/users/Index.vue")
 const Invites = () => import("@/pages/invites/Index.vue")
 const SecurityQuestions = () => import("@/pages/security-questions/Index.vue")
@@ -20,10 +20,9 @@ const router = createRouter({
         {
             path: '/accounts', children: [
                 { path: '', name: 'accounts', component: Accounts },
-                { path: ':id', name: 'accounts.show', component: Accounts }
+                { path: ':id', name: 'accounts.show', component: ShowAccount }
             ]
         },
-        { path: '/accounts/:id', component: AccountDetail },
         { path: '/users', component: Users },
         { path: '/invites', component: Invites },
         { path: '/security-questions', component: SecurityQuestions },

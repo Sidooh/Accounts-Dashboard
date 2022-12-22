@@ -32,10 +32,12 @@ const columns = [
     }),
     columnHelper.accessor('inviter_id', {
         header: 'Inviter',
+        cell: info => info.getValue() ?? '-'
     }),
     columnHelper.accessor(r => r.user?.name, {
         header: 'User',
-        id: 'user'
+        id: 'user',
+        cell: info => info.getValue() ?? '-'
     }),
     {
         id: 'actions',
