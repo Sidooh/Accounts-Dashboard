@@ -4,10 +4,8 @@
         <div class="card-body position-relative">
             <div class="col">
                 <h5>User #{{ store.user?.id }}</h5>
-
                 <p class="fs--1">{{ moment(store.user?.created_at).format('MMM Do, YYYY | hh:mm A') }}</p>
-
-                <StatusBadge :status="store.user?.status"/>
+                <StatusBadge :status="store.user?.status ?? Status.INACTIVE"/>
 
                 <div class="dropdown position-absolute bottom-0 right-0 px-2 py-1">
                     <font-awesome-icon :icon="faCrosshairs" data-bs-toggle="dropdown" aria-expanded="false"
@@ -60,6 +58,7 @@ import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import Swal from "sweetalert2";
 import { logger } from "@/utils/logger";
 import { toast } from "@/utils/helpers";
+import { Status } from "@/utils/enums";
 
 const id = Number(useRoute().params.id)
 
