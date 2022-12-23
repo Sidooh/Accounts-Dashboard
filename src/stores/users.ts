@@ -31,6 +31,7 @@ export const useUsersStore = defineStore("user", {
         },
         async resetPassword(id: number) {
             try {
+                //  TODO:   Implement custom sms notification for pin reset.
                 const { data } = await axios.post(`users/${id}/reset-password`)
 
                 return data
