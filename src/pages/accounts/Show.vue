@@ -4,7 +4,7 @@
         <div class="card-body position-relative">
             <h5>Account #{{ store.account.id }}</h5>
 
-            <p class="fs--1">{{ moment(store.account.created_at).format('MMM Do, YYYY hh:mm A') }}</p>
+            <p class="fs--1">{{ moment(store.account.created_at).format('MMM Do, YYYY | hh:mm A') }}</p>
 
             <StatusBadge :status="store.account.active?Status.ACTIVE:Status.INACTIVE"/>
 
@@ -13,8 +13,6 @@
                                    class="dropdown-toggle fw-bold cursor-pointer bg-warning p-2 rounded-circle"/>
                 <ul class="dropdown-menu">
                     <li><a class="dropdown-item" href="#" @click="handlePinReset">Reset Pin</a></li>
-                    <li><a class="dropdown-item" href="#">Another action</a></li>
-                    <li><a class="dropdown-item" href="#">Something else here</a></li>
                 </ul>
             </div>
         </div>

@@ -1,9 +1,12 @@
 <script setup lang="ts">
 import { useUsersStore } from "@/stores/users";
-import { onMounted } from "vue";
-import { createColumnHelper } from "@tanstack/vue-table";
+import { h, onMounted } from "vue";
+import { CellContext, createColumnHelper } from "@tanstack/vue-table";
 import DataTable from "../../components/datatable/DataTable.vue";
-import { User } from "@/utils/types";
+import { Account, User } from "@/utils/types";
+import { RouterLink } from "vue-router";
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+import { faEye } from "@fortawesome/free-regular-svg-icons";
 
 const store = useUsersStore()
 
@@ -29,6 +32,17 @@ const columns = [
         header: () => 'Status',
         id: 'status'
     }),
+    {
+        id: 'actions',
+        header: '',
+        cell: ({ row: { original } }: CellContext<Account, string>) => h('div', { class: 'd-flex justify-content-evenly' }, [
+            h(
+                RouterLink,
+                { to: { name: 'users.show', params: { id: original.id } } },
+                () => h(FontAwesomeIcon, { icon: faEye })
+            ),
+        ])
+    },
 ]
 
 onMounted(() => store.fetchUsers())
