@@ -1,34 +1,46 @@
 <script setup lang="ts">
 import { useUsersStore } from "@/stores/users";
-import { onMounted } from "vue";
-import { createColumnHelper } from "@tanstack/vue-table";
+import { h, onMounted } from "vue";
+import { CellContext, createColumnHelper } from "@tanstack/vue-table";
 import DataTable from "../../components/datatable/DataTable.vue";
-import { User } from "@/utils/types";
+import { Account, User } from "@/utils/types";
+import { RouterLink } from "vue-router";
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+import { faEye } from "@fortawesome/free-regular-svg-icons";
+import StatusBadge from "@/components/StatusBadge.vue";
+import { Status } from "@/utils/enums";
 
 const store = useUsersStore()
 
 const columnHelper = createColumnHelper<User>()
 const columns = [
-    columnHelper.accessor(row => row.id, {
+    columnHelper.accessor('id', {
         header: '#',
-        id: 'id'
     }),
-    columnHelper.accessor(row => row.name, {
-        header: () => 'Name',
-        id: 'name'
+    columnHelper.accessor('name', {
+        header: 'Name',
     }),
-    columnHelper.accessor(row => row.email, {
-        header: () => 'Email',
-        id: 'email'
+    columnHelper.accessor('email', {
+        header: 'Email',
     }),
-    columnHelper.accessor(row => row.username, {
-        header: () => 'Username',
-        id: 'username'
+    columnHelper.accessor('username', {
+        header: 'Username',
     }),
-    columnHelper.accessor(row => row.status, {
-        header: () => 'Status',
-        id: 'status'
+    columnHelper.accessor('status', {
+        header: 'Status',
+        cell: info => h(StatusBadge, { status: info.getValue() })
     }),
+    {
+        id: 'actions',
+        header: '',
+        cell: ({ row: { original } }: CellContext<Account, string>) => h('div', { class: 'd-flex justify-content-evenly' }, [
+            h(
+                RouterLink,
+                { to: { name: 'users.show', params: { id: original.id } } },
+                () => h(FontAwesomeIcon, { icon: faEye })
+            ),
+        ])
+    },
 ]
 
 onMounted(() => store.fetchUsers())

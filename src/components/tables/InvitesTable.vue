@@ -11,6 +11,9 @@ import Phone from "@/components/Phone.vue";
 import { createColumnHelper } from "@tanstack/vue-table";
 import { Account, Invite } from "@/utils/types";
 import DataTable from "@/components/datatable/DataTable.vue";
+import { h } from "vue";
+import StatusBadge from "@/components/StatusBadge.vue";
+import { Status } from "@/utils/enums";
 
 defineProps<{ title?: string, invites: Invite[] }>()
 
@@ -24,6 +27,7 @@ const columns = [
     }),
     columnHelper.accessor('status', {
         header: 'Status',
+        cell: info => h(StatusBadge, { status: info.getValue() ?? '' })
     }),
     columnHelper.accessor('inviter_id', {
         header: 'Inviter',

@@ -7,9 +7,9 @@ import { logger } from "@/utils/logger";
 export const useAccountsStore = defineStore("account", {
     state: () => ({
         account: <Account>{},
+        accounts: <Account[]>[],
         ancestors: <Account[]>[],
         descendants: <{ total: number, ripples: { [l: number]: Account[] } }>{},
-        accounts: <Account[]>[],
     }),
 
     actions: {
@@ -17,8 +17,7 @@ export const useAccountsStore = defineStore("account", {
             try {
                 const { data } = await axios.get('accounts?with_user=true')
 
-                console.log(data)
-                this.accounts = data
+                this.accounts = data ?? []
             } catch (e) {
                 console.error(e)
             }

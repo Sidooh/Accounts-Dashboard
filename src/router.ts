@@ -22,7 +22,12 @@ const router = createRouter({
                 { path: ':id', name: 'accounts.show', component: () => import("@/pages/accounts/Show.vue") }
             ]
         },
-        { path: '/users', component: Users },
+        {
+            path: '/users', children: [
+                { path: '', name: 'users', component: Users },
+                { path: ':id', name: 'users.show', component: () => import("@/pages/users/Show.vue") }
+            ]
+        },
         { path: '/invites', component: Invites },
         { path: '/security-questions', component: SecurityQuestions },
 

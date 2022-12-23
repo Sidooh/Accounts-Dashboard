@@ -12,7 +12,7 @@ defineProps<{ serviceName: 'Accounts' | 'Payments' | 'Products' | 'Savings' | 'N
                 </p>
             </div>
             <div class="col-auto">
-                <p class="mb-0 text-600">v{version}</p>
+                <p class="mb-0 text-600">v{{ version }}</p>
             </div>
         </div>
     </footer>

@@ -1,5 +1,6 @@
 import { RouteLocationRaw } from "vue-router";
 import { IconDefinition } from "@fortawesome/free-regular-svg-icons";
+import { Status } from "@/utils/enums";
 
 type RouteChildType = {
     name: string
@@ -24,7 +25,8 @@ export type User = Model & {
     email: string
     username: string
     id_number: number
-    status: string
+    status: Status
+    password: string
 }
 
 
@@ -43,7 +45,7 @@ export type Account = Model & {
 export type Invite = Model & {
     id: number
     phone: string
-    status: string
+    status: Status
     inviter_id: number
     account_id: number
     user: User
@@ -52,5 +54,5 @@ export type Invite = Model & {
 export type SecurityQuestion = Model & {
     id: number
     question: string
-    status: string
+    status: Status
 }
