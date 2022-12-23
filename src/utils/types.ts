@@ -26,6 +26,7 @@ export type User = Model & {
     username: string
     id_number: number
     status: Status
+    password: string
 }
 
 

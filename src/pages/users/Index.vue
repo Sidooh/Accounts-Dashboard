@@ -7,30 +7,28 @@ import { Account, User } from "@/utils/types";
 import { RouterLink } from "vue-router";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { faEye } from "@fortawesome/free-regular-svg-icons";
+import StatusBadge from "@/components/StatusBadge.vue";
+import { Status } from "@/utils/enums";
 
 const store = useUsersStore()
 
 const columnHelper = createColumnHelper<User>()
 const columns = [
-    columnHelper.accessor(row => row.id, {
+    columnHelper.accessor('id', {
         header: '#',
-        id: 'id'
     }),
-    columnHelper.accessor(row => row.name, {
-        header: () => 'Name',
-        id: 'name'
+    columnHelper.accessor('name', {
+        header: 'Name',
     }),
-    columnHelper.accessor(row => row.email, {
-        header: () => 'Email',
-        id: 'email'
+    columnHelper.accessor('email', {
+        header: 'Email',
     }),
-    columnHelper.accessor(row => row.username, {
-        header: () => 'Username',
-        id: 'username'
+    columnHelper.accessor('username', {
+        header: 'Username',
     }),
-    columnHelper.accessor(row => row.status, {
-        header: () => 'Status',
-        id: 'status'
+    columnHelper.accessor('status', {
+        header: 'Status',
+        cell: info => h(StatusBadge, { status: info.getValue() })
     }),
     {
         id: 'actions',

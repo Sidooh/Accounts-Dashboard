@@ -28,6 +28,15 @@ export const useUsersStore = defineStore("user", {
             } catch (err) {
                 logger.error(err)
             }
+        },
+        async resetPassword(id: number) {
+            try {
+                const { data } = await axios.post(`users/${id}/reset-password`)
+
+                return data
+            } catch (err) {
+                logger.error(err)
+            }
         }
     }
 })
