@@ -1,7 +1,9 @@
 <template>
     <div class="row g-3 mb-3">
         <div class="col-xxl-9">
-            <Chart/>
+            <ComponentLoader>
+                <Chart/>
+            </ComponentLoader>
         </div>
         <div class="col">
             <ComponentLoader>
