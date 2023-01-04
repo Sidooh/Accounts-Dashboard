@@ -12,7 +12,7 @@ const email = ref()
 const password = ref()
 
 const emailError = ref(false)
-const isLoading = ref(true)
+const isLoading = ref(false)
 const passwordError = ref(false)
 const invalidCredentials = ref(false)
 
@@ -31,12 +31,14 @@ const submit = (e: Event) => {
     passwordError.value = !isPasswordValid(password.value)
 
     if (!emailError.value && !passwordError.value) {
+        isLoading.value = true
         const authStore = useAuthStore()
 
         authStore
             .authenticate(email.value, password.value)
             .then(() => router.push('/'))
             .catch(error => toast({ titleText: error.message, icon: 'warning' }))
+            .finally(() => isLoading.value = false)
     }
 }
 </script>
@@ -62,17 +64,17 @@ const submit = (e: Event) => {
                         <div class="mb-3">
                             <input class="form-control" type="email" placeholder="Email address" aria-label="" required
                                    v-model="email">
-                            <span class="form-control-sm alert-danger" v-show="emailError">Email is invalid</span>
+                            <small class="text-danger" v-show="emailError">Email is invalid</small>
                         </div>
                         <div class="mb-3">
                             <input class="form-control" type="password" placeholder="Password" aria-label="" required
                                    v-model="password">
-                            <span class="form-control-sm alert-danger"
-                                  v-show="passwordError">Min password length: 8</span>
+                            <small class="text-danger"
+                                  v-show="passwordError">Min password length: 8</small>
                         </div>
                         <div class="row flex-between-center">
                             <div class="col-auto">
-                                <span class="form-control-sm alert-danger" v-show="invalidCredentials">Invalid Credentials</span>
+                                <small class="text-danger" v-show="invalidCredentials">Invalid Credentials</small>
                             </div>
                             <div class="col-auto">
                                 <a class="fs--1" href="/password/reset">Forgot Password?</a>
