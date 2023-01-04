@@ -152,7 +152,7 @@ const props = defineProps<{ title: string, columns: ColumnDef<any>[], data: any[
 const tableTitle = ref(props.title)
 
 const sorting = ref<SortingState>([])
-const filtering = ref<boolean>(true)
+const filtering = ref<boolean>(false)
 const columnFilters = ref<ColumnFiltersState>([])
 const globalFilter = ref<string | number>('')
 const rowSelection = ref<RowSelectionState>({})
