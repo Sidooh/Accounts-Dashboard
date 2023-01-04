@@ -5,6 +5,7 @@
             <option :value="v" v-for="v in sortedUniqueValues.slice(0, 5000)"/>
         </datalist>
         <DebouncedInput :on-change="value => column.setFilterValue(value)" :query="columnFilterValue"
+                        :placeholder="`Search...(${column.getFacetedUniqueValues().size})`"
                         :list="column.id+'list'"/>
     </div>
 </template>
@@ -21,7 +22,3 @@ const columnFilterValue = ref(props.column.getFilterValue() ?? '');
 
 const sortedUniqueValues = typeof firstValue.value === 'number' ? [] : Array.from(props.column.getFacetedUniqueValues().keys()).sort();
 </script>
-
-<style scoped>
-
-</style>
