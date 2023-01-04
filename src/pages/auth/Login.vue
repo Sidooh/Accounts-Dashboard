@@ -6,8 +6,13 @@ import { toast } from "@/utils/helpers";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { faKey } from "@fortawesome/free-solid-svg-icons";
 import { FormKitGroupValue, FormKitNode } from "@formkit/core";
+import { ref } from "vue";
+
+const isLoading = ref(false)
 
 const submit = async (formData: FormKitGroupValue, node: FormKitNode) => {
+    isLoading.value = true
+
     try {
         const data = formData as { email: string, password: string }
 
@@ -15,6 +20,8 @@ const submit = async (formData: FormKitGroupValue, node: FormKitNode) => {
 
         router.push('/')
     } catch (err: any) {
+        isLoading.value = false
+
         toast({ titleText: err.message, icon: 'warning' })
 
         if (node) node.props.disabled = false
@@ -44,7 +51,7 @@ const submit = async (formData: FormKitGroupValue, node: FormKitNode) => {
                         <div class="d-flex justify-content-end">
                             <a class="fs--1" href="/password/reset">Forgot Password?</a>
                         </div>
-                        <FormKit type="submit" input-class="w-100 btn btn-sm btn-primary mt-3" :disabled="!valid">
+                        <FormKit type="submit" input-class="w-100 btn btn-sm btn-primary mt-3" :disabled="!valid || isLoading">
                             Sign In
                             <font-awesome-icon :icon="faKey"/>
                         </FormKit>
