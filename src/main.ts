@@ -8,6 +8,7 @@ import axios from "axios"
 import App from './App.vue'
 import router from "./router"
 import { useAuthStore } from "./stores/auth"
+import { defaultConfig, plugin } from '@formkit/vue'
 
 import 'bootstrap/dist/js/bootstrap.min.js'
 
@@ -37,6 +38,7 @@ axios.defaults.headers.post['Content-Type'] = 'application/json'
 createApp(App)
     .use(router)
     .use(createPinia())
+    .use(plugin, defaultConfig)
     .mount('#app')
 
 axios.defaults.headers.common['Authorization'] = "Bearer " + useAuthStore().getToken();

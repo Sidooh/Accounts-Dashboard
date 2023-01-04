@@ -17,6 +17,8 @@ export const useAccountsStore = defineStore("account", {
             try {
                 const { data } = await axios.get('accounts?with_user=true')
 
+                console.log(data)
+
                 this.accounts = data ?? []
             } catch (e) {
                 console.error(e)

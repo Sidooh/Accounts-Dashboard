@@ -9,6 +9,12 @@
             <div class="d-flex align-items-center">
                 <font-awesome-icon v-if="onCreateRow" :icon="faPlusCircle" @click="onCreateRow"
                                    class="fs-4 rounded-circle shadow-sm cursor-pointer text-primary"/>
+                <div class="form-check form-switch">
+                    <Tooltip :title="filtering ? 'Disable':'Enable' + 'Column Filtering'">
+                        <input class="form-check-input" type="checkbox" :checked="filtering"
+                               @change="filtering = !filtering">
+                    </Tooltip>
+                </div>
             </div>
         </div>
     </div>
@@ -35,12 +41,15 @@
                 :class="header.column.getCanSort() ? 'cursor-pointer select-none' : ''"
                 @click="header.column.getToggleSortingHandler()?.($event)">
                 <template v-if="!header.isPlaceholder">
-                    <FlexRender v-if="!header.isPlaceholder" :render="header.column.columnDef.header"
-                                :props="header.getContext()"/>
-                    <font-awesome-icon v-show="header.column.getIsSorted() === 'asc'" className="ms-2"
-                                       :icon="faSortUp"/>
-                    <font-awesome-icon v-show="header.column.getIsSorted() === 'desc'" className="ms-2"
-                                       :icon="faSortDown"/>
+                    <div>
+                        <FlexRender v-if="!header.isPlaceholder" :render="header.column.columnDef.header"
+                                    :props="header.getContext()"/>
+                        <font-awesome-icon v-show="header.column.getIsSorted() === 'asc'" className="ms-2"
+                                           :icon="faSortUp"/>
+                        <font-awesome-icon v-show="header.column.getIsSorted() === 'desc'" className="ms-2"
+                                           :icon="faSortDown"/>
+                    </div>
+                    <Filter v-if="filtering && header.column.getCanFilter()" :column="header.column" :table="table"/>
                 </template>
             </th>
         </tr>
@@ -114,6 +123,8 @@ import {
     faSortUp
 } from '@fortawesome/free-solid-svg-icons'
 import {
+    ColumnDef,
+    ColumnFiltersState,
     FilterFn,
     FlexRender,
     getCoreRowModel,
@@ -131,14 +142,18 @@ import { ref } from 'vue'
 import IntermediateCheckbox from './IntermediateCheckbox.vue'
 import DebouncedInput from './DebouncedInput.vue'
 import { rankItem } from "@tanstack/match-sorter-utils";
+import Filter from "@/components/datatable/Filter.vue";
+import Tooltip from "@/components/Tooltip.vue";
 
 const setPageSize = (e: any) => table.setPageSize(Number((e.target as HTMLSelectElement)?.value))
 
-const props = defineProps<{ title: string, columns: any, data: any, onCreateRow?: () => void; }>()
+const props = defineProps<{ title: string, columns: ColumnDef<any>[], data: any[], onCreateRow?: () => void; }>()
 
 const tableTitle = ref(props.title)
 
 const sorting = ref<SortingState>([])
+const filtering = ref<boolean>(true)
+const columnFilters = ref<ColumnFiltersState>([])
 const globalFilter = ref<string | number>('')
 const rowSelection = ref<RowSelectionState>({})
 const selectedRowsCount = ref(Object.keys(rowSelection.value).length);
@@ -168,21 +183,23 @@ const table = useVueTable({
         get globalFilter() {
             return globalFilter.value
         },
+        get columnFilters() {
+            return columnFilters.value
+        },
         get rowSelection() {
             return rowSelection.value
         }
     },
     onSortingChange: updaterOrValue => {
-        sorting.value = typeof updaterOrValue === 'function'
-            ? updaterOrValue(sorting.value)
-            : updaterOrValue
+        sorting.value = typeof updaterOrValue === 'function' ? updaterOrValue(sorting.value) : updaterOrValue
     },
     onRowSelectionChange: update => {
-        rowSelection.value = typeof update === 'function'
-            ? update(rowSelection.value)
-            : update
+        rowSelection.value = typeof update === 'function' ? update(rowSelection.value) : update
     },
     onGlobalFilterChange: setGlobalFilter,
+    onColumnFiltersChange: update => {
+        columnFilters.value = typeof update === 'function' ? update(columnFilters.value) : update
+    },
     globalFilterFn: fuzzyFilter,
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
