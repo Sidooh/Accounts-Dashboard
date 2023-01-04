@@ -26,22 +26,22 @@ const columns = [
     columnHelper.accessor('id', {
         header: '#',
     }),
-    columnHelper.accessor(r => r.user?.name, {
+    columnHelper.accessor(r => `${r.phone}: ${r.user?.name}`, {
         header: 'User',
         id: 'user',
-        cell: ({ row: { original } }: CellContext<Account, string>) => h('div', [
-            h('div', original.user?.name ?? '-'),
-            h(Phone, { phone: original.phone }),
+        cell: ({ row: { original: acc } }: CellContext<Account, string>) => h('div', [
+            h('div', acc.user?.name ?? '-'),
+            h(Phone, { phone: acc.phone }),
         ]),
     }),
     columnHelper.accessor('active', {
         header: 'Status',
         cell: info => h(StatusBadge, { status: Status[info.getValue() ? 'ACTIVE' : 'INACTIVE'] })
     }),
-    columnHelper.accessor('inviter_id', {
+    columnHelper.accessor(r => `${r.phone}: ${r.user?.name}`, {
         header: 'Inviter',
-        cell: info => {
-            const account = props.accounts.find(a => a.id === info.getValue())
+        cell: ({ row: { original: acc } }) => {
+            const account = props.accounts.find(a => a.id === acc.inviter_id)
 
             return account?.user ? h('div', [
                 h(RouterLink, {

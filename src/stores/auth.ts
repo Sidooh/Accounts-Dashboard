@@ -9,7 +9,6 @@ export const useAuthStore = defineStore("auth", {
 
     actions: {
         async authenticate(email: string, password: string) {
-            await new Promise(r => setTimeout(r, 3000));
             try {
                 const data: { access_token: string } = await axios.post("users/signin", {
                     email,
