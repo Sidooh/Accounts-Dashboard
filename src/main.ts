@@ -1,37 +1,31 @@
-import {createApp} from 'vue'
+import { createApp } from 'vue'
 
 //modules
-import {createPinia} from "pinia"
+import { createPinia } from "pinia"
 import axios from "axios"
 
 //component
 import App from './App.vue'
-import router from "./routes"
-import {useAuthStore} from "./stores/auth"
+import router from "./router"
+import { useAuthStore } from "./stores/auth"
+import { defaultConfig, plugin } from '@formkit/vue'
 
-const pinia = createPinia()
+import 'bootstrap/dist/js/bootstrap.min.js'
 
-//initialize
-const app = createApp(App)
-    .use(router)
-    .use(pinia)
-
-
-// TODO: Refactor to client ...
 axios.interceptors.response.use(
-    ({data}) => {
-        if (data && data.result === 0) {
+    ({ data }) => {
+        if (data && data.result === 0)
             return Promise.reject(data)
-        }
+
         return data
     },
-    async ({response}) => {
+    async ({ response }) => {
         if (response?.status === 401) {
             const authStore = useAuthStore()
 
             await authStore.logout()
 
-            await router.push({name: 'login'})
+            router.push({ name: 'login' })
         }
 
         return Promise.reject(response)
@@ -39,7 +33,12 @@ axios.interceptors.response.use(
 )
 axios.defaults.baseURL = import.meta.env.VITE_ACCOUNTS_API_URL
 axios.defaults.headers.post['Content-Type'] = 'application/json'
+
+//initialize
+createApp(App)
+    .use(router)
+    .use(createPinia())
+    .use(plugin, defaultConfig)
+    .mount('#app')
+
 axios.defaults.headers.common['Authorization'] = "Bearer " + useAuthStore().getToken();
-
-
-app.mount('#app')
