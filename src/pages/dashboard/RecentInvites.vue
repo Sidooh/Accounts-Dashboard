@@ -3,10 +3,10 @@
 </template>
 
 <script setup lang="ts">
-import { useInvitesStore } from "@/stores/invites";
 import InvitesTable from "@/components/tables/InvitesTable.vue";
+import { useDashboardStore } from "@/stores/dashboard";
 
-const store = useInvitesStore();
+const store = useDashboardStore();
 
-await store.fetchInvites()
+await store.fetchRecentInvites()
 </script>
