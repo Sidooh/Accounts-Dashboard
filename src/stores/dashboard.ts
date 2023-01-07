@@ -61,8 +61,9 @@ export const useDashboardStore = defineStore("dashboard", {
 
         async fetchRecentAccounts() {
             try {
-                const data = await axios.get('dashboard/recent-accounts')
-                this.accounts = data.data
+                const { data } = await axios.get('dashboard/recent-accounts')
+
+                this.accounts = data
             } catch (e) {
                 console.error(e)
             }
@@ -70,8 +71,9 @@ export const useDashboardStore = defineStore("dashboard", {
 
         async fetchRecentInvites() {
             try {
-                const data = await axios.get('dashboard/recent-invites')
-                this.invites = data.data
+                const { data } = await axios.get('dashboard/recent-invites')
+
+                this.invites = data
             } catch (e) {
                 console.error(e)
             }

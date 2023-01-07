@@ -1,19 +1,18 @@
-import {defineStore} from "pinia";
+import { defineStore } from "pinia";
 import axios from "axios";
+import { SecurityQuestion } from "@/utils/types";
 
 export const useSecurityQuestionsStore = defineStore("securityQuestion", {
     state: () => ({
-        securityQuestions: <Object[]>[],
+        securityQuestions: <SecurityQuestion[]>[],
     }),
-
-    getters: {},
 
     actions: {
         async fetchSecurityQuestions() {
-            console.log('fetch securityQuestions')
             try {
-                const data = await axios.get('security-questions')
-                this.securityQuestions = data.data
+                const { data } = await axios.get('security-questions')
+                console.log(data)
+                this.securityQuestions = data
             } catch (e) {
                 console.error(e)
             }

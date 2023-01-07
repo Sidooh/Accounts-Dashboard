@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { useSecurityQuestionsStore } from "@/stores/securityQuestions";
-import { onMounted } from "vue";
-import { createColumnHelper } from "@tanstack/vue-table";
+import { h, onMounted } from "vue";
+import { CellContext, createColumnHelper } from "@tanstack/vue-table";
 import DataTable from "../../components/datatable/DataTable.vue";
 import { SecurityQuestion } from "@/utils/types";
+import TableDate from "@/components/TableDate.vue";
 
 const store = useSecurityQuestionsStore();
 
@@ -20,6 +21,10 @@ const columns = [
     columnHelper.accessor(row => row.status, {
         header: () => 'Status',
         id: 'status'
+    }),
+    columnHelper.accessor('created_at', {
+        header: 'Created',
+        cell: ({ row }: CellContext<SecurityQuestion, string>) => h(TableDate, { date: row.original.created_at })
     }),
 ]
 
