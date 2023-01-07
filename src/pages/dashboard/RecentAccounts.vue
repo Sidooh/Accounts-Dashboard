@@ -3,12 +3,12 @@
 </template>
 
 <script setup lang="ts">
-import { useAccountsStore } from "@/stores/accounts";
 import AccountsTable from "@/components/tables/AccountsTable.vue";
+import { useDashboardStore } from "@/stores/dashboard";
 
-const store = useAccountsStore();
+const store = useDashboardStore();
 
-await store.fetchAccounts()
+await store.fetchRecentAccounts()
 </script>
 
 <style scoped>
