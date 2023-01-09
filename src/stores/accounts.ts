@@ -17,21 +17,22 @@ export const useAccountsStore = defineStore("account", {
             try {
                 const { data } = await axios.get('accounts?with_user=true')
 
-                console.log(data)
+                logger.log(data)
 
                 this.accounts = data ?? []
             } catch (e) {
-                console.error(e)
+                logger.error(e)
             }
         },
         async fetchAccount(id: number) {
             try {
                 const { data } = await axios.get(`accounts/${id}?with_user=true&with_inviter=true`)
 
-                console.log(data)
+                logger.log('Accounts', data)
+
                 this.account = data
             } catch (e) {
-                console.error(e)
+                logger.error(e)
             }
         },
         async fetchAncestors(accountId: number) {
@@ -40,7 +41,7 @@ export const useAccountsStore = defineStore("account", {
 
                 this.ancestors = data.filter((a: Account) => a.level !== 0)
             } catch (e) {
-                console.error(e)
+                logger.error(e)
             }
         },
         async fetchDescendants(accountId: number) {
@@ -51,7 +52,7 @@ export const useAccountsStore = defineStore("account", {
                 this.descendants.ripples = groupBy(descendants, 'level')
                 this.descendants.total = descendants.length
             } catch (e) {
-                console.error(e)
+                logger.error(e)
             }
         },
         async resetPin(accountId: number) {

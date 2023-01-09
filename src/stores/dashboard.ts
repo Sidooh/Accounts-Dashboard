@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 import axios from "axios";
 import moment from "moment";
+import { logger } from "@/utils/logger";
 
 export const useDashboardStore = defineStore("dashboard", {
     state: () => ({
@@ -43,10 +44,8 @@ export const useDashboardStore = defineStore("dashboard", {
                     if (this.chart.labels.length === 0) this.chart.labels = labels
                     this.chart.datasets[d] = data
                 })
-
-                console.log(this.chart)
             } catch (e) {
-                console.error(e)
+                logger.error(e)
             }
         },
 
@@ -55,7 +54,7 @@ export const useDashboardStore = defineStore("dashboard", {
                 const data = await axios.get('dashboard/summaries')
                 this.statistics = data.data
             } catch (e) {
-                console.error(e)
+                logger.error(e)
             }
         },
 
@@ -63,19 +62,21 @@ export const useDashboardStore = defineStore("dashboard", {
             try {
                 const { data } = await axios.get('dashboard/recent-accounts')
 
+                logger.log('Recent Accounts', data)
+
                 this.accounts = data
             } catch (e) {
-                console.error(e)
+                logger.error(e)
             }
         },
 
         async fetchRecentInvites() {
             try {
                 const { data } = await axios.get('dashboard/recent-invites')
-
+                logger.log('Recent Invites', data)
                 this.invites = data
             } catch (e) {
-                console.error(e)
+                logger.error(e)
             }
         }
     }
