@@ -41,15 +41,18 @@ const columns = [
     columnHelper.accessor(r => `${r.phone}: ${r.user?.name}`, {
         header: 'Inviter',
         cell: ({ row: { original: acc } }) => {
-            const account = props.accounts.find(a => a.id === acc.inviter_id)
+            const inviter = props.accounts.find(a => a?.id === acc?.inviter_id)
 
-            return account?.user ? h('div', [
-                h(RouterLink, {
-                    to: { name: 'accounts.show', params: { id: account?.id } },
+            return inviter ? h('div', [
+                inviter?.user ? h(RouterLink, {
+                    to: { name: 'users.show', params: { id: inviter?.user?.id } },
                     class: 'd-block'
-                }, () => account?.user?.name),
-                h(Phone, { phone: account.phone })
-            ]) : '-'
+                }, () => inviter?.user?.name) : '',
+                h(RouterLink, {
+                    to: { name: 'accounts.show', params: { id: inviter?.id } },
+                    class: 'd-block'
+                }, () => h(Phone, { phone: inviter.phone })),
+            ]) : 'Root-level User'
         }
     }),
     columnHelper.accessor('created_at', {
