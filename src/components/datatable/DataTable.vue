@@ -70,18 +70,26 @@
         </tbody>
     </table>
     <div class="d-flex justify-content-between align-items-center">
-        <div class="d-flex align-items-center">
-            <p class="mb-0">
+        <div class="d-flex align-items-center fs--1 text-nowrap">
+            <span>
                 <span>Page </span>
                 <strong>{{ table.getState().pagination.pageIndex + 1 }} of {{ table.getPageCount() }}</strong>
-            </p>
-            <p class="mb-0 ms-2">| &nbsp;</p>
+            </span>
+
+            <span class="ms-2">| &nbsp;</span>
 
             <div v-if="Boolean(selectedRowsCount)">
                 {{ selectedRowsCount }} of {{ table.getPreFilteredRowModel().rows.length }} Total Rows Selected
             </div>
+            <span>Total: <b>{{ table.getCoreRowModel().rows.length }}</b></span>
 
-            <span>Total: <b>{{ table.getRowModel().rows.length }}</b></span>
+            <span class="ms-2">| &nbsp;</span>
+
+            <span class="flex items-center gap-1">
+              Go to page:
+            </span>
+            <input type="number" :value="table.getState().pagination.pageIndex + 1" @change="goToPage" step="1"
+                   min="1" :max="table.getPageCount()" class="form-control form-control-sm w-auto border-3 ms-2"/>
         </div>
         <div class="d-flex">
             <button class="btn btn-sm btn-primary" :disabled="!table.getCanPreviousPage()"
@@ -95,7 +103,7 @@
             <select name="" id="" class="form-select form-select-sm w-auto mx-2 border-0 px-3"
                     :disabled="!table.getCanNextPage() && !table.getCanPreviousPage()"
                     v-model.number="table.getState().pagination.pageSize" @change="setPageSize">
-                <option :value="pageSize" v-for="(pageSize, i) in [5, 10, 20, 40]" :key="`size-${i}`">
+                <option :value="pageSize" v-for="pageSize in [5, 10, 20, 40]" :key="`size-${pageSize}`">
                     Show {{ pageSize }}
                 </option>
             </select>
@@ -210,6 +218,13 @@ const table = useVueTable({
     // debugTable: true,
 })
 
+const goToPage = (e: Event) => {
+    const target = (e.target as HTMLInputElement)
+    let page = target.value ? Number(target.value) - 1 : 0
+
+    page = table.getPageCount() > page ? page : table.getPageCount() - 1
+    table.setPageIndex(page)
+}
 </script>
 
 <style scoped>
