@@ -50,8 +50,7 @@ import {
     faUsersRays
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
-import { RouteType } from "@/utils/types";
-import { Logo } from "@nabcellent/sui-vue";
+import { Logo, RouteType } from "@nabcellent/sui-vue";
 
 const store = useCoreStore()
 const toggleNav = () => store.toggleSideNav()
