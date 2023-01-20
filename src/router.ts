@@ -1,7 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import AuthLayout from './layouts/Auth.vue'
 import { useAuthStore } from "@/stores/auth";
-import { logger } from "@nabcellent/sui-vue";
 
 const Dashboard = () => import("@/pages/dashboard/Index.vue")
 const Accounts = () => import("@/pages/accounts/Index.vue")
@@ -44,7 +43,6 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
     const { token } = useAuthStore()
 
-    logger.log(!token, to.meta.auth)
     if (!token && to.meta.auth) {
         localStorage.setItem('urlIntended', to.path)
 
