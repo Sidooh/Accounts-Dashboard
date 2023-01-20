@@ -59,9 +59,8 @@
 
 <script setup lang="ts">
 import CountUp from 'vue-countup-v3'
-import CardBgCorner from "@/components/CardBgCorner.vue";
 import { useDashboardStore } from "@/stores/dashboard";
-import { Badge } from "@nabcellent/sui-vue";
+import { Badge, CardBgCorner } from "@nabcellent/sui-vue";
 
 const store = useDashboardStore();
 

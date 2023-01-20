@@ -78,9 +78,8 @@
 <script setup lang="ts">
 import { useAccountsStore } from "@/stores/accounts";
 import { useRoute } from "vue-router";
-import CardBgCorner from "@/components/CardBgCorner.vue";
 import moment from "moment";
-import { logger, PhoneNumber, Status, StatusBadge, toast } from "@nabcellent/sui-vue";
+import { CardBgCorner, logger, PhoneNumber, Status, StatusBadge, toast } from "@nabcellent/sui-vue";
 import Ancestors from "@/pages/accounts/Ancestors.vue";
 import ComponentLoader from "@/components/loaders/ComponentLoader.vue";
 import Descendants from "@/pages/accounts/Descendants.vue";

@@ -744,12 +744,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@nabcellent/sui-vue@npm:^1.6.0":
-  version: 1.6.0
-  resolution: "@nabcellent/sui-vue@npm:1.6.0"
+"@nabcellent/sui-vue@npm:^1.7.1":
+  version: 1.7.1
+  resolution: "@nabcellent/sui-vue@npm:1.7.1"
   peerDependencies:
     vue: ^3.2.25
-  checksum: 191a15b741a0930b6a22277695d4be718e8d4c748cd31ec2393614efa83a45922e8631993221ee7ce47bb0da99a5ea95a2419d8dff3ee48bee03a67de66f9f4a
+  checksum: b1184f5b9e5267a1bc5e9ff8e5f9027ad39625d8a8b5aa85690b7d4f61afb0263cd7cf43c3058c450abd93d4069a22be1aba717cf06c137d48be1b239db8921d
   languageName: node
   linkType: hard
 
@@ -1059,7 +1059,7 @@ __metadata:
     "@fortawesome/free-regular-svg-icons": ^6.2.1
     "@fortawesome/free-solid-svg-icons": ^6.2.1
     "@fortawesome/vue-fontawesome": latest-3
-    "@nabcellent/sui-vue": ^1.6.0
+    "@nabcellent/sui-vue": ^1.7.1
     "@popperjs/core": ^2.11.6
     "@tanstack/match-sorter-utils": ^8.7.2
     "@tanstack/vue-table": ^8.7.4

@@ -20,8 +20,7 @@
 import { useAccountsStore } from "@/stores/accounts";
 import { faArrowLeftLong } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
-import CardBgCorner from "@/components/CardBgCorner.vue";
-import { Badge } from "@nabcellent/sui-vue";
+import { Badge, CardBgCorner } from "@nabcellent/sui-vue";
 
 const props = defineProps<{ accountId: number }>()
 
