@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 import axios from "axios";
 import { SecurityQuestion } from "@/utils/types";
+import { logger } from "@nabcellent/sui-vue";
 
 export const useSecurityQuestionsStore = defineStore("securityQuestion", {
     state: () => ({
@@ -11,10 +12,10 @@ export const useSecurityQuestionsStore = defineStore("securityQuestion", {
         async fetchSecurityQuestions() {
             try {
                 const { data } = await axios.get('security-questions')
-                console.log(data)
+                logger.log(data)
                 this.securityQuestions = data
             } catch (e) {
-                console.error(e)
+                logger.error(e)
             }
         }
     }

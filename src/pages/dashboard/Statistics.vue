@@ -61,7 +61,7 @@
 import CountUp from 'vue-countup-v3'
 import CardBgCorner from "@/components/CardBgCorner.vue";
 import { useDashboardStore } from "@/stores/dashboard";
-import Badge from "../../components/Badge.vue";
+import { Badge } from "@nabcellent/sui-vue";
 
 const store = useDashboardStore();
 

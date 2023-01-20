@@ -1,7 +1,6 @@
 import { defineStore } from "pinia";
 import axios from "axios";
-import { User } from "@/utils/types";
-import { logger } from "@/utils/logger";
+import { logger, User } from "@nabcellent/sui-vue";
 
 export const useUsersStore = defineStore("user", {
     state: () => ({
@@ -23,7 +22,7 @@ export const useUsersStore = defineStore("user", {
             try {
                 const { data } = await axios.get(`users/${id}`)
 
-                console.log(data)
+                logger.log(data)
                 this.user = data
             } catch (err) {
                 logger.error(err)

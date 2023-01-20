@@ -8,16 +8,11 @@
 
 <script setup lang="ts">
 import { h } from "vue";
-import Phone from "@/components/Phone.vue";
 import { CellContext, createColumnHelper } from "@tanstack/vue-table";
-import { Account } from "@/utils/types";
-import DataTable from "@/components/datatable/DataTable.vue";
 import { RouterLink } from "vue-router";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { faEye } from "@fortawesome/free-regular-svg-icons";
-import StatusBadge from "@/components/StatusBadge.vue";
-import { Status } from "@/utils/enums";
-import TableDate from "@/components/TableDate.vue";
+import { Account, DataTable, PhoneNumber, Status, StatusBadge, TableDate } from "@nabcellent/sui-vue";
 
 const props = defineProps<{ title?: string; accounts: Account[] }>()
 
@@ -31,7 +26,7 @@ const columns = [
         id: 'user',
         cell: ({ row: { original: acc } }: CellContext<Account, string>) => h('div', [
             h('div', acc.user?.name ?? '-'),
-            h(Phone, { phone: acc.phone }),
+            h(PhoneNumber, { phone: acc.phone }),
         ]),
     }),
     columnHelper.accessor('active', {
@@ -51,7 +46,7 @@ const columns = [
                 h(RouterLink, {
                     to: { name: 'accounts.show', params: { id: inviter?.id } },
                     class: 'd-block'
-                }, () => h(Phone, { phone: inviter.phone })),
+                }, () => h(PhoneNumber, { phone: inviter.phone })),
             ]) : 'Root-level User'
         }
     }),

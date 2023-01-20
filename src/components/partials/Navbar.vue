@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { useCoreStore } from "@/stores/core";
 import { computed } from "vue";
-import Waffle from '@/components/Waffle.vue'
 import { CONFIG } from "@/config";
+import { useAuthStore } from "@/stores/auth";
+import { Logo, Waffle } from "@nabcellent/sui-vue";
 
 const store = useCoreStore()
 
@@ -66,8 +67,7 @@ const theme = computed(() => store.theme)
         </button>
         <a class="navbar-brand me-1 me-sm-3" href="/public">
             <div class="d-flex align-items-center">
-                <img class="me-2" src="/logo.png" alt="" width="40">
-                <span class="font-sans-serif">A</span>
+                <Logo src="/logo.png" at="navbar-vertical" :width="70"/>
             </div>
         </a>
         <ul class="navbar-nav navbar-nav-icons ms-auto flex-row align-items-center">
@@ -92,14 +92,10 @@ const theme = computed(() => store.theme)
                         <a class="dropdown-item" href="#!">Feedback</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="">Settings</a>
-                        <a class="dropdown-item" href="/login">Logout</a>
+                        <a class="dropdown-item cursor-pointer" @click="useAuthStore().logout">Logout</a>
                     </div>
                 </div>
             </li>
         </ul>
     </nav>
 </template>
-
-<style scoped>
-
-</style>

@@ -18,10 +18,10 @@
 
 <script setup lang="ts">
 import { useAccountsStore } from "@/stores/accounts";
-import Badge from "@/components/Badge.vue";
 import { faArrowLeftLong } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import CardBgCorner from "@/components/CardBgCorner.vue";
+import { Badge } from "@nabcellent/sui-vue";
 
 const props = defineProps<{ accountId: number }>()
 

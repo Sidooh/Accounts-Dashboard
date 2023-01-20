@@ -2,9 +2,8 @@
 import { useSecurityQuestionsStore } from "@/stores/securityQuestions";
 import { h, onMounted } from "vue";
 import { CellContext, createColumnHelper } from "@tanstack/vue-table";
-import DataTable from "../../components/datatable/DataTable.vue";
 import { SecurityQuestion } from "@/utils/types";
-import TableDate from "@/components/TableDate.vue";
+import { DataTable, TableDate } from "@nabcellent/sui-vue";
 
 const store = useSecurityQuestionsStore();
 

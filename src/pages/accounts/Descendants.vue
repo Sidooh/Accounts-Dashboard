@@ -35,7 +35,7 @@
 
 <script setup lang="ts">
 import { useAccountsStore } from "@/stores/accounts";
-import Badge from "@/components/Badge.vue";
+import { Badge } from "@nabcellent/sui-vue";
 
 const props = defineProps<{ accountId: number }>()
 

@@ -51,14 +51,11 @@
 import { useRoute } from "vue-router";
 import CardBgCorner from "@/components/CardBgCorner.vue";
 import moment from "moment";
-import StatusBadge from "@/components/StatusBadge.vue";
 import { useUsersStore } from "@/stores/users";
 import { faCrosshairs } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import Swal from "sweetalert2";
-import { logger } from "@/utils/logger";
-import { toast } from "@/utils/helpers";
-import { Status } from "@/utils/enums";
+import { logger, Status, StatusBadge, toast } from "@nabcellent/sui-vue";
 
 const id = Number(useRoute().params.id)
 
