@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import { useAuthStore } from "@/stores/auth";
 import router from "../../router";
-import Logo from "../../components/Logo.vue";
-import { toast } from "@/utils/helpers";
+import { Logo, toast } from "@nabcellent/sui-vue";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { faKey } from "@fortawesome/free-solid-svg-icons";
 import { FormKitGroupValue, FormKitNode } from "@formkit/core";
@@ -18,7 +17,11 @@ const submit = async (formData: FormKitGroupValue, node: FormKitNode) => {
 
         await useAuthStore().authenticate(data.email, data.password)
 
-        router.push('/')
+        const intended = localStorage.getItem('urlIntended')
+
+        await router.push({ path: intended ?? '/' })
+
+        localStorage.removeItem('urlIntended')
     } catch (err: any) {
         isLoading.value = false
 
@@ -51,7 +54,8 @@ const submit = async (formData: FormKitGroupValue, node: FormKitNode) => {
                         <div class="d-flex justify-content-end">
                             <a class="fs--1" href="/password/reset">Forgot Password?</a>
                         </div>
-                        <FormKit type="submit" input-class="w-100 btn btn-sm btn-primary mt-3" :disabled="!valid || isLoading">
+                        <FormKit type="submit" input-class="w-100 btn btn-sm btn-primary mt-3"
+                                 :disabled="!valid || isLoading">
                             Sign In
                             <font-awesome-icon :icon="faKey"/>
                         </FormKit>

@@ -1,14 +1,19 @@
+<template>
+    <div class="card">
+        <div class="card-body">
+            <DataTable title="Users" :columns="columns" :data="store.users"/>
+        </div>
+    </div>
+</template>
+
 <script setup lang="ts">
 import { useUsersStore } from "@/stores/users";
 import { h, onMounted } from "vue";
 import { CellContext, createColumnHelper } from "@tanstack/vue-table";
-import DataTable from "../../components/datatable/DataTable.vue";
-import { Account, User } from "@/utils/types";
 import { RouterLink } from "vue-router";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { faEye } from "@fortawesome/free-regular-svg-icons";
-import StatusBadge from "@/components/StatusBadge.vue";
-import { Status } from "@/utils/enums";
+import { Account, DataTable, StatusBadge, User } from "@nabcellent/sui-vue";
 
 const store = useUsersStore()
 
@@ -45,11 +50,3 @@ const columns = [
 
 onMounted(() => store.fetchUsers())
 </script>
-
-<template>
-    <div class="card">
-        <div class="card-body">
-            <DataTable title="Users" :columns="columns" :data="store.users"/>
-        </div>
-    </div>
-</template>

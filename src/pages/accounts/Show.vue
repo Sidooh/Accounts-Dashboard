@@ -26,7 +26,7 @@
                     <h5 class="mb-3 fs-0 fw-bold">Account</h5>
                     <h6 class="mb-2">
                         <a :href="`tel:${store.account.phone}`">
-                            <Phone :phone="store.account.phone"/>
+                            <PhoneNumber :phone="store.account.phone"/>
                         </a>
                     </h6>
                     <h6 v-if="store.account.user" class="mb-0 fs--1 fw-bold">
@@ -46,13 +46,13 @@
                     <h5 class="mb-3 fs-0 fw-bold">Inviter</h5>
                     <div v-if="store.account.inviter_id">
                         <h6 class="mb-2">
-                            <router-link :to="{name:'accounts.show', params:{id:store.account.inviter_id}}">
+                            <a :href="`/accounts/${store.account.inviter_id}`">
                                 {{ store.account.inviter.user?.name ?? 'N/A' }}
-                            </router-link>
+                            </a>
                         </h6>
                         <h6 class="mb-2">
                             <a :href="`tel:${store.account.inviter.phone}`">
-                                <Phone :phone="store.account.inviter.phone"/>
+                                <PhoneNumber :phone="store.account.inviter.phone"/>
                             </a>
                         </h6>
                     </div>
@@ -78,19 +78,14 @@
 <script setup lang="ts">
 import { useAccountsStore } from "@/stores/accounts";
 import { useRoute } from "vue-router";
-import CardBgCorner from "@/components/CardBgCorner.vue";
 import moment from "moment";
-import StatusBadge from "@/components/StatusBadge.vue";
-import { Status } from "@/utils/enums";
-import Phone from "@/components/Phone.vue";
+import { CardBgCorner, logger, PhoneNumber, Status, StatusBadge, toast } from "@nabcellent/sui-vue";
 import Ancestors from "@/pages/accounts/Ancestors.vue";
 import ComponentLoader from "@/components/loaders/ComponentLoader.vue";
 import Descendants from "@/pages/accounts/Descendants.vue";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { faCrosshairs } from "@fortawesome/free-solid-svg-icons";
 import Swal from "sweetalert2";
-import { toast } from "@/utils/helpers";
-import { logger } from "@/utils/logger";
 
 const id = Number(useRoute().params.id)
 

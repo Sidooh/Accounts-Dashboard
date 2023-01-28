@@ -4,21 +4,17 @@ import { createApp } from 'vue'
 import { createPinia } from "pinia"
 import axios from "axios"
 
-//component
+//  component
 import App from './App.vue'
 import router from "./router"
 import { useAuthStore } from "./stores/auth"
 import { defaultConfig, plugin } from '@formkit/vue'
 
 import 'bootstrap/dist/js/bootstrap.min.js'
+import '@nabcellent/sui-vue/dist/style.min.css'
 
 axios.interceptors.response.use(
-    ({ data }) => {
-        if (data && data.result === 0)
-            return Promise.reject(data)
-
-        return data
-    },
+    ({ data }) => (data && data.result === 0) ? Promise.reject(data) : data,
     async ({ response }) => {
         if (response?.status === 401) {
             const authStore = useAuthStore()
@@ -41,4 +37,4 @@ createApp(App)
     .use(plugin, defaultConfig)
     .mount('#app')
 
-axios.defaults.headers.common['Authorization'] = "Bearer " + useAuthStore().getToken();
+axios.defaults.headers.common['Authorization'] = "Bearer " + useAuthStore().token;

@@ -16,7 +16,7 @@
              @mouseleave="handleMouseLeave">
             <div class="navbar-vertical-content scrollbar">
                 <ul class="navbar-nav flex-column mb-3" id="navbarVerticalNav">
-                    <li v-for="(route, i) in routes" class="nav-item">
+                    <li v-for="route in routes" class="nav-item">
                         <div v-if="route.label" class="row navbar-vertical-label-wrapper mt-3 mb-2">
                             <div class="col-auto navbar-vertical-label">App</div>
                             <div class="col ps-0">
@@ -40,7 +40,7 @@
 
 <script setup lang="ts">
 
-import { useCoreStore } from "../../stores/core";
+import { useCoreStore } from "@/stores/core";
 import { computed } from "vue";
 import {
     faCircleQuestion,
@@ -50,8 +50,7 @@ import {
     faUsersRays
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
-import Logo from "../Logo.vue";
-import { RouteType } from "../../utils/types";
+import { Logo, RouteType } from "@nabcellent/sui-vue";
 
 const store = useCoreStore()
 const toggleNav = () => store.toggleSideNav()

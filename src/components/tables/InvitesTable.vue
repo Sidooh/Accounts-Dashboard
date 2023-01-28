@@ -7,13 +7,9 @@
 </template>
 
 <script setup lang="ts">
-import Phone from "@/components/Phone.vue";
 import { createColumnHelper } from "@tanstack/vue-table";
-import { Account, Invite } from "@/utils/types";
-import DataTable from "@/components/datatable/DataTable.vue";
 import { h } from "vue";
-import StatusBadge from "@/components/StatusBadge.vue";
-import { Status } from "@/utils/enums";
+import { DataTable, Invite, PhoneNumber, StatusBadge } from "@nabcellent/sui-vue";
 
 defineProps<{ title?: string, invites: Invite[] }>()
 
@@ -24,7 +20,7 @@ const columns = [
     }),
     columnHelper.accessor('phone', {
         header: 'Phone',
-        cell: info => h(Phone, { phone: info.getValue() })
+        cell: info => h(PhoneNumber, { phone: info.getValue() })
     }),
     columnHelper.accessor('status', {
         header: 'Status',
