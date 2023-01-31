@@ -13,9 +13,9 @@ export const useAccountsStore = defineStore("account", {
     actions: {
         async fetchAccounts() {
             try {
-                const { data } = await axios.get('accounts?with_user=true')
+                const { data } = await axios.get('accounts?with_user=true&with_inviter=true')
 
-                logger.log(data)
+                console.log(data)
 
                 this.accounts = data ?? []
             } catch (e) {
