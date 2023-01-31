@@ -14,7 +14,7 @@ import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { faEye } from "@fortawesome/free-regular-svg-icons";
 import { Account, DataTable, PhoneNumber, Status, StatusBadge, TableDate } from "@nabcellent/sui-vue";
 
-const props = defineProps<{ title?: string; accounts: Account[] }>()
+defineProps<{ title?: string; accounts: Account[] }>()
 
 const columnHelper = createColumnHelper<Account>()
 const columns = [
@@ -35,20 +35,10 @@ const columns = [
     }),
     columnHelper.accessor(r => `${r.phone}: ${r.user?.name}`, {
         header: 'Inviter',
-        cell: ({ row: { original: acc } }) => {
-            const inviter = props.accounts.find(a => a?.id === acc?.inviter_id)
-
-            return inviter ? h('div', [
-                inviter?.user ? h(RouterLink, {
-                    to: { name: 'users.show', params: { id: inviter?.user?.id } },
-                    class: 'd-block'
-                }, () => inviter?.user?.name) : '',
-                h(RouterLink, {
-                    to: { name: 'accounts.show', params: { id: inviter?.id } },
-                    class: 'd-block'
-                }, () => h(PhoneNumber, { phone: inviter.phone })),
-            ]) : 'Root-level User'
-        }
+        cell: ({ row: { original: acc } }) => acc.inviter ? h('div', [
+            h('div', acc.user?.name ?? '-'),
+            h(PhoneNumber, { phone: acc.inviter.phone }),
+        ]) : 'Root-level User'
     }),
     columnHelper.accessor('created_at', {
         header: 'Created',

@@ -24,6 +24,7 @@ const columns = [
     }),
     columnHelper.accessor('name', {
         header: 'Name',
+        cell: info => info.getValue() || 'N/A'
     }),
     columnHelper.accessor('email', {
         header: 'Email',

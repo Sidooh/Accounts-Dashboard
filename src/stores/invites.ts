@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 import axios from "axios";
-import { Invite, logger } from "@nabcellent/sui-vue";
+import { logger } from "@nabcellent/sui-vue";
+import { Invite } from "@/utils/types";
 
 export const useInvitesStore = defineStore("invite", {
     state: () => ({
@@ -10,8 +11,8 @@ export const useInvitesStore = defineStore("invite", {
     actions: {
         async fetchInvites() {
             try {
-                const { data } = await axios.get('invites')
-                logger.log(data)
+                const { data } = await axios.get('invites?with=inviter')
+                console.log(data)
                 this.invites = data
             } catch (e) {
                 logger.error(e)
