@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 import axios from "axios";
-import { Invite, logger } from "@nabcellent/sui-vue";
+import { logger } from "@nabcellent/sui-vue";
+import { Invite } from "@/utils/types";
 
 export const useInvitesStore = defineStore("invite", {
     state: () => ({
