@@ -36,7 +36,7 @@ const columns = [
     columnHelper.accessor(r => `${r.phone}: ${r.user?.name}`, {
         header: 'Inviter',
         cell: ({ row: { original: acc } }) => acc.inviter ? h('div', [
-            h('div', acc.user?.name ?? '-'),
+            h('div', acc.inviter?.user?.name || '-'),
             h(PhoneNumber, { phone: acc.inviter.phone }),
         ]) : 'Root-level User'
     }),
