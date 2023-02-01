@@ -11,11 +11,11 @@ export const useUsersStore = defineStore("user", {
     actions: {
         async fetchUsers() {
             try {
-                const data = await axios.get('users')
+                const { data } = await axios.get('users')
 
-                this.users = data.data
+                this.users = data
             } catch (e) {
-                console.error(e)
+                logger.error(e)
             }
         },
         async fetchUser(id: number) {
