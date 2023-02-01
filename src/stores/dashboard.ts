@@ -2,10 +2,15 @@ import { defineStore } from "pinia";
 import axios from "axios";
 import moment from "moment";
 import { logger } from "@nabcellent/sui-vue";
+import { Frequency } from "@/utils/enums";
 
 export const useDashboardStore = defineStore("dashboard", {
     state: () => ({
-        chart: <{ labels: string[], datasets: { [k: string]: number[] } }>{ labels: [], datasets: {} },
+        loadingChart: false,
+        chart: <{ [k: string]: { [k: string]: { labels: string[], data: number[] } } }>{
+            LAST_12_MONTHS: {},
+            LAST_30_DAYS: {}
+        },
         statistics: {
             users: {
                 total: 0,
@@ -27,25 +32,49 @@ export const useDashboardStore = defineStore("dashboard", {
     actions: {
         async fetchChartData() {
             try {
+                this.loadingChart = true
+
                 const { data: res } = await axios.get('dashboard/chart')
 
-                Object.keys(res).forEach(d => {
-                    let labels: string[] = [], data: number[] = []
-                    for (let i = 11; i >= 0; i--) {
-                        const month = moment().subtract(i, 'M')
-                        const label = month.format('MMM YY')
+                await new Promise(res => {setTimeout(res, 1000);});
 
-                        const existingSet = res[d]?.find((x: any) => x.date == month.format('YYYYMM'))
+                console.log(res)
+
+                const getDataset = (entity: string, duration: number, frequency: Frequency = Frequency.DAILY) => {
+                    let labels: string[] = [], data: number[] = []
+                    for (let i = duration; i >= 0; i--) {
+                        let date = moment().subtract(i, 'd'), label = date.format('Do MMM');
+                        if (frequency === Frequency.MONTHLY) {
+                            date = moment().subtract(i, 'M')
+                            label = date.format('MMM YY')
+                        }
+
+                        let existingSet = res[entity]?.find((x: any) => x.date == date.format('YYYYMMD'))
+                        if (frequency !== Frequency.DAILY) {
+                            existingSet = {
+                                count: res[entity]?.filter((x: any) => {
+                                    return moment(x.date, 'YYYYMMD').format('MMM YY') === label
+                                })?.reduce((a: number, b: { count: number }) => a + b.count, 0)
+                            }
+                        }
 
                         labels.push(label)
                         data.push(existingSet ? existingSet.count : 0)
                     }
 
-                    if (this.chart.labels.length === 0) this.chart.labels = labels
-                    this.chart.datasets[d] = data
+                    return { labels, data }
+                }
+
+                Object.keys(res).forEach(d => {
+                    this.chart.LAST_12_MONTHS[d] = getDataset(d, 11, Frequency.MONTHLY)
+                    this.chart.LAST_30_DAYS[d] = getDataset(d, 30)
                 })
+
+                this.loadingChart = false
             } catch (e) {
                 logger.error(e)
+
+                this.loadingChart = false
             }
         },
 
