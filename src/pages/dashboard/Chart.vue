@@ -4,6 +4,14 @@
              style="height:300px; background-image: linear-gradient(-45deg, rgba(100, 131, 129, 1), rgba(15, 27, 76, 1))">
             <div class="align-items-center gx-1 row justify-content-end">
                 <div class="col-auto">
+                    <TooltipComponent title="Refresh Chart" placement="left">
+                        <LoadingButton :loading="store.loadingChart" class="btn btn-sm btn-outline-light"
+                                       spinner-position="replace" @click="store.fetchChartData">
+                            <font-awesome-icon :icon="faSync"/>
+                        </LoadingButton>
+                    </TooltipComponent>
+                </div>
+                <div class="col-auto">
                     <select class="form-select form-select-sm px-2" v-model="chartEntityOpt">
                         <option v-for="(vt, i) in Object.keys(store.chart[chartFreqOpt])" :key="`chart-opt-${i}`"
                                 :value="vt">{{ vt.toUpperCase() }}
@@ -25,6 +33,7 @@
 </template>
 
 <script setup lang="ts">
+import { Tooltip as TooltipComponent } from '@nabcellent/sui-vue'
 import { Line } from 'vue-chartjs'
 import { useDashboardStore } from "@/stores/dashboard";
 import { computed, ref } from "vue";
@@ -40,6 +49,9 @@ import {
     Title,
     Tooltip
 } from 'chart.js'
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+import { faSync } from "@fortawesome/free-solid-svg-icons";
+import LoadingButton from "@/LoadingButton.vue";
 
 const chartEntityOpt = ref<string>("accounts")
 const chartFreqOpt = ref<string>("LAST_30_DAYS")

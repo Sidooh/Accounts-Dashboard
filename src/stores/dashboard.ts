@@ -6,6 +6,7 @@ import { Frequency } from "@/utils/enums";
 
 export const useDashboardStore = defineStore("dashboard", {
     state: () => ({
+        loadingChart: false,
         chart: <{ [k: string]: { [k: string]: { labels: string[], data: number[] } } }>{
             LAST_12_MONTHS: {},
             LAST_30_DAYS: {}
@@ -31,7 +32,13 @@ export const useDashboardStore = defineStore("dashboard", {
     actions: {
         async fetchChartData() {
             try {
+                this.loadingChart = true
+
                 const { data: res } = await axios.get('dashboard/chart')
+
+                await new Promise(res => {setTimeout(res, 1000);});
+
+                console.log(res)
 
                 const getDataset = (entity: string, duration: number, frequency: Frequency = Frequency.DAILY) => {
                     let labels: string[] = [], data: number[] = []
@@ -62,8 +69,12 @@ export const useDashboardStore = defineStore("dashboard", {
                     this.chart.LAST_12_MONTHS[d] = getDataset(d, 11, Frequency.MONTHLY)
                     this.chart.LAST_30_DAYS[d] = getDataset(d, 30)
                 })
+
+                this.loadingChart = false
             } catch (e) {
                 logger.error(e)
+
+                this.loadingChart = false
             }
         },
 
