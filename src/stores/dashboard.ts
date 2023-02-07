@@ -36,10 +36,6 @@ export const useDashboardStore = defineStore("dashboard", {
 
                 const { data: res } = await axios.get('dashboard/chart')
 
-                await new Promise(res => {setTimeout(res, 1000);});
-
-                console.log(res)
-
                 const getDataset = (entity: string, duration: number, frequency: Frequency = Frequency.DAILY) => {
                     let labels: string[] = [], data: number[] = []
                     for (let i = duration; i >= 0; i--) {
