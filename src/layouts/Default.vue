@@ -10,7 +10,7 @@
 
                 <!--  Content -->
                 <ComponentLoader>
-                    <router-view/>
+                    <router-view :key="$route.path"/>
                 </ComponentLoader>
 
                 <!--  Footer? -->

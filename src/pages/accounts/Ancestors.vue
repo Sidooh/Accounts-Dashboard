@@ -6,7 +6,7 @@
 
             <Badge class="me-1" pill bg="primary">{{ store.account.phone }}</Badge>
             <font-awesome-icon class="mx-1 text-primary" :icon="faArrowLeftLong"/>
-            <router-link v-for="(acc, i) in store.ancestors"
+            <router-link :key="$route.fullPath" v-for="(acc, i) in store.ancestors"
                          :to="{name:'accounts.show',params:{id:acc.id}}">
                 <Badge class="me-1" pill bg="secondary">{{ acc.phone }}</Badge>
                 <font-awesome-icon v-if="i < store.ancestors.length - 1" class="mx-1 text-warning"

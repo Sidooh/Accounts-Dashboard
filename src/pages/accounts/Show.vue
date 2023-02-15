@@ -48,7 +48,9 @@
                 <div class="col-lg-4 mb-4 mb-lg-0">
                     <h5 class="mb-3 fs-0 fw-bold">User</h5>
                     <h6 class="mb-2">
-                        <a :href="`/accounts/${account.id}`">{{ account.user?.name ?? 'N/A' }}</a>
+                        <router-link :to="{name:'accounts.show',params:{id:account.id}}">
+                            {{ account.user?.name ?? 'N/A' }}
+                        </router-link>
                     </h6>
                     <p v-if="account.user?.id_number" class="mb-0 fs--1">
                         <strong>ID Number: </strong>{{ account.user.id_number }}</p>
@@ -58,9 +60,9 @@
                     <h5 class="mb-3 fs-0 fw-bold">Inviter</h5>
                     <div v-if="account.inviter_id">
                         <h6 class="mb-2">
-                            <a :href="`/accounts/${account.inviter_id}`">
+                            <router-link :to="{name:'accounts.show',params:{id:account.inviter_id}}">
                                 {{ account.inviter.user?.name ?? 'N/A' }}
-                            </a>
+                            </router-link>
                         </h6>
                         <h6 class="mb-2">
                             <a :href="`tel:${account.inviter.phone}`">
