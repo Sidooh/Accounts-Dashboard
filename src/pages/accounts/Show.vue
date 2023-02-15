@@ -152,9 +152,9 @@ const handleAccountActivity = async () => {
             try {
                 const status = await store[account.value.active ? 'deactivate' : 'activate'](id)
 
-                if (status) await store.fetchAccount(id)
+                if (status) store.fetchAccount(id)
 
-                await toast({ titleText: `Account ${!account.value.active ? 'DE' : ''}ACTIVATION Successful!` })
+                await toast({ titleText: `Account ${account.value.active ? 'DE' : ''}ACTIVATION Successful!` })
             } catch (err) {
                 queryError(err, 'Error Resetting Pin')
             }
