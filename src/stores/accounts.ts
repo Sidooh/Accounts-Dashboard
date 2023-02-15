@@ -55,8 +55,25 @@ export const useAccountsStore = defineStore("account", {
         },
         async resetPin(accountId: number) {
             try {
-                // await new Promise(r => setTimeout(r, 3000));
                 const { data } = await axios.post(`/accounts/${accountId}/reset-pin`)
+
+                return data
+            } catch (err) {
+                logger.log(err)
+            }
+        },
+        async activate(accountId: number) {
+            try {
+                const { data } = await axios.post(`/accounts/${accountId}/activate`)
+
+                return data
+            } catch (err) {
+                logger.log(err)
+            }
+        },
+        async deactivate(accountId: number) {
+            try {
+                const { data } = await axios.post(`/accounts/${accountId}/deactivate`)
 
                 return data
             } catch (err) {

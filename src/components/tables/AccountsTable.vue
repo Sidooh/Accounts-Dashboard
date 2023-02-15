@@ -35,10 +35,16 @@ const columns = [
     }),
     columnHelper.accessor(r => `${r.phone}: ${r.user?.name}`, {
         header: 'Inviter',
-        cell: ({ row: { original: acc } }) => acc.inviter ? h('div', [
-            h('div', acc.inviter?.user?.name || '-'),
-            h(PhoneNumber, { phone: acc.inviter.phone }),
-        ]) : 'Root-level User'
+        cell: ({ row: { original: acc } }) => {
+            if (acc.inviter) {
+                return h('div', [
+                    h('div', acc.inviter?.user?.name || '-'),
+                    h(PhoneNumber, { phone: acc.inviter.phone }),
+                ])
+            } else if (acc.invite_code) {
+                return h('b', h('code', acc.invite_code))
+            } else return 'Root-level User'
+        }
     }),
     columnHelper.accessor('created_at', {
         header: 'Created',
