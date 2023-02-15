@@ -6,7 +6,7 @@
 
             <p class="fs--1">{{ moment(account.created_at).format('MMM Do, YYYY | hh:mm A') }}</p>
 
-            <StatusBadge :key="account.active" :status="account.active ? Status.ACTIVE : Status.INACTIVE"/>
+            <StatusBadge :key="String(account.active)" :status="account.active ? Status.ACTIVE : Status.INACTIVE"/>
 
             <div class="dropdown position-absolute bottom-0 right-0 px-2 py-1">
                 <font-awesome-icon :icon="faCrosshairs" data-bs-toggle="dropdown" aria-expanded="false"
