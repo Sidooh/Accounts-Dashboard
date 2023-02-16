@@ -12,7 +12,16 @@ import { CellContext, createColumnHelper } from "@tanstack/vue-table";
 import { RouterLink } from "vue-router";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { faEye } from "@fortawesome/free-regular-svg-icons";
-import { Account, DataTable, PhoneNumber, Status, StatusBadge, TableDate } from "@nabcellent/sui-vue";
+import {
+    Account,
+    accountAccessor,
+    DataTable,
+    getRelativeDateAndTime,
+    PhoneNumber,
+    Status,
+    StatusBadge,
+    TableDate
+} from "@nabcellent/sui-vue";
 
 defineProps<{ title?: string; accounts: Account[] }>()
 
@@ -21,7 +30,7 @@ const columns = [
     columnHelper.accessor('id', {
         header: '#',
     }),
-    columnHelper.accessor(r => `${r.phone}: ${r.user?.name}`, {
+    columnHelper.accessor(accountAccessor, {
         header: 'User',
         id: 'user',
         cell: ({ row: { original: acc } }: CellContext<Account, string>) => h('div', [
@@ -29,11 +38,17 @@ const columns = [
             h(PhoneNumber, { phone: acc.phone }),
         ]),
     }),
-    columnHelper.accessor('active', {
+    columnHelper.accessor(r => r.active ? Status.ACTIVE : Status.INACTIVE, {
         header: 'Status',
-        cell: info => h(StatusBadge, { status: Status[info.getValue() ? 'ACTIVE' : 'INACTIVE'] })
+        cell: info => h(StatusBadge, { status: Status[info.getValue() ? Status.ACTIVE : Status.INACTIVE] })
     }),
-    columnHelper.accessor(r => `${r.phone}: ${r.user?.name}`, {
+    columnHelper.accessor(r => {
+        if(r.inviter) {
+            return accountAccessor(r.inviter)
+        } else if(r.invite_code) {
+            return r.invite_code
+        } else return 'Root-level User'
+    }, {
         header: 'Inviter',
         cell: ({ row: { original: acc } }) => {
             if (acc.inviter) {
@@ -46,7 +61,7 @@ const columns = [
             } else return 'Root-level User'
         }
     }),
-    columnHelper.accessor('created_at', {
+    columnHelper.accessor(r => getRelativeDateAndTime(r.created_at as string).toString(), {
         header: 'Created',
         cell: ({ row }: CellContext<Account, string>) => h(TableDate, { date: row.original.created_at })
     }),

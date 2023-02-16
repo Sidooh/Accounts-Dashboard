@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
 import axios from "axios";
 import { SecurityQuestion } from "@/utils/types";
-import { logger } from "@nabcellent/sui-vue";
+import { logger } from "@/utils/logger";
 
 export const useSecurityQuestionsStore = defineStore("securityQuestion", {
     state: () => ({
