@@ -33,7 +33,13 @@ const columns = [
         header: 'Status',
         cell: info => h(StatusBadge, { status: Status[info.getValue() ? 'ACTIVE' : 'INACTIVE'] })
     }),
-    columnHelper.accessor(r => `${r.phone}: ${r.user?.name}`, {
+    columnHelper.accessor(r => {
+        if(r.inviter) {
+            return `${r.inviter.phone}${r.inviter.user?.name ? ` - ${r.inviter.user?.name}`:''}`
+        } else if(r.invite_code) {
+            return r.invite_code
+        } else return 'Root-level User'
+    }, {
         header: 'Inviter',
         cell: ({ row: { original: acc } }) => {
             if (acc.inviter) {
