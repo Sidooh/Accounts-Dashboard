@@ -9,8 +9,7 @@
 <script setup lang="ts">
 import { CellContext, createColumnHelper } from "@tanstack/vue-table";
 import { h } from "vue";
-import { DataTable, PhoneNumber, StatusBadge, TableDate } from "@nabcellent/sui-vue";
-import { Invite } from "@/utils/types";
+import { DataTable, Invite, PhoneNumber, StatusBadge, TableDate } from "@nabcellent/sui-vue";
 
 defineProps<{ title?: string, invites: Invite[] }>()
 

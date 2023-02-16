@@ -1,8 +1,8 @@
 import { defineStore } from "pinia";
 import axios from "axios";
 import moment from "moment";
-import { logger } from "@nabcellent/sui-vue";
 import { Frequency } from "@/utils/enums";
+import { logger } from "@/utils/logger";
 
 export const useDashboardStore = defineStore("dashboard", {
     state: () => ({

@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 import axios from "axios";
-import { Account, groupBy, logger } from "@nabcellent/sui-vue";
+import { Account, groupBy } from "@nabcellent/sui-vue";
+import { logger } from "@/utils/logger";
 
 export const useAccountsStore = defineStore("account", {
     state: () => ({

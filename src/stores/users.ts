@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 import axios from "axios";
-import { logger, User } from "@nabcellent/sui-vue";
+import { User } from "@nabcellent/sui-vue";
+import { logger } from "@/utils/logger";
 
 export const useUsersStore = defineStore("user", {
     state: () => ({

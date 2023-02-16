@@ -54,7 +54,8 @@ import { useUsersStore } from "@/stores/users";
 import { faCrosshairs } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import Swal from "sweetalert2";
-import { CardBgCorner, logger, Status, StatusBadge, toast } from "@nabcellent/sui-vue";
+import { CardBgCorner, Status, StatusBadge, toast } from "@nabcellent/sui-vue";
+import { logger } from "@/utils/logger";
 
 const id = Number(useRoute().params.id)
 
