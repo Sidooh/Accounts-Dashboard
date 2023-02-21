@@ -3,7 +3,7 @@ import { useAuthStore } from "@/stores/auth";
 import router from "../../router";
 import { Logo, toast } from "@nabcellent/sui-vue";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
-import { faKey } from "@fortawesome/free-solid-svg-icons";
+import { faUnlockKeyhole } from "@fortawesome/free-solid-svg-icons";
 import { FormKitGroupValue, FormKitNode } from "@formkit/core";
 import { ref } from "vue";
 
@@ -56,8 +56,8 @@ const submit = async (formData: FormKitGroupValue, node: FormKitNode) => {
                         </div>
                         <FormKit type="submit" input-class="w-100 btn btn-sm btn-primary mt-3"
                                  :disabled="!valid || isLoading">
-                            Sign In
-                            <font-awesome-icon :icon="faKey"/>
+                            Sign In &nbsp;
+                            <font-awesome-icon :icon="faUnlockKeyhole"/>
                         </FormKit>
                     </FormKit>
                     <div class="position-relative mt-4">
