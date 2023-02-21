@@ -1,7 +1,7 @@
 <template>
     <div class="card mb-3">
         <div class="card-body">
-            <DataTable :title="title??'Accounts'" :columns="columns" :data="accounts"/>
+            <DataTable :key="accounts" :title="title??'Accounts'" :columns="columns" :data="accounts"/>
         </div>
     </div>
 </template>
@@ -20,10 +20,17 @@ import {
     PhoneNumber,
     Status,
     StatusBadge,
-    TableDate
+    TableDate,
+    toast,
+    Tooltip
 } from "@nabcellent/sui-vue";
+import { faUserCheck, faUserXmark } from "@fortawesome/free-solid-svg-icons";
+import { changeAccountActiveState } from "@/utils/helpers";
+import { useAccountsStore } from "@/stores/accounts";
 
 defineProps<{ title?: string; accounts: Account[] }>()
+
+const { fetchAccount, fetchAccounts } = useAccountsStore();
 
 const columnHelper = createColumnHelper<Account>()
 const columns = [
@@ -40,12 +47,12 @@ const columns = [
     }),
     columnHelper.accessor(r => r.active ? Status.ACTIVE : Status.INACTIVE, {
         header: 'Status',
-        cell: info => h(StatusBadge, { status: Status[info.getValue() ? Status.ACTIVE : Status.INACTIVE] })
+        cell: info => h(StatusBadge, { status: Status[info.getValue()] })
     }),
     columnHelper.accessor(r => {
-        if(r.inviter) {
+        if (r.inviter) {
             return accountAccessor(r.inviter)
-        } else if(r.invite_code) {
+        } else if (r.invite_code) {
             return r.invite_code
         } else return 'Root-level User'
     }, {
@@ -68,13 +75,32 @@ const columns = [
     {
         id: 'actions',
         header: '',
-        cell: ({ row: { original } }: CellContext<Account, string>) => h('div', { class: 'd-flex justify-content-evenly' }, [
-            h(
-                RouterLink,
-                { to: { name: 'accounts.show', params: { id: original.id } } },
-                () => h(FontAwesomeIcon, { icon: faEye })
-            ),
-        ])
+        cell: ({ row: { original: acc } }: CellContext<Account, string>) => {
+            return h('div', { class: 'd-flex justify-content-evenly' }, [
+                h(
+                    Tooltip,
+                    {
+                        title: acc.active ? 'Deactivate' : 'Activate',
+                        placement: 'top',
+                        class: `cursor-pointer badge-soft-${acc.active ? 'danger' : 'success'} bg-transparent`,
+                        onClick: async () => {
+                            const accountStatusChanged = await changeAccountActiveState(acc)
+
+                            if (accountStatusChanged) {
+                                fetchAccounts()
+
+                                toast({ titleText: `Account ${acc.active ? 'DE' : ''}ACTIVATION Successful!` })
+                            }
+                        },
+                    }, () => [h(FontAwesomeIcon, { icon: acc.active ? faUserXmark : faUserCheck })]
+                ),
+                h(
+                    RouterLink,
+                    { to: { name: 'accounts.show', params: { id: acc.id } } },
+                    () => h(FontAwesomeIcon, { icon: faEye })
+                ),
+            ])
+        }
     },
 ]
 </script>

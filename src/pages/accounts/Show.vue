@@ -102,6 +102,7 @@ import { faCrosshairs } from "@fortawesome/free-solid-svg-icons";
 import Swal from "sweetalert2";
 import { logger } from "@/utils/logger";
 import { storeToRefs } from "pinia";
+import { changeAccountActiveState } from "@/utils/helpers";
 
 const id = Number(useRoute().params.id)
 
@@ -138,30 +139,13 @@ const handlePinReset = () => {
 }
 
 const handleAccountActivity = async () => {
-    await Swal.fire({
-        titleText: 'Are you sure?',
-        html: `This account will be
-                <span class="text-${store.account.active ? 'danger' : 'success'}">
-                    ${account.value.active ? 'DE' : ''}ACTIVATED!
-                </span>`,
-        backdrop: `rgba(0, 0, 150, 0.4)`,
-        showLoaderOnConfirm: true,
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonText: 'Proceed',
-        allowOutsideClick: () => !Swal.isLoading(),
-        preConfirm: async () => {
-            try {
-                const status = await store[account.value.active ? 'deactivate' : 'activate'](id)
+    const accountStatusChanged = await changeAccountActiveState(account.value)
 
-                if (status) store.fetchAccount(id)
+    if (accountStatusChanged) {
+        store.fetchAccount(account.value.id)
 
-                await toast({ titleText: `Account ${account.value.active ? 'DE' : ''}ACTIVATION Successful!` })
-            } catch (err) {
-                queryError(err, 'Error Resetting Pin')
-            }
-        }
-    })
+        toast({ titleText: `Account ${account.value.active ? 'DE' : ''}ACTIVATION Successful!` })
+    }
 }
 
 await store.fetchAccount(id)

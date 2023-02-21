@@ -23,15 +23,19 @@ export const useAccountsStore = defineStore("account", {
                 logger.error(e)
             }
         },
-        async fetchAccount(id: number) {
+        async fetchAccount(id: number): Promise<Account> {
             try {
                 const { data } = await axios.get(`accounts/${id}?with_user=true&with_inviter=true`)
 
                 logger.log('Account', data)
 
                 this.account = data
-            } catch (e) {
+
+                return data
+            } catch (e:any) {
                 logger.error(e)
+
+                throw Error(e)
             }
         },
         async fetchAncestors(accountId: number) {
