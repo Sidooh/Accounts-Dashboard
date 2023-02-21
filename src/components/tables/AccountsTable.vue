@@ -1,13 +1,13 @@
 <template>
     <div class="card mb-3">
         <div class="card-body">
-            <DataTable :key="accounts" :title="title??'Accounts'" :columns="columns" :data="accounts"/>
+            <DataTable :key="tableKey" :title="title??'Accounts'" :columns="columns" :data="accounts"/>
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
-import { h } from "vue";
+import { h, ref } from "vue";
 import { CellContext, createColumnHelper } from "@tanstack/vue-table";
 import { RouterLink } from "vue-router";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
@@ -30,7 +30,9 @@ import { useAccountsStore } from "@/stores/accounts";
 
 defineProps<{ title?: string; accounts: Account[] }>()
 
-const { fetchAccount, fetchAccounts } = useAccountsStore();
+const { fetchAccounts } = useAccountsStore();
+
+let tableKey = ref(0)
 
 const columnHelper = createColumnHelper<Account>()
 const columns = [
@@ -87,7 +89,7 @@ const columns = [
                             const accountStatusChanged = await changeAccountActiveState(acc)
 
                             if (accountStatusChanged) {
-                                fetchAccounts()
+                                fetchAccounts().then(() => tableKey.value += 1)
 
                                 toast({ titleText: `Account ${acc.active ? 'DE' : ''}ACTIVATION Successful!` })
                             }
