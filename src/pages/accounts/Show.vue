@@ -141,7 +141,7 @@ const handlePinReset = () => {
 const handleAccountActivity = async () => {
     const accountStatusChanged = await changeAccountActiveState(account.value)
 
-    if (accountStatusChanged) {
+    if (accountStatusChanged.isConfirmed) {
         store.fetchAccount(account.value.id)
 
         toast({ titleText: `Account ${account.value.active ? 'DE' : ''}ACTIVATION Successful!` })
