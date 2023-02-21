@@ -27,10 +27,12 @@ import {
 import { faUserCheck, faUserXmark } from "@fortawesome/free-solid-svg-icons";
 import { changeAccountActiveState } from "@/utils/helpers";
 import { useAccountsStore } from "@/stores/accounts";
+import { useDashboardStore } from "@/stores/dashboard";
 
-defineProps<{ title?: string; accounts: Account[] }>()
+const props = defineProps<{ title?: string; accounts: Account[] }>()
 
 const { fetchAccounts } = useAccountsStore();
+const { fetchRecentAccounts } = useDashboardStore();
 
 let tableKey = ref(0)
 
@@ -88,8 +90,10 @@ const columns = [
                         onClick: async () => {
                             const accountStatusChanged = await changeAccountActiveState(acc)
 
-                            if (accountStatusChanged) {
-                                fetchAccounts().then(() => tableKey.value += 1)
+                            if (accountStatusChanged.isConfirmed) {
+                                const fetch = props.title?.toLowerCase().includes('recent')?fetchRecentAccounts:fetchAccounts
+
+                                fetch().then(() => tableKey.value += 1)
 
                                 toast({ titleText: `Account ${acc.active ? 'DE' : ''}ACTIVATION Successful!` })
                             }
