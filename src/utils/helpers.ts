@@ -8,7 +8,7 @@ export const changeAccountActiveState = async (account: Account) => {
     return await Swal.fire({
         titleText: 'Are you sure?',
         html: `This account will be
-                <span class="text-${store.account.active ? 'danger' : 'success'}">
+                <span class="text-${account.active ? 'danger' : 'success'}">
                     ${account.active ? 'DE' : ''}ACTIVATED!
                 </span>`,
         backdrop: `rgba(0, 0, 150, 0.4)`,
