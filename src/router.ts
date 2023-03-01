@@ -4,6 +4,7 @@ import { useAuthStore } from "@/stores/auth";
 import Login from "@/pages/auth/Login.vue";
 
 const Dashboard = () => import("@/pages/dashboard/default/Index.vue")
+const Analytics = () => import("@/pages/dashboard/analytics/Index.vue")
 const Accounts = () => import("@/pages/accounts/Index.vue")
 const Users = () => import("@/pages/users/Index.vue")
 const Invites = () => import("@/pages/invites/Index.vue")
@@ -18,7 +19,7 @@ const router = createRouter({
         {
             path: '/dashboard', meta: { auth: true }, children: [
                 { path: '', name: 'dashboard', component: Dashboard, },
-                { path: 'analytics', name: 'dashboard.analytics', component: Dashboard, }
+                { path: 'analytics', name: 'dashboard.analytics', component: Analytics, }
             ]
         },
         {
