@@ -26,4 +26,4 @@ import Chart from "./Chart.vue";
 import Statistics from "./Statistics.vue";
 import RecentAccounts from "./RecentAccounts.vue";
 import RecentInvites from "./RecentInvites.vue";
-import ComponentLoader from "../../components/loaders/ComponentLoader.vue";</script>
+import ComponentLoader from "../../../components/loaders/ComponentLoader.vue";</script>
