@@ -40,9 +40,16 @@ const columns = [
     columnHelper.accessor(accountAccessor, {
         header: 'User',
         id: 'user',
-        cell: ({ row: { original: acc } }: CellContext<Account, string>) => h('div', [
-            h('div', acc.user?.name ?? '-'),
-            h(PhoneNumber, { phone: acc.phone }),
+        cell: ({ row: { original: acc } }: CellContext<Account, string>) => h('div', { class: 'd-flex flex-column' }, [
+            acc.user_id
+                ? h(RouterLink, {
+                    to: { name: 'users.show', params: { id: acc.user_id } },
+                    class: 'text-primary'
+                }, () => acc.user.name)
+                : h('div', acc.user?.name ?? '-'),
+            h(RouterLink, {
+                to: { name: 'accounts.show', params: { id: acc.id } }
+            }, () => h(PhoneNumber, { phone: acc.phone }))
         ]),
     }),
     columnHelper.accessor(r => r.active ? Status.ACTIVE : Status.INACTIVE, {
@@ -59,9 +66,16 @@ const columns = [
         header: 'Inviter',
         cell: ({ row: { original: acc } }) => {
             if (acc.inviter) {
-                return h('div', [
-                    h('div', acc.inviter?.user?.name || '-'),
-                    h(PhoneNumber, { phone: acc.inviter.phone }),
+                return h('div', { class: 'd-flex flex-column' }, [
+                    acc.inviter?.user?.id
+                        ? h(RouterLink, {
+                            to: { name: 'users.show', params: { id: acc.inviter.user.id } },
+                            class: 'text-primary'
+                        }, () => acc.inviter.user.name)
+                        : h('div', acc.inviter?.user?.name ?? '-'),
+                    h(RouterLink, {
+                        to: { name: 'accounts.show', params: { id: acc.inviter_id } }
+                    }, () => h(PhoneNumber, { phone: acc.inviter.phone }))
                 ])
             } else if (acc.invite_code) {
                 return h('b', h('code', acc.invite_code))
