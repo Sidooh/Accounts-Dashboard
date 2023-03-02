@@ -2,10 +2,10 @@
     <div class="col-12 position-relative mt-4">
         <hr class="bg-300"/>
         <div class="divider-content-center bg-body fs-1">
-            Accounts
-            <TooltipComponent title="Refresh Account Charts" placement="left">
+            Invites
+            <TooltipComponent title="Refresh Invite Charts" placement="left">
                 <LoadingButton :loading="store.loadingChart" class="btn btn-sm border-0 btn-outline-primary"
-                               spinner-position="replace" @click="store.fetchAccountsAnalytics">
+                               spinner-position="replace" @click="store.fetchInvitesAnalytics">
                     <font-awesome-icon :icon="faSync"/>
                 </LoadingButton>
             </TooltipComponent>
@@ -35,7 +35,7 @@
                         </select>
                     </div>
                 </fieldset>
-                <div id="accounts-time-series-chart" style="height: 350px;">
+                <div id="invites-time-series-chart" style="height: 350px;">
                     <Line :data="timeSeriesData" :options="timeSeriesOptions"/>
                 </div>
             </div>
@@ -65,7 +65,7 @@
                         </select>
                     </div>
                 </fieldset>
-                <div id="accounts-cumulative-chart" style="height: 350px;">
+                <div id="invites-cumulative-chart" style="height: 350px;">
                     <Line :data="cumulativeData" :options="cumulativeOptions"/>
                 </div>
             </div>
@@ -90,11 +90,11 @@ const chartFreqOpt = ref<Frequency>(Frequency.MONTHLY)
 const store = useAnalyticsStore()
 
 const data = computed(() => {
-    if (store.accounts_time_series.length < 1) return { labels: [], dataset: [] }
+    if (store.invites_time_series.length < 1) return { labels: [], dataset: [] }
 
     const aid = new ChartAid(chartPeriodOpt.value, chartFreqOpt.value)
 
-    return aid.getDataset(store.accounts_time_series)
+    return aid.getDataset(store.invites_time_series)
 });
 
 const timeSeriesData = computed<ChartData<'line'>>(() => ({
@@ -114,7 +114,7 @@ const timeSeriesOptions = computed<ChartOptions<'line'>>(() => defaultLineChartO
         },
         tooltip: {
             callbacks: {
-                label: (item: TooltipItem<'line'>) => `${item.formattedValue} Accounts`
+                label: (item: TooltipItem<'line'>) => `${item.formattedValue} Invites`
             }
         }
     }
@@ -136,11 +136,11 @@ const cumulativeOptions = computed<ChartOptions<'line'>>(() => defaultLineChartO
         },
         tooltip: {
             callbacks: {
-                label: (item: TooltipItem<'line'>) => `${item.formattedValue} Accounts`
+                label: (item: TooltipItem<'line'>) => `${item.formattedValue} Invites`
             }
         }
     }
 }))
 
-await store.fetchAccountsAnalytics()
+await store.fetchInvitesAnalytics()
 </script>

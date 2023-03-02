@@ -1,6 +1,7 @@
 <template>
     <div class="row g-3 mb-3">
         <Accounts/>
+        <Invites/>
     </div>
 </template>
 
@@ -18,6 +19,7 @@ import {
     Tooltip
 } from "chart.js";
 import Accounts from "@/pages/dashboard/analytics/Accounts.vue";
+import Invites from "@/pages/dashboard/analytics/Invites.vue";
 
 Chart.register(Title, SubTitle, Tooltip, Legend, LineElement, CategoryScale, LinearScale, PointElement, Filler)
 </script>
