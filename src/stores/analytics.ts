@@ -7,6 +7,7 @@ export const useAnalyticsStore = defineStore("analytics", {
     state: () => ({
         loadingChart: false,
         accounts_time_series: <RawAnalytics[]>[],
+        users_time_series: <RawAnalytics[]>[],
         invites_time_series: <RawAnalytics[]>[],
     }),
 
@@ -18,6 +19,21 @@ export const useAnalyticsStore = defineStore("analytics", {
                 const { data: res } = await axios.get('/analytics/accounts')
 
                 this.accounts_time_series = res
+
+                this.loadingChart = false
+            } catch (e) {
+                this.loadingChart = false
+
+                logger.error(e)
+            }
+        },
+        async fetchUsersAnalytics() {
+            try {
+                this.loadingChart = true
+
+                const { data: res } = await axios.get('/analytics/users')
+
+                this.users_time_series = res
 
                 this.loadingChart = false
             } catch (e) {
