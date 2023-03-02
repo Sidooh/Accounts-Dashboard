@@ -1,5 +1,5 @@
 import Swal from "sweetalert2";
-import { Account, Frequency, Period, rgbaColor, toast } from "@nabcellent/sui-vue";
+import { Account, rgbaColor, toast } from "@nabcellent/sui-vue";
 import { useAccountsStore } from "@/stores/accounts";
 import { ChartOptions } from "chart.js";
 import { merge } from "chart.js/helpers";
@@ -115,12 +115,3 @@ export const defaultLineChartOptions = (options?: ChartOptions<'line'>): ChartOp
         }
     }
 })
-
-export const chartSelectOptions = {
-    [Period.TODAY]: [Frequency.HOURLY],
-    [Period.LAST_SEVEN_DAYS]: [Frequency.DAILY],
-    [Period.LAST_THIRTY_DAYS]: [Frequency.DAILY, Frequency.WEEKLY],
-    [Period.LAST_THREE_MONTHS]: [Frequency.WEEKLY, Frequency.MONTHLY],
-    [Period.LAST_SIX_MONTHS]: [Frequency.MONTHLY],
-    [Period.YTD]: [Frequency.MONTHLY, Frequency.QUARTERLY]
-}

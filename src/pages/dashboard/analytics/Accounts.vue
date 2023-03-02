@@ -74,20 +74,28 @@
 </template>
 
 <script setup lang="ts">
-import { ChartAid, chartGradient, Frequency, Period, Str, Tooltip as TooltipComponent } from '@nabcellent/sui-vue'
+import {
+    ChartAid,
+    chartGradient,
+    chartSelectOptions,
+    Frequency,
+    Period,
+    Str,
+    Tooltip as TooltipComponent
+} from '@nabcellent/sui-vue'
 import { Line } from 'vue-chartjs'
 import LoadingButton from "@/LoadingButton.vue";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { faSync } from "@fortawesome/free-solid-svg-icons";
 import { computed, ref } from "vue";
 import { ChartData, ChartOptions, TooltipItem } from "chart.js";
-import { chartSelectOptions, defaultLineChartOptions } from "@/utils/helpers";
+import { defaultLineChartOptions } from "@/utils/helpers";
 import { useAnalyticsStore } from "@/stores/analytics";
 
-const timeSeriesChartPeriodOpt = ref<Period>(Period.LAST_SIX_MONTHS)
-const timeSeriesChartFreqOpt = ref<Frequency>(Frequency.MONTHLY)
-const cumulativeChartPeriodOpt = ref<Period>(Period.LAST_SIX_MONTHS)
-const cumulativeChartFreqOpt = ref<Frequency>(Frequency.MONTHLY)
+const timeSeriesChartPeriodOpt = ref<Period>(Period.LAST_SEVEN_DAYS)
+const timeSeriesChartFreqOpt = ref<Frequency>(Frequency.DAILY)
+const cumulativeChartPeriodOpt = ref<Period>(Period.LAST_SEVEN_DAYS)
+const cumulativeChartFreqOpt = ref<Frequency>(Frequency.DAILY)
 
 const store = useAnalyticsStore()
 

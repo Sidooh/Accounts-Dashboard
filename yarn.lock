@@ -367,15 +367,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@nabcellent/sui-vue@npm:^2.2.0":
-  version: 2.2.0
-  resolution: "@nabcellent/sui-vue@npm:2.2.0"
+"@nabcellent/sui-vue@npm:^2.2.7":
+  version: 2.2.7
+  resolution: "@nabcellent/sui-vue@npm:2.2.7"
   dependencies:
     "@types/pluralize": ^0.0.29
     pluralize: ^8.0.0
   peerDependencies:
     vue: ^3.2.47
-  checksum: 102cd229ba0602b0fb749034d864009e843f0bae3d29ae012d9ca2a165909db03d2d959d18c71a912055f06dcee8c59cd6b70297c24cf2ecd20df3b150edc18b
+  checksum: f1a607e085743017800136fe71b591a0e4a84eef005ca565b1897fe35da90659583b5d278e61955a92800308e90e460d39793e1cfe058715b1397752632bc684
   languageName: node
   linkType: hard
 
@@ -644,7 +644,7 @@ __metadata:
     "@fortawesome/free-regular-svg-icons": ^6.3.0
     "@fortawesome/free-solid-svg-icons": ^6.3.0
     "@fortawesome/vue-fontawesome": latest-3
-    "@nabcellent/sui-vue": ^2.2.0
+    "@nabcellent/sui-vue": ^2.2.7
     "@popperjs/core": ^2.11.6
     "@tanstack/vue-table": ^8.7.9
     "@types/node": ^16.11.56
