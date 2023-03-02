@@ -74,7 +74,7 @@
 </template>
 
 <script setup lang="ts">
-import { chartGradient, Str, Tooltip as TooltipComponent } from '@nabcellent/sui-vue'
+import { ChartAid, chartGradient, Frequency, Period, Str, Tooltip as TooltipComponent } from '@nabcellent/sui-vue'
 import { Line } from 'vue-chartjs'
 import LoadingButton from "@/LoadingButton.vue";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
@@ -83,8 +83,6 @@ import { computed, ref } from "vue";
 import { ChartData, ChartOptions, TooltipItem } from "chart.js";
 import { chartSelectOptions, defaultLineChartOptions } from "@/utils/helpers";
 import { useAnalyticsStore } from "@/stores/analytics";
-import { Frequency, Period } from "@/utils/enums";
-import { ChartAid } from "@/utils/ChartAid";
 
 const chartPeriodOpt = ref<Period>(Period.LAST_SIX_MONTHS)
 const chartFreqOpt = ref<Frequency>(Frequency.MONTHLY)
@@ -96,7 +94,7 @@ const data = computed(() => {
 
     const aid = new ChartAid(chartPeriodOpt.value, chartFreqOpt.value)
 
-    return aid.dataset(store.accounts_time_series)
+    return aid.getDataset(store.accounts_time_series)
 });
 
 const timeSeriesData = computed<ChartData<'line'>>(() => ({

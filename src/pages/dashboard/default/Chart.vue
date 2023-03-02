@@ -33,7 +33,7 @@
 </template>
 
 <script setup lang="ts">
-import { Str, Tooltip as TooltipComponent } from '@nabcellent/sui-vue'
+import { ChartAid, Frequency, Period, Str, Tooltip as TooltipComponent } from '@nabcellent/sui-vue'
 import { Line } from 'vue-chartjs'
 import { useDashboardStore } from "@/stores/dashboard";
 import { computed, ref } from "vue";
@@ -52,8 +52,6 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { faSync } from "@fortawesome/free-solid-svg-icons";
 import LoadingButton from "@/LoadingButton.vue";
-import { ChartAid } from "@/utils/ChartAid";
-import { Frequency, Period } from "@/utils/enums";
 
 const chartEntityOpt = ref<string>("accounts")
 const chartFreqOpt = ref<Frequency>(Frequency.DAILY)
@@ -72,7 +70,7 @@ const data = computed(() => {
 
     const aid = new ChartAid(chartPeriodOpt.value, chartFreqOpt.value)
 
-    return aid.dataset(store.chart[chartEntityOpt.value])
+    return aid.getDataset(store.chart[chartEntityOpt.value])
 });
 
 const chartData = computed<ChartData<'line'>>(() => ({

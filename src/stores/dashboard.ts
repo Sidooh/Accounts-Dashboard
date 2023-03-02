@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
 import axios from "axios";
 import { logger } from "@/utils/logger";
-import { RawAnalytics } from "@/utils/types";
+import { RawAnalytics } from "@nabcellent/sui-vue";
 
 export const useDashboardStore = defineStore("dashboard", {
     state: () => ({

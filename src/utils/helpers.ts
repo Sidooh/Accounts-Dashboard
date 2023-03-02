@@ -1,9 +1,8 @@
 import Swal from "sweetalert2";
-import { Account, rgbaColor, toast } from "@nabcellent/sui-vue";
+import { Account, Frequency, Period, rgbaColor, toast } from "@nabcellent/sui-vue";
 import { useAccountsStore } from "@/stores/accounts";
 import { ChartOptions } from "chart.js";
 import { merge } from "chart.js/helpers";
-import { Frequency, Period } from "@/utils/enums";
 
 export const changeAccountActiveState = async (account: Account) => {
     const store = useAccountsStore();
