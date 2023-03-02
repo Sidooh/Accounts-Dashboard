@@ -60,6 +60,7 @@ export const defaultLineChartOptions = (options?: ChartOptions<'line'>): ChartOp
             }
         },
         y: {
+            grace: '5%',
             border: {
                 display: false
             },
@@ -68,9 +69,9 @@ export const defaultLineChartOptions = (options?: ChartOptions<'line'>): ChartOp
                 lineWidth: .3
             },
             ticks: {
+                stepSize: 1,
                 color: rgbaColor('#648381', 1),
                 font: {
-                    family: 'Avenir',
                     weight: 600
                 }
             }

@@ -20,12 +20,8 @@ import {
     PhoneNumber,
     Status,
     StatusBadge,
-    TableDate,
-    toast,
-    Tooltip
+    TableDate
 } from "@nabcellent/sui-vue";
-import { faUserCheck, faUserXmark } from "@fortawesome/free-solid-svg-icons";
-import { changeAccountActiveState } from "@/utils/helpers";
 import { useAccountsStore } from "@/stores/accounts";
 import { useDashboardStore } from "@/stores/dashboard";
 
@@ -81,7 +77,7 @@ const columns = [
         header: '',
         cell: ({ row: { original: acc } }: CellContext<Account, string>) => {
             return h('div', { class: 'd-flex justify-content-evenly' }, [
-                h(
+                /*h(
                     Tooltip,
                     {
                         title: acc.active ? 'Deactivate' : 'Activate',
@@ -99,7 +95,7 @@ const columns = [
                             }
                         },
                     }, () => [h(FontAwesomeIcon, { icon: acc.active ? faUserXmark : faUserCheck })]
-                ),
+                ),*/
                 h(
                     RouterLink,
                     { to: { name: 'accounts.show', params: { id: acc.id } } },

@@ -35,7 +35,7 @@
                         </select>
                     </div>
                 </fieldset>
-                <div id="users-time-series-chart" style="height: 350px;">
+                <div id="users-time-series-chart" style="height: 300px;">
                     <Line :data="timeSeriesChartData" :options="timeSeriesOptions"/>
                 </div>
             </div>
@@ -65,7 +65,7 @@
                         </select>
                     </div>
                 </fieldset>
-                <div id="users-cumulative-chart" style="height: 350px;">
+                <div id="users-cumulative-chart" style="height: 300px;">
                     <Line :data="cumulativeChartData" :options="cumulativeOptions"/>
                 </div>
             </div>
