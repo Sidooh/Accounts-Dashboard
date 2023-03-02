@@ -102,9 +102,6 @@ const timeSeriesData = computed<ChartData<'line'>>(() => ({
     datasets: [{
         data: data.value.dataset,
         backgroundColor: chartGradient([14, 120, 210]),
-        borderWidth: 0,
-        tension: 0.3,
-        fill: true
     }]
 }))
 const timeSeriesOptions = computed<ChartOptions<'line'>>(() => defaultLineChartOptions({
@@ -124,9 +121,6 @@ const cumulativeData = computed<ChartData<'line'>>(() => ({
     datasets: [{
         data: data.value.dataset.reduce((a: number[], b, i) => i === 0 ? [b] : [...a, b + a[i - 1]], []),
         backgroundColor: chartGradient([14, 120, 210]),
-        borderWidth: 0,
-        tension: 0.3,
-        fill: true
     }]
 }))
 const cumulativeOptions = computed<ChartOptions<'line'>>(() => defaultLineChartOptions({

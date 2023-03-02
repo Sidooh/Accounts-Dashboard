@@ -42,6 +42,11 @@ const router = createRouter({
 
         // Status check
         { path: '/health', component: StatusPage, meta: { layout: AuthLayout }, name: 'status.ping' },
+        {
+            path: "/:pathMatch(.*)*",
+            name: "not-found",
+            redirect: () => ({ name: 'dashboard' })
+        },
 
     ], // short for `routes: routes`
 })

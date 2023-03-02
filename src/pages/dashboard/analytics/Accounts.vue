@@ -18,17 +18,17 @@
             <div class="card-body position-relative" data-chart-name="acc-time-series">
                 <fieldset class="position-absolute right-0 me-3 align-items-center gx-1 row justify-content-end">
                     <div class="col-auto">
-                        <select class="form-select form-select-sm px-2" v-model="chartPeriodOpt"
-                                @change="chartFreqOpt = chartSelectOptions[chartPeriodOpt][0]">
+                        <select class="form-select form-select-sm px-2" v-model="timeSeriesChartPeriodOpt"
+                                @change="timeSeriesChartFreqOpt = chartSelectOptions[timeSeriesChartPeriodOpt][0]">
                             <option v-for="(vt, i) in Object.values(Period)" :key="`chart-opt-${i}`"
                                     :value="vt">{{ Str.headline(vt) }}
                             </option>
                         </select>
                     </div>
                     <div class="col-auto">
-                        <select class="form-select form-select-sm px-2" v-model="chartFreqOpt"
-                                :disabled="chartSelectOptions[chartPeriodOpt].length < 2">
-                            <option :selected="i===0" v-for="(vt, i) in chartSelectOptions[chartPeriodOpt]"
+                        <select class="form-select form-select-sm px-2" v-model="timeSeriesChartFreqOpt"
+                                :disabled="chartSelectOptions[timeSeriesChartPeriodOpt].length < 2">
+                            <option :selected="i===0" v-for="(vt, i) in chartSelectOptions[timeSeriesChartPeriodOpt]"
                                     :key="`chart-opt-${i}`"
                                     :value="vt">{{ Str.headline(vt) }}
                             </option>
@@ -36,7 +36,7 @@
                     </div>
                 </fieldset>
                 <div id="accounts-time-series-chart" style="height: 350px;">
-                    <Line :data="timeSeriesData" :options="timeSeriesOptions"/>
+                    <Line :data="timeSeriesChartData" :options="timeSeriesOptions"/>
                 </div>
             </div>
         </div>
@@ -48,17 +48,17 @@
             <div class="card-body position-relative" data-chart-name="acc-time-series">
                 <fieldset class="position-absolute right-0 me-3 align-items-center gx-1 row justify-content-end">
                     <div class="col-auto">
-                        <select class="form-select form-select-sm px-2" v-model="chartPeriodOpt"
-                                @change="chartFreqOpt = chartSelectOptions[chartPeriodOpt][0]">
+                        <select class="form-select form-select-sm px-2" v-model="cumulativeChartPeriodOpt"
+                                @change="cumulativeChartFreqOpt = chartSelectOptions[cumulativeChartPeriodOpt][0]">
                             <option v-for="(vt, i) in Object.values(Period)" :key="`chart-opt-${i}`"
                                     :value="vt">{{ Str.headline(vt) }}
                             </option>
                         </select>
                     </div>
                     <div class="col-auto">
-                        <select class="form-select form-select-sm px-2" v-model="chartFreqOpt"
-                                :disabled="chartSelectOptions[chartPeriodOpt].length < 2">
-                            <option :selected="i===0" v-for="(vt, i) in chartSelectOptions[chartPeriodOpt]"
+                        <select class="form-select form-select-sm px-2" v-model="cumulativeChartFreqOpt"
+                                :disabled="chartSelectOptions[cumulativeChartPeriodOpt].length < 2">
+                            <option :selected="i===0" v-for="(vt, i) in chartSelectOptions[cumulativeChartPeriodOpt]"
                                     :key="`chart-opt-${i}`"
                                     :value="vt">{{ Str.headline(vt) }}
                             </option>
@@ -66,7 +66,7 @@
                     </div>
                 </fieldset>
                 <div id="accounts-cumulative-chart" style="height: 350px;">
-                    <Line :data="cumulativeData" :options="cumulativeOptions"/>
+                    <Line :data="cumulativeChartData" :options="cumulativeOptions"/>
                 </div>
             </div>
         </div>
@@ -84,27 +84,33 @@ import { ChartData, ChartOptions, TooltipItem } from "chart.js";
 import { chartSelectOptions, defaultLineChartOptions } from "@/utils/helpers";
 import { useAnalyticsStore } from "@/stores/analytics";
 
-const chartPeriodOpt = ref<Period>(Period.LAST_SIX_MONTHS)
-const chartFreqOpt = ref<Frequency>(Frequency.MONTHLY)
+const timeSeriesChartPeriodOpt = ref<Period>(Period.LAST_SIX_MONTHS)
+const timeSeriesChartFreqOpt = ref<Frequency>(Frequency.MONTHLY)
+const cumulativeChartPeriodOpt = ref<Period>(Period.LAST_SIX_MONTHS)
+const cumulativeChartFreqOpt = ref<Frequency>(Frequency.MONTHLY)
 
 const store = useAnalyticsStore()
 
-const data = computed(() => {
+const dataset = (period: Period, frequency: Frequency, cumulative = false) => {
     if (store.accounts_time_series.length < 1) return { labels: [], dataset: [] }
 
-    const aid = new ChartAid(chartPeriodOpt.value, chartFreqOpt.value)
+    let set = new ChartAid(period, frequency).getDataset(store.accounts_time_series)
 
-    return aid.getDataset(store.accounts_time_series)
-});
+    if (cumulative) {
+        set.dataset = set.dataset.reduce((a: number[], b, i) => i === 0 ? [b] : [...a, b + a[i - 1]], [])
+    }
 
-const timeSeriesData = computed<ChartData<'line'>>(() => ({
-    labels: data.value.labels,
+    return set
+}
+
+const timeSeries = computed(() => dataset(timeSeriesChartPeriodOpt.value, timeSeriesChartFreqOpt.value));
+const cumulative = computed(() => dataset(cumulativeChartPeriodOpt.value, cumulativeChartFreqOpt.value, true));
+
+const timeSeriesChartData = computed<ChartData<'line'>>(() => ({
+    labels: timeSeries.value.labels,
     datasets: [{
-        data: data.value.dataset,
-        backgroundColor: chartGradient([14, 120, 210]),
-        borderWidth: 0,
-        tension: 0.3,
-        fill: true
+        data: timeSeries.value.dataset,
+        backgroundColor: chartGradient([15, 27, 76]),
     }]
 }))
 const timeSeriesOptions = computed<ChartOptions<'line'>>(() => defaultLineChartOptions({
@@ -119,14 +125,11 @@ const timeSeriesOptions = computed<ChartOptions<'line'>>(() => defaultLineChartO
         }
     }
 }))
-const cumulativeData = computed<ChartData<'line'>>(() => ({
-    labels: data.value.labels,
+const cumulativeChartData = computed<ChartData<'line'>>(() => ({
+    labels: cumulative.value.labels,
     datasets: [{
-        data: data.value.dataset.reduce((a: number[], b, i) => i === 0 ? [b] : [...a, b + a[i - 1]], []),
-        backgroundColor: chartGradient([14, 120, 210]),
-        borderWidth: 0,
-        tension: 0.3,
-        fill: true
+        data: cumulative.value.dataset,
+        backgroundColor: chartGradient([245, 180, 0]),
     }]
 }))
 const cumulativeOptions = computed<ChartOptions<'line'>>(() => defaultLineChartOptions({

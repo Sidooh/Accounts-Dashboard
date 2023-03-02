@@ -52,30 +52,59 @@ export const defaultLineChartOptions = (options?: ChartOptions<'line'>): ChartOp
                 color: 'rgba(250, 250, 250, .1)',
             },
             ticks: {
-                color: rgbaColor('#900', 0.7),
+                color: rgbaColor('#0F1B4C', 0.7),
                 font: {
-                    family: 'Noir Pro',
+                    family: 'Avenir',
                     weight: 600
                 }
             }
         },
         y: {
+            border: {
+                display: false
+            },
             beginAtZero: true,
             grid: {
                 lineWidth: .3
+            },
+            ticks: {
+                color: rgbaColor('#648381', 1),
+                font: {
+                    family: 'Avenir',
+                    weight: 600
+                }
             }
         },
     },
+    elements: {
+        line: {
+            borderWidth: 0,
+            tension: .3,
+            fill: true
+        },
+        point: {
+            pointStyle: 'star',
+            radius: 5,
+            hoverRadius: 10
+        }
+    },
     plugins: {
         title: {
+            padding: {
+                bottom: 30
+            },
             display: true,
             align: 'start',
             font: {
                 size: 17
             },
+            color: rgbaColor('#0F1B4C', 0.7),
         },
         legend: {
-            display: false
+            display: false,
+            labels: {
+                usePointStyle: true
+            }
         },
         tooltip: {
             padding: {
