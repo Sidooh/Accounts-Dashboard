@@ -15,7 +15,7 @@
         <div class="card rounded-3 overflow-hidden mb-3">
             <div class="bg-holder bg-card"
                  style="background-image:url( '/images/icons/spot-illustrations/corner-1.png' );"></div>
-            <div class="card-body position-relative" data-chart-name="acc-time-series">
+            <div class="card-body position-relative">
                 <fieldset class="position-absolute right-0 me-3 align-items-center gx-1 row justify-content-end">
                     <div class="col-auto">
                         <select class="form-select form-select-sm px-2" v-model="timeSeriesChartPeriodOpt"
@@ -45,7 +45,7 @@
         <div class="card rounded-3 overflow-hidden mb-3">
             <div class="bg-holder bg-card"
                  style="background-image:url( '/images/icons/spot-illustrations/corner-3.png' );"></div>
-            <div class="card-body position-relative" data-chart-name="acc-time-series">
+            <div class="card-body position-relative">
                 <fieldset class="position-absolute right-0 me-3 align-items-center gx-1 row justify-content-end">
                     <div class="col-auto">
                         <select class="form-select form-select-sm px-2" v-model="cumulativeChartPeriodOpt"
