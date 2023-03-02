@@ -20,9 +20,9 @@ export const useAnalyticsStore = defineStore("analytics", {
 
                 this.loadingChart = false
             } catch (e) {
-                logger.error(e)
-
                 this.loadingChart = false
+
+                logger.error(e)
             }
         },
     }
