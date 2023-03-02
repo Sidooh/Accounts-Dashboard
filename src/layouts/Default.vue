@@ -9,9 +9,12 @@
                 <Navbar/>
 
                 <!--  Content -->
-                <ComponentLoader>
-                    <router-view :key="$route.path"/>
-                </ComponentLoader>
+
+                    <router-view :key="$route.path" v-slot="{Component}">
+                        <ComponentLoader>
+                            <component :is="Component" :key="$route.path"></component>
+                        </ComponentLoader>
+                    </router-view>
 
                 <!--  Footer? -->
                 <Footer service-name="Accounts" :version="CONFIG.sidooh.version"/>

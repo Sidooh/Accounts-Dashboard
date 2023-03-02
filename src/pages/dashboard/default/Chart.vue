@@ -13,15 +13,15 @@
                 </div>
                 <div class="col-auto">
                     <select class="form-select form-select-sm px-2" v-model="chartEntityOpt">
-                        <option v-for="(vt, i) in Object.keys(store.chart[chartFreqOpt])" :key="`chart-opt-${i}`"
-                                :value="vt">{{ vt.toUpperCase() }}
+                        <option v-for="(vt, i) in Object.keys(store.chart)" :key="`chart-opt-${i}`"
+                                :value="vt">{{ Str.headline(vt) }}
                         </option>
                     </select>
                 </div>
                 <div class="col-auto">
-                    <select class="form-select form-select-sm px-2" v-model="chartFreqOpt">
-                        <option v-for="(vt, i) in Object.keys(store.chart)" :key="`chart-opt-${i}`"
-                                :value="vt">{{ vt.replaceAll('_', ' ').toUpperCase() }}
+                    <select class="form-select form-select-sm px-2" v-model="chartPeriodOpt">
+                        <option v-for="(vt, i) in Object.values(Period)" :key="`chart-opt-${i}`"
+                                :value="vt">{{ Str.headline(vt) }}
                         </option>
                     </select>
                 </div>
@@ -33,7 +33,7 @@
 </template>
 
 <script setup lang="ts">
-import { Tooltip as TooltipComponent } from '@nabcellent/sui-vue'
+import { Str, Tooltip as TooltipComponent } from '@nabcellent/sui-vue'
 import { Line } from 'vue-chartjs'
 import { useDashboardStore } from "@/stores/dashboard";
 import { computed, ref } from "vue";
@@ -52,9 +52,12 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { faSync } from "@fortawesome/free-solid-svg-icons";
 import LoadingButton from "@/LoadingButton.vue";
+import { ChartAid } from "@/utils/ChartAid";
+import { Frequency, Period } from "@/utils/enums";
 
 const chartEntityOpt = ref<string>("accounts")
-const chartFreqOpt = ref<string>("LAST_30_DAYS")
+const chartFreqOpt = ref<Frequency>(Frequency.DAILY)
+const chartPeriodOpt = ref<Period>(Period.LAST_THIRTY_DAYS)
 
 const store = useDashboardStore();
 
@@ -64,11 +67,19 @@ Chart.defaults.color = '#eee'
 Chart.defaults.font.weight = '700'
 Chart.defaults.font.family = "'Avenir', sans-serif"
 
+const data = computed(() => {
+    if (store.chart[chartEntityOpt.value].length < 1) return { labels: [], dataset: [] }
+
+    const aid = new ChartAid(chartPeriodOpt.value, chartFreqOpt.value)
+
+    return aid.dataset(store.chart[chartEntityOpt.value])
+});
+
 const chartData = computed<ChartData<'line'>>(() => ({
-    labels: store.chart[chartFreqOpt.value][chartEntityOpt.value]?.labels,
+    labels: data.value.labels,
     datasets: [{
-        label: `No of ${chartEntityOpt.value}`,
-        data: store.chart[chartFreqOpt.value][chartEntityOpt.value]?.data,
+        label: Str.headline(chartEntityOpt.value),
+        data: data.value.dataset,
         borderColor: ['rgba(255, 255, 255, 1)'],
         borderWidth: 2,
         tension: 0.3,
@@ -87,6 +98,9 @@ const chartOptions = computed<ChartOptions<'line'>>(() => ({
         },
         legend: {
             display: false
+        },
+        tooltip: {
+            displayColors: false,
         }
     },
     interaction: {

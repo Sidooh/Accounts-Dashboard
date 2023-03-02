@@ -3,9 +3,6 @@ import AuthLayout from './layouts/Auth.vue'
 import { useAuthStore } from "@/stores/auth";
 import Login from "@/pages/auth/Login.vue";
 
-const Dashboard = () => import("@/pages/dashboard/default/Index.vue")
-const Analytics = () => import("@/pages/dashboard/analytics/Index.vue")
-const Accounts = () => import("@/pages/accounts/Index.vue")
 const Users = () => import("@/pages/users/Index.vue")
 const Invites = () => import("@/pages/invites/Index.vue")
 const SecurityQuestions = () => import("@/pages/security-questions/Index.vue")
@@ -18,13 +15,17 @@ const router = createRouter({
     routes: [
         {
             path: '/dashboard', meta: { auth: true }, children: [
-                { path: '', name: 'dashboard', component: Dashboard, },
-                { path: 'analytics', name: 'dashboard.analytics', component: Analytics, }
+                { path: '', name: 'dashboard', component: () => import("@/pages/dashboard/default/Index.vue"), },
+                {
+                    path: 'analytics',
+                    name: 'dashboard.analytics',
+                    component: () => import("@/pages/dashboard/analytics/Index.vue"),
+                }
             ]
         },
         {
             path: '/accounts', meta: { auth: true }, children: [
-                { path: '', name: 'accounts', component: Accounts },
+                { path: '', name: 'accounts', component: () => import("@/pages/accounts/Index.vue") },
                 { path: ':id', name: 'accounts.show', component: () => import("@/pages/accounts/Show.vue") }
             ]
         },

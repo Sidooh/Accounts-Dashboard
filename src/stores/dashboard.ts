@@ -1,16 +1,12 @@
 import { defineStore } from "pinia";
 import axios from "axios";
-import moment from "moment";
-import { Frequency } from "@/utils/enums";
 import { logger } from "@/utils/logger";
+import { RawAnalytics } from "@/utils/types";
 
 export const useDashboardStore = defineStore("dashboard", {
     state: () => ({
         loadingChart: false,
-        chart: <{ [k: string]: { [k: string]: { labels: string[], data: number[] } } }>{
-            LAST_12_MONTHS: {},
-            LAST_30_DAYS: {}
-        },
+        chart: <{ [k: string]: RawAnalytics[] }>{},
         statistics: {
             users: {
                 total: 0,
@@ -36,35 +32,7 @@ export const useDashboardStore = defineStore("dashboard", {
 
                 const { data: res } = await axios.get('dashboard/chart')
 
-                const getDataset = (entity: string, duration: number, frequency: Frequency = Frequency.DAILY) => {
-                    let labels: string[] = [], data: number[] = []
-                    for (let i = duration; i >= 0; i--) {
-                        let date = moment().subtract(i, 'd'), label = date.format('Do MMM');
-                        if (frequency === Frequency.MONTHLY) {
-                            date = moment().subtract(i, 'M')
-                            label = date.format('MMM YY')
-                        }
-
-                        let existingSet = res[entity]?.find((x: any) => x.date == date.format('YYYYMMD'))
-                        if (frequency !== Frequency.DAILY) {
-                            existingSet = {
-                                count: res[entity]?.filter((x: any) => {
-                                    return moment(x.date, 'YYYYMMD').format('MMM YY') === label
-                                })?.reduce((a: number, b: { count: number }) => a + b.count, 0)
-                            }
-                        }
-
-                        labels.push(label)
-                        data.push(existingSet ? existingSet.count : 0)
-                    }
-
-                    return { labels, data }
-                }
-
-                Object.keys(res).forEach(d => {
-                    this.chart.LAST_12_MONTHS[d] = getDataset(d, 11, Frequency.MONTHLY)
-                    this.chart.LAST_30_DAYS[d] = getDataset(d, 30)
-                })
+                this.chart = res
 
                 this.loadingChart = false
             } catch (e) {
@@ -77,6 +45,7 @@ export const useDashboardStore = defineStore("dashboard", {
         async fetchStatistics() {
             try {
                 const data = await axios.get('dashboard/summaries')
+
                 this.statistics = data.data
             } catch (e) {
                 logger.error(e)

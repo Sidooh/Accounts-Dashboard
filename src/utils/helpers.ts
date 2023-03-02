@@ -1,7 +1,7 @@
 import Swal from "sweetalert2";
-import { Account, chartGradient, rgbaColor, toast } from "@nabcellent/sui-vue";
+import { Account, rgbaColor, toast } from "@nabcellent/sui-vue";
 import { useAccountsStore } from "@/stores/accounts";
-import { ChartData, ChartOptions } from "chart.js";
+import { ChartOptions } from "chart.js";
 import { merge } from "chart.js/helpers";
 import { Frequency, Period } from "@/utils/enums";
 
@@ -38,17 +38,6 @@ export const changeAccountActiveState = async (account: Account) => {
     })
 }
 
-export const defaultLineChartData = (options: ChartData<'line'>) => {
-    return merge(options, {
-        datasets: [{
-            backgroundColor: chartGradient([14, 120, 210]),
-            borderColor: ['rgba(10, 23, 39, .3)'],
-            borderWidth: 2,
-            tension: 0.3,
-            fill: true
-        }]
-    })
-}
 export const defaultLineChartOptions = (options?: ChartOptions<'line'>): ChartOptions<'line'> => merge(options, {
     responsive: true,
     maintainAspectRatio: false,

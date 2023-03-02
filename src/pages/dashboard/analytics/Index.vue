@@ -5,7 +5,6 @@
 </template>
 
 <script setup lang="ts">
-
 import {
     CategoryScale,
     Chart,
@@ -21,6 +20,4 @@ import {
 import Accounts from "@/pages/dashboard/analytics/Accounts.vue";
 
 Chart.register(Title, SubTitle, Tooltip, Legend, LineElement, CategoryScale, LinearScale, PointElement, Filler)
-
-
 </script>

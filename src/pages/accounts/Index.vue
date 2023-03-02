@@ -10,7 +10,3 @@ const store = useAccountsStore();
 
 await store.fetchAccounts()
 </script>
-
-<style scoped>
-
-</style>
