@@ -5,3 +5,8 @@ export type SecurityQuestion = Model & {
     question: string
     status: Status
 }
+
+export type RawAnalytics = {
+    date: number
+    count: number
+}

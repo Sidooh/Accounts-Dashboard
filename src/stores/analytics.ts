@@ -1,11 +1,12 @@
 import { defineStore } from "pinia";
 import axios from "axios";
 import { logger } from "@/utils/logger";
+import { RawAnalytics } from "@/utils/types";
 
 export const useAnalyticsStore = defineStore("analytics", {
     state: () => ({
         loadingChart: false,
-        accounts_time_series: {},
+        accounts_time_series: <RawAnalytics[]>[],
     }),
 
     actions: {

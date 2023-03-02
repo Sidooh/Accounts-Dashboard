@@ -1,12 +1,13 @@
 import { Frequency, Period } from "@/utils/enums";
 import moment, { Moment } from "moment";
-import { plural } from "@/utils/helpers";
+import { pluralize } from "@nabcellent/sui-vue";
+import { RawAnalytics } from "@/utils/types";
 
 export class ChartAid {
     constructor(private period: Period, private frequency: Frequency = Frequency.DAILY) {
     }
 
-    dataset = (raw: any, freqCount?: number) => {
+    dataset = (raw: RawAnalytics[], freqCount?: number) => {
         let labels: string[] = [], dataset: number[] = []
 
         if (!freqCount) {
@@ -30,7 +31,7 @@ export class ChartAid {
         return { labels, dataset }
     }
 
-    private aggregate = (data: any[], date: Moment) => {
+    private aggregate = (data: RawAnalytics[], date: Moment) => {
         const totalCount = (format: string) => data.filter(x => moment(x.date, 'YYYYMMDDH').format(format) === date.format(format))
             .reduce((a, b) => a + b.count, 0)
 
@@ -44,9 +45,7 @@ export class ChartAid {
             case Frequency.DAILY:
                 return totalCount('YYYYMMDD')
             default:
-                return data?.find((x: any) => {
-                    return x.date == date.format('YYYYMMDDH')
-                })?.count ?? 0
+                return data?.find(x => String(x.date) === date.format('YYYYMMDDH'))?.count ?? 0
         }
     }
 
@@ -106,7 +105,7 @@ export class ChartAid {
             case Frequency.WEEKLY:
                 const diff = moment().diff(date, 'w')
 
-                return diff < 1 ? 'This Week' : `${diff} ${plural('week', diff)} ago`
+                return diff < 1 ? 'This Week' : `${diff} ${pluralize('week', diff)} ago`
             case Frequency.DAILY:
                 return date.format(this.period === Period.LAST_SEVEN_DAYS ? 'ddd' : 'Do')
             default:

@@ -74,14 +74,14 @@
 </template>
 
 <script setup lang="ts">
-import { Tooltip as TooltipComponent } from '@nabcellent/sui-vue'
+import { chartGradient, Str, Tooltip as TooltipComponent } from '@nabcellent/sui-vue'
 import { Line } from 'vue-chartjs'
 import LoadingButton from "@/LoadingButton.vue";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { faSync } from "@fortawesome/free-solid-svg-icons";
 import { computed, ref } from "vue";
-import { ChartData, ChartOptions, TooltipItem } from "chart.js/dist/types";
-import { chartGradient, chartSelectOptions, defaultLineChartOptions, Str } from "@/utils/helpers";
+import { ChartData, ChartOptions, TooltipItem } from "chart.js";
+import { chartSelectOptions, defaultLineChartOptions } from "@/utils/helpers";
 import { useAnalyticsStore } from "@/stores/analytics";
 import { Frequency, Period } from "@/utils/enums";
 import { ChartAid } from "@/utils/ChartAid";
@@ -92,6 +92,8 @@ const chartFreqOpt = ref<Frequency>(Frequency.MONTHLY)
 const store = useAnalyticsStore()
 
 const data = computed(() => {
+    if (store.accounts_time_series.length < 1) return { labels: [], dataset: [] }
+
     const aid = new ChartAid(chartPeriodOpt.value, chartFreqOpt.value)
 
     return aid.dataset(store.accounts_time_series)
@@ -102,8 +104,7 @@ const timeSeriesData = computed<ChartData<'line'>>(() => ({
     datasets: [{
         data: data.value.dataset,
         backgroundColor: chartGradient([14, 120, 210]),
-        borderColor: ['rgba(10, 23, 39, .3)'],
-        borderWidth: 2,
+        borderWidth: 0,
         tension: 0.3,
         fill: true
     }]
@@ -125,8 +126,7 @@ const cumulativeData = computed<ChartData<'line'>>(() => ({
     datasets: [{
         data: data.value.dataset.reduce((a: number[], b, i) => i === 0 ? [b] : [...a, b + a[i - 1]], []),
         backgroundColor: chartGradient([14, 120, 210]),
-        borderColor: ['rgba(10, 23, 39, .3)'],
-        borderWidth: 2,
+        borderWidth: 0,
         tension: 0.3,
         fill: true
     }]

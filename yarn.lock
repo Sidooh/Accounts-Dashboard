@@ -367,12 +367,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@nabcellent/sui-vue@npm:^2.1.1":
-  version: 2.1.1
-  resolution: "@nabcellent/sui-vue@npm:2.1.1"
+"@nabcellent/sui-vue@npm:^2.1.2":
+  version: 2.1.2
+  resolution: "@nabcellent/sui-vue@npm:2.1.2"
+  dependencies:
+    "@types/pluralize": ^0.0.29
+    pluralize: ^8.0.0
   peerDependencies:
     vue: ^3.2.47
-  checksum: 82714fecaf984f947302e7d13f0ede5aaeb564727d6e49895f4065a3cbe48f85888435184ba8253315a0294aa89c95ac96a3454ab60f7f40502f38f4f9ba956f
+  checksum: 51f8e4bf0f9a856b305abeb43397569ef267b4e96ccdb9795a488487903df43b02c0295d6f29be2e4a403ad47c1b96f4082252850d854bf583c2626aeaeb30fe
   languageName: node
   linkType: hard
 
@@ -641,18 +644,16 @@ __metadata:
     "@fortawesome/free-regular-svg-icons": ^6.3.0
     "@fortawesome/free-solid-svg-icons": ^6.3.0
     "@fortawesome/vue-fontawesome": latest-3
-    "@nabcellent/sui-vue": ^2.1.1
+    "@nabcellent/sui-vue": ^2.1.2
     "@popperjs/core": ^2.11.6
     "@tanstack/vue-table": ^8.7.9
     "@types/node": ^16.11.56
-    "@types/pluralize": ^0.0.29
     "@vitejs/plugin-vue": ^4.0.0
     axios: ^1.3.3
     bootstrap: ^5.2.3
     chart.js: ^4.2.1
     moment: ^2.29.4
     pinia: ^2.0.30
-    pluralize: ^8.0.0
     sweetalert2: ^11.7.1
     typescript: ^4.9.4
     vite: ^4.1.1
