@@ -19,9 +19,18 @@
                     </select>
                 </div>
                 <div class="col-auto">
-                    <select class="form-select form-select-sm px-2" v-model="chartPeriodOpt">
+                    <select class="form-select form-select-sm px-2" v-model="chartPeriodOpt"
+                            @change="chartFreqOpt = chartSelectOptions[chartPeriodOpt][0]">
                         <option v-for="(vt, i) in Object.values(Period)" :key="`chart-opt-${i}`"
                                 :value="vt">{{ Str.headline(vt) }}
+                        </option>
+                    </select>
+                </div>
+                <div class="col-auto">
+                    <select class="form-select form-select-sm px-2" v-model="chartFreqOpt"
+                            :disabled="chartSelectOptions[chartPeriodOpt].length < 2">
+                        <option :selected="i===0" v-for="(vt, i) in chartSelectOptions[chartPeriodOpt]"
+                                :key="`chart-opt-${i}`" :value="vt">{{ Str.headline(vt) }}
                         </option>
                     </select>
                 </div>
@@ -33,7 +42,7 @@
 </template>
 
 <script setup lang="ts">
-import { ChartAid, Frequency, Period, Str, Tooltip as TooltipComponent } from '@nabcellent/sui-vue'
+import { ChartAid, chartSelectOptions, Frequency, Period, Str, Tooltip as TooltipComponent } from '@nabcellent/sui-vue'
 import { Line } from 'vue-chartjs'
 import { useDashboardStore } from "@/stores/dashboard";
 import { computed, ref } from "vue";
