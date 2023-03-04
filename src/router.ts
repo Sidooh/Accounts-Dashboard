@@ -3,8 +3,6 @@ import AuthLayout from './layouts/Auth.vue'
 import { useAuthStore } from "@/stores/auth";
 import Login from "@/pages/auth/Login.vue";
 
-const Dashboard = () => import("@/pages/dashboard/Index.vue")
-const Accounts = () => import("@/pages/accounts/Index.vue")
 const Users = () => import("@/pages/users/Index.vue")
 const Invites = () => import("@/pages/invites/Index.vue")
 const SecurityQuestions = () => import("@/pages/security-questions/Index.vue")
@@ -15,10 +13,19 @@ const router = createRouter({
     // 4. Provide the history implementation to use. We are using the hash history for simplicity here.
     history: createWebHistory(),
     routes: [
-        { path: '/', name: 'dashboard', component: Dashboard, meta: { auth: true } },
+        {
+            path: '/dashboard', meta: { auth: true }, children: [
+                { path: '', name: 'dashboard', component: () => import("@/pages/dashboard/default/Index.vue"), },
+                {
+                    path: 'analytics',
+                    name: 'dashboard.analytics',
+                    component: () => import("@/pages/dashboard/analytics/Index.vue"),
+                }
+            ]
+        },
         {
             path: '/accounts', meta: { auth: true }, children: [
-                { path: '', name: 'accounts', component: Accounts },
+                { path: '', name: 'accounts', component: () => import("@/pages/accounts/Index.vue") },
                 { path: ':id', name: 'accounts.show', component: () => import("@/pages/accounts/Show.vue") }
             ]
         },
@@ -35,6 +42,11 @@ const router = createRouter({
 
         // Status check
         { path: '/health', component: StatusPage, meta: { layout: AuthLayout }, name: 'status.ping' },
+        {
+            path: "/:pathMatch(.*)*",
+            name: "not-found",
+            redirect: () => ({ name: 'dashboard' })
+        },
 
     ], // short for `routes: routes`
 })

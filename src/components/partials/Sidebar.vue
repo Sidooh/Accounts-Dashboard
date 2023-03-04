@@ -24,13 +24,26 @@
                             </div>
                         </div>
 
-                        <router-link v-for="child in route.children" class="nav-link" aria-expanded="false"
-                                     :to="child.to">
-                            <div class="d-flex align-items-center">
-                                <span class="nav-link-icon"><font-awesome-icon :icon="child.icon ?? ''"/></span>
-                                <span class="nav-link-text ps-1">{{ child.name }}</span>
-                            </div>
-                        </router-link>
+                        <div v-for="child in route.children">
+                            <router-link class="nav-link" :to="child.to" exact-active-class="active"
+                                         :class="{'dropdown-indicator':child.children}" aria-expanded="false">
+                                <div class="d-flex align-items-center">
+                                    <span class="nav-link-icon"><font-awesome-icon :icon="child.icon ?? ''"/></span>
+                                    <span class="nav-link-text ps-1">{{ child.name }}</span>
+                                </div>
+                            </router-link>
+
+                            <ul v-if="child.children" class="flex-column nav collapse navbar-nav"
+                                :class="{'show':child.active}">
+                                <li v-for="grandChild in child.children" class="nav-item">
+                                    <router-link class="nav-link" :to="grandChild.to" exact-active-class="active">
+                                        <div class="d-flex align-items-center">
+                                            <span class="nav-link-text ps-1">{{  grandChild.name }}</span>
+                                        </div>
+                                    </router-link>
+                                </li>
+                            </ul>
+                        </div>
                     </li>
                 </ul>
             </div>
@@ -77,9 +90,14 @@ const routes: RouteType[] = [
     {
         children: [
             {
-                to: '/',
-                name: 'Dashboard',
+                to: '#',
+                name: 'Dashboards',
                 icon: faPieChart,
+                active: true,
+                children: [
+                    { to: '/dashboard', name: 'Default' },
+                    { to: '/dashboard/analytics', name: 'Analytics' },
+                ]
             }
         ]
     },

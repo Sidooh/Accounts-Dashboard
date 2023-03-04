@@ -367,12 +367,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@nabcellent/sui-vue@npm:^2.1.1":
-  version: 2.1.1
-  resolution: "@nabcellent/sui-vue@npm:2.1.1"
+"@nabcellent/sui-vue@npm:^2.2.7":
+  version: 2.2.7
+  resolution: "@nabcellent/sui-vue@npm:2.2.7"
+  dependencies:
+    "@types/pluralize": ^0.0.29
+    pluralize: ^8.0.0
   peerDependencies:
     vue: ^3.2.47
-  checksum: 82714fecaf984f947302e7d13f0ede5aaeb564727d6e49895f4065a3cbe48f85888435184ba8253315a0294aa89c95ac96a3454ab60f7f40502f38f4f9ba956f
+  checksum: f1a607e085743017800136fe71b591a0e4a84eef005ca565b1897fe35da90659583b5d278e61955a92800308e90e460d39793e1cfe058715b1397752632bc684
   languageName: node
   linkType: hard
 
@@ -432,6 +435,13 @@ __metadata:
   version: 16.18.8
   resolution: "@types/node@npm:16.18.8"
   checksum: 149f6a6d010a0c8842800b4b7e0e9db842d3133b9461e48224c769cfc8e1960ecb2791596ad18295a7318b3189475c88d007dee122be0b77bf54db025465cf21
+  languageName: node
+  linkType: hard
+
+"@types/pluralize@npm:^0.0.29":
+  version: 0.0.29
+  resolution: "@types/pluralize@npm:0.0.29"
+  checksum: db7732b733ba1dc59f080f87364c9f985c1ae9f1e5ec5fcefb83c1327149e01ecac42766352eb7b19b117cf39defa99cf514629f3666968a3bdeb00e74f2a97e
   languageName: node
   linkType: hard
 
@@ -634,7 +644,7 @@ __metadata:
     "@fortawesome/free-regular-svg-icons": ^6.3.0
     "@fortawesome/free-solid-svg-icons": ^6.3.0
     "@fortawesome/vue-fontawesome": latest-3
-    "@nabcellent/sui-vue": ^2.1.1
+    "@nabcellent/sui-vue": ^2.2.7
     "@popperjs/core": ^2.11.6
     "@tanstack/vue-table": ^8.7.9
     "@types/node": ^16.11.56
@@ -1592,6 +1602,13 @@ __metadata:
     typescript:
       optional: true
   checksum: 2522d3700e2d23f184ae65c36d764973ae4680e2fefbc7ca808524c706f5988ced1633606bfedae8c2a44042026528bac105a9437764d026d6323ddc40610e89
+  languageName: node
+  linkType: hard
+
+"pluralize@npm:^8.0.0":
+  version: 8.0.0
+  resolution: "pluralize@npm:8.0.0"
+  checksum: 08931d4a6a4a5561a7f94f67a31c17e6632cb21e459ab3ff4f6f629d9a822984cf8afef2311d2005fbea5d7ef26016ebb090db008e2d8bce39d0a9a9d218736e
   languageName: node
   linkType: hard
 
