@@ -18,12 +18,12 @@
                 <div class="col d-md-flex flex-column justify-content-center">
                     <h6 class="text-dark">Root Accounts</h6>
                     <h4 class="m-0 text-dark">
-                        <count-up :end-val="store.statistics?.root_accounts?.total"/>
+                        <count-up :end-val="store.statistics.root_accounts.total"/>
                     </h4>
                 </div>
                 <div class="col d-flex align-items-start justify-content-end">
                     <Badge pill>
-                        <count-up :end-val="store.statistics?.root_accounts?.today" class="h-100"/>
+                        <count-up :end-val="store.statistics.root_accounts.today" class="h-100"/>
                     </Badge>
                 </div>
             </div>
