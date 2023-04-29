@@ -7,12 +7,12 @@
                     <div class="col d-md-flex flex-column justify-content-center">
                         <h5 class="mb-md-0 mb-lg-2">Users</h5>
                         <h4 class="fs-3 fw-normal text-700">
-                            <count-up :end-val="store.statistics?.users?.total"/>
+                            <count-up :end-val="store.statistics.users.total"/>
                         </h4>
                     </div>
                     <div class="col d-flex align-items-start justify-content-end">
                         <Badge pill>
-                            <count-up :end-val="store.statistics?.users?.today" class="h-100"/>
+                            <count-up :end-val="store.statistics.users.today" class="h-100"/>
                         </Badge>
                     </div>
                 </div>
