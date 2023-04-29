@@ -12,6 +12,9 @@
         <ComponentLoader>
             <Statistics/>
         </ComponentLoader>
+        <ComponentLoader>
+            <Slos/>
+        </ComponentLoader>
     </div>
 </template>
 
@@ -33,6 +36,7 @@ import Invites from "@/pages/dashboard/analytics/Invites.vue";
 import Users from "@/pages/dashboard/analytics/Users.vue";
 import ComponentLoader from "@/components/loaders/ComponentLoader.vue";
 import Statistics from "@/pages/dashboard/analytics/Statistics.vue";
+import Slos from "@/pages/dashboard/analytics/Slos.vue";
 
 Chart.register(Title, SubTitle, Tooltip, Legend, LineElement, CategoryScale, LinearScale, PointElement, Filler)
 Chart.defaults.font.family = "'Avenir', sans-serif"

@@ -100,7 +100,7 @@ const cumulativeChartFreqOpt = ref<Frequency>(Frequency.MONTHLY)
 const store = useAnalyticsStore()
 
 const dataset = (period: Period, frequency: Frequency, cumulative = false) => {
-    if (store.invites_time_series.length < 1) return { labels: [], dataset: [] }
+    if (!store.invites_time_series || store.invites_time_series.length < 1) return { labels: [], dataset: [] }
 
     let set = new ChartAid(period, frequency).getDataset(store.invites_time_series)
 
