@@ -131,7 +131,7 @@ export const useAnalyticsStore = defineStore("analytics", {
                 } = await axios.get('/stats')
 
                 res.uptime = moment(res.uptime).fromNow(true)
-                res.success_rate = 100 - ((res.statuses['500'] / res.request_count) || 0)
+                res.success_rate = 100 - ((1 / res.request_count) || 0)
 
                 this.slos = res
 

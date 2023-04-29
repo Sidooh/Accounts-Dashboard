@@ -44,7 +44,7 @@
                 <div class="col d-md-flex flex-column justify-content-center">
                     <h6 class="text-dark">Success Rate</h6>
                     <h4 class="m-0 text-dark">
-                        <count-up :end-val="store.slos.success_rate" :options="{suffix: '%'}"/>
+                        <count-up :end-val="store.slos.success_rate" :options="{suffix: '%'}" :decimal-places="3"/>
                     </h4>
                 </div>
             </div>
