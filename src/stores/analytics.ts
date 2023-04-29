@@ -22,6 +22,12 @@ export const useAnalyticsStore = defineStore("analytics", {
                 today: 0
             }
         },
+        slos: {
+            uptime: '',
+            request_count: 0,
+            statuses: {},
+            success_rate: 0,
+        }
     }),
 
     actions: {
@@ -104,6 +110,30 @@ export const useAnalyticsStore = defineStore("analytics", {
                         }
                     }
                 )
+
+                this.loadingChart = false
+            } catch (e) {
+                this.loadingChart = false
+
+                logger.error(e)
+            }
+        },
+
+        async fetchAccountsSlo() {
+            try {
+                this.loadingChart = true
+
+                const res: {
+                    uptime: string,
+                    request_count: number,
+                    statuses: {[key: number]: number},
+                    success_rate: number
+                } = await axios.get('/stats')
+
+                res.uptime = moment(res.uptime).fromNow(true)
+                res.success_rate = 100 - ((res.statuses['500'] / res.request_count) || 0)
+
+                this.slos = res
 
                 this.loadingChart = false
             } catch (e) {
