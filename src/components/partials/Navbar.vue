@@ -12,8 +12,8 @@ const waffleLinks = [
       avatarText: 'E',
       title: 'Enterprise',
       link: CONFIG.sidooh.services.enterprise.dashboard.url,
-      contentClass: 'bg-primary-subtle text-primary',
-      enabled: true
+      contentClass: 'bg-secondary-subtle text-secondary',
+      enabled: false
     },
     {
         avatarText: 'M',
