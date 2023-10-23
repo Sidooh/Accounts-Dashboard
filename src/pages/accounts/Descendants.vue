@@ -23,7 +23,7 @@
                     </td>
                 </tr>
                 </tbody>
-                <tfoot class="bg-soft-secondary">
+                <tfoot class="bg-secondary-subtle">
                 <tr class="text-end fw-bold">
                     <th colspan="3">TOTAL: {{ store.descendants.total }}</th>
                 </tr>

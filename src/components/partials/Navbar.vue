@@ -12,42 +12,49 @@ const waffleLinks = [
       avatarText: 'E',
       title: 'Enterprise',
       link: CONFIG.sidooh.services.enterprise.dashboard.url,
-      contentClass: 'bg-soft-primary text-primary',
+      contentClass: 'bg-primary-subtle text-primary',
       enabled: true
+    },
+    {
+        avatarText: 'M',
+        title: 'Merchants',
+        link: CONFIG.sidooh.services.merchants.dashboard.url,
+        contentClass: 'bg-primary-subtle text-primary',
+        enabled: true
     },
     {
         avatarText: 'N',
         title: 'Notify',
         link: CONFIG.sidooh.services.notify.dashboard.url,
-        contentClass: 'bg-soft-primary text-primary',
+        contentClass: 'bg-primary-subtle text-primary',
         enabled: true
     },
     {
         avatarText: 'p',
         title: 'Payments',
         link: CONFIG.sidooh.services.payments.dashboard.url,
-        contentClass: 'bg-soft-primary text-primary',
+        contentClass: 'bg-primary-subtle text-primary',
         enabled: true
     },
     {
         avatarText: 'P',
         title: 'Products',
         link: CONFIG.sidooh.services.products.dashboard.url,
-        contentClass: 'bg-soft-primary text-primary',
+        contentClass: 'bg-primary-subtle text-primary',
         enabled: true
     },
     {
         avatarText: 'S',
         title: 'Savings',
         link: CONFIG.sidooh.services.savings.dashboard.url,
-        contentClass: 'bg-soft-primary text-primary',
+        contentClass: 'bg-primary-subtle text-primary',
         enabled: true
     },
     {
         avatarText: 'U',
         title: 'USSD',
         link: CONFIG.sidooh.services.ussd.dashboard.url,
-        contentClass: 'bg-soft-primary text-primary',
+        contentClass: 'bg-primary-subtle text-primary',
         enabled: true
     },
 ]
@@ -77,7 +84,7 @@ const theme = computed(() => store.theme)
                    data-bs-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false">
                     <div class="avatar avatar-2xl">
-                        <div class="avatar-name rounded-circle fs-2 bg-soft-primary text-primary"><span>A</span></div>
+                        <div class="avatar-name rounded-circle fs-2 bg-primary-subtle text-primary"><span>A</span></div>
                     </div>
                 </a>
                 <div class="dropdown-menu dropdown-menu-end py-0" aria-labelledby="navbarDropdownUser">

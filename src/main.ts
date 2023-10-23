@@ -11,7 +11,7 @@ import { useAuthStore } from "./stores/auth"
 import { defaultConfig, plugin } from '@formkit/vue'
 
 import 'bootstrap/dist/js/bootstrap.min.js'
-import '@nabcellent/sui-vue/dist/style.min.css'
+import '@nabcellent/sui-vue/dist/style.css'
 
 axios.interceptors.response.use(
     ({ data }) => (data && data.result === 0) ? Promise.reject(data) : data,

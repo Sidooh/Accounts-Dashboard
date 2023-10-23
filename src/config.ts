@@ -1,7 +1,7 @@
 export const CONFIG = {
     sidooh: {
         services: {
-            accounts: {
+            accounts  : {
                 api: {
                     url: import.meta.env.VITE_ACCOUNTS_API_URL
                 }
@@ -11,33 +11,38 @@ export const CONFIG = {
                     url: import.meta.env.VITE_ENTERPRISE_DASHBOARD_URL
                 }
             },
-            products: {
-                api: {
-                    url: import.meta.env.VITE_PRODUCTS_API_URL
-                },
+            merchants: {
                 dashboard: {
-                    url: import.meta.env.VITE_PRODUCTS_DASHBOARD_URL
+                    url: import.meta.env.VITE_MERCHANTS_DASHBOARD_URL
                 }
             },
-            payments: {
-                dashboard: {
-                    url: import.meta.env.VITE_PAYMENTS_DASHBOARD_URL
-                }
-            },
-            notify: {
-                api: {
+            notify    : {
+                api      : {
                     url: import.meta.env.VITE_NOTIFY_API_URL
                 },
                 dashboard: {
                     url: import.meta.env.VITE_NOTIFY_DASHBOARD_URL
                 }
             },
-            savings: {
+            payments  : {
+                dashboard: {
+                    url: import.meta.env.VITE_PAYMENTS_DASHBOARD_URL
+                }
+            },
+            products  : {
+                api      : {
+                    url: import.meta.env.VITE_PRODUCTS_API_URL
+                },
+                dashboard: {
+                    url: import.meta.env.VITE_PRODUCTS_DASHBOARD_URL
+                }
+            },
+            savings   : {
                 dashboard: {
                     url: import.meta.env.VITE_SAVINGS_DASHBOARD_URL
                 }
             },
-            ussd: {
+            ussd      : {
                 dashboard: {
                     url: import.meta.env.VITE_USSD_DASHBOARD_URL
                 }
